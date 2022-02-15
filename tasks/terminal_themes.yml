@@ -17,7 +17,7 @@
     depth: 1
   register: pv_ua_tmp_fzf_updated
 
-- name: USERAPPS | Terminal Themes | Initialize fzf and gitstatus
+- name: USERAPPS | Terminal Themes | Initialize fzf
   when: pv_ua_tmp_fzf_updated.changed
   ansible.builtin.shell: |
     set timeout 100
@@ -57,7 +57,7 @@
     depth: 1
   register: pv_ua_tmp_p10k_updated
 
-- name: USERAPPS | Terminal Themes | Initialize fzf and gitstatus
+- name: USERAPPS | Terminal Themes | Initialize p10k gitstatus
   when: pv_ua_tmp_p10k_updated.changed
   ansible.builtin.shell: |
     set timeout 100

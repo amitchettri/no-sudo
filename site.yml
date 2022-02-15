@@ -24,4 +24,9 @@
         pv_ua_user_tmp_dir: "{{  pv_ua_user_home_dir  }}/.tmp/userapps"
 
     - name: USERAPPS | Install Terminal Themes
-      include_tasks: tasks/terminal_themes.yml
+      import_tasks: tasks/terminal_themes.yml
+      tags: terminal_themes
+
+    - name: USERAPPS | Install Terminal Themes
+      import_tasks: tasks/bitwarden_desktop.yml
+      tags: bw
