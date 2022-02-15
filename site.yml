@@ -6,20 +6,25 @@
     - name: USERAPPS | Find User Home Directory
       set_fact:
         pv_ua_user_home_dir: "{{  ansible_facts.user_dir  }}"
+      tags: always
 
     - name: USERAPPS | Find User Config Directory
+      tags: always
       set_fact:
         pv_ua_user_config_dir: "{{  pv_ua_user_home_dir  }}/.config"
 
     - name: USERAPPS | Find User local Directory
+      tags: always
       set_fact:
         pv_ua_user_local_dir: "{{  pv_ua_user_home_dir  }}/.local"
 
     - name: USERAPPS | Find User Share Directory
+      tags: always
       set_fact:
         pv_ua_user_share_dir: "{{  pv_ua_user_local_dir  }}/share"
 
     - name: USERAPPS | Find User temp Directory
+      tags: always
       set_fact:
         pv_ua_user_tmp_dir: "{{  pv_ua_user_home_dir  }}/.tmp/userapps"
 

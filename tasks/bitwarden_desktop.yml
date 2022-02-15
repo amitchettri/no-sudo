@@ -1,0 +1,42 @@
+- name: USERAPPS | Bitwarden Desktop | Set directories
+  set_fact:
+    pv_ua_bw_install_path: "{{  pv_ua_user_share_dir  }}/bitwarden-desktop/"
+
+- name: USERAPPS | Bitwarden Desktop | Create a directory if it does not exist
+  ansible.builtin.file:
+    path: "{{  pv_ua_bw_install_path  }}"
+    state: directory
+    mode: '0700'
+
+- name: USERAPPS | Bitwarden Desktop | Get latest releases
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/bitwarden/desktop/releases/latest"
+    method: GET
+    return_content: yes
+    headers:
+      Accept: "application/vnd.github.v3+json"
+    status_code: 200
+  register: pv_ua_tmp_bw_latest_release_assets
+
+- name: USERAPPS | Bitwarden Desktop | Get latest AppImage releases
+  set_fact:
+    pv_ua_bw_latest_gh_release: "{{  pv_ua_tmp_bw_latest_release_assets.json.assets | community.general.json_query(jmesquery) | first }}"
+  vars:
+    jmesquery: "[?contains(browser_download_url, 'AppImage')]"
+
+- name: USERAPPS | Bitwarden Desktop | Download AppImage
+  ansible.builtin.get_url:
+    url: "{{  pv_ua_bw_latest_gh_release.browser_download_url  }}"
+    dest: "{{  pv_ua_bw_install_path  }}/{{  pv_ua_bw_latest_gh_release.name  }}"
+    mode: '0700'
+
+- name: USERAPPS | Bitwarden Desktop | Download Icon
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/bitwarden/brand/master/icons/square-48x48.png"
+    dest: "{{  pv_ua_bw_install_path  }}/Bitwarden-Icon-{{  pv_ua_tmp_bw_latest_release_assets.json.tag_name  }}.png"
+
+- name: USERAPPS | Bitwarden Desktop | Create desktop icon
+  ansible.builtin.template:
+    src: templates/bitwarden-desktop-userapps.desktop.j2
+    dest: "{{  pv_ua_user_share_dir  }}/applications/bitwarden-desktop-userapps.desktop"
+    mode: '0600'
