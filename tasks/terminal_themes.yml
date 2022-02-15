@@ -1,0 +1,64 @@
+- name: USERAPPS | Terminal Themes | Download Bash-IT
+  ansible.builtin.git:
+    repo: 'https://github.com/Bash-it/bash-it'
+    dest: "{{  pv_ua_user_home_dir  }}/.bash_it"
+    depth: 1
+
+- name: USERAPPS | Terminal Themes | Download Oh My ZSH
+  ansible.builtin.git:
+    repo: 'https://github.com/ohmyzsh/ohmyzsh.git'
+    dest: "{{  pv_ua_user_home_dir  }}/.oh-my-zsh"
+    depth: 1
+
+- name: USERAPPS | Terminal Themes | Download fzf
+  ansible.builtin.git:
+    repo: 'https://github.com/junegunn/fzf.git'
+    dest: "{{  pv_ua_user_home_dir  }}/.fzf"
+    depth: 1
+  register: pv_ua_tmp_fzf_updated
+
+- name: USERAPPS | Terminal Themes | Initialize fzf and gitstatus
+  when: pv_ua_tmp_fzf_updated.changed
+  ansible.builtin.shell: |
+    set timeout 100
+    {{  pv_ua_user_home_dir  }}/.fzf/install --all
+
+- name: USERAPPS | Terminal Themes | Lookup ZSH_CUSTOM from env
+  set_fact:
+    pv_ua_user_zsh_custom_dir: "{{ lookup('env', 'ZSH_CUSTOM') }}"
+
+- name: USERAPPS | Terminal Themes | Set default ZSH_CUSTOM directory
+  set_fact:
+    pv_ua_user_zsh_custom_dir: "{{  pv_ua_user_home_dir  }}/.oh-my-zsh/custom"
+  when: asdasasd is undefined or asdasasd is none or asdasasd == ""
+
+- name: USERAPPS | Terminal Themes | Download zsh syntax highlighting
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
+    dest: "{{  pv_ua_user_zsh_custom_dir  }}/plugins/zsh-syntax-highlighting"
+    depth: 1
+
+- name: USERAPPS | Terminal Themes | Download zsh autosuggestions
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-autosuggestions'
+    dest: "{{  pv_ua_user_zsh_custom_dir  }}/plugins/zsh-autosuggestions"
+    depth: 1
+
+- name: USERAPPS | Terminal Themes | Download zsh completions
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-completions'
+    dest: "{{  pv_ua_user_zsh_custom_dir  }}/plugins/zsh-completions"
+    depth: 1
+
+- name: USERAPPS | Terminal Themes | Download zsh powerlevel10k
+  ansible.builtin.git:
+    repo: 'https://github.com/romkatv/powerlevel10k.git'
+    dest: "{{  pv_ua_user_zsh_custom_dir  }}/themes/powerlevel10k"
+    depth: 1
+  register: pv_ua_tmp_p10k_updated
+
+- name: USERAPPS | Terminal Themes | Initialize fzf and gitstatus
+  when: pv_ua_tmp_p10k_updated.changed
+  ansible.builtin.shell: |
+    set timeout 100
+    {{  pv_ua_user_home_dir  }}/.oh-my-zsh/custom/themes/powerlevel10k/gitstatus/install -f

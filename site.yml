@@ -1,0 +1,27 @@
+---
+- name: Master
+  hosts: localhost
+  become: false
+  tasks:
+    - name: USERAPPS | Find User Home Directory
+      set_fact:
+        pv_ua_user_home_dir: "{{  ansible_facts.user_dir  }}"
+
+    - name: USERAPPS | Find User Config Directory
+      set_fact:
+        pv_ua_user_config_dir: "{{  pv_ua_user_home_dir  }}/.config"
+
+    - name: USERAPPS | Find User local Directory
+      set_fact:
+        pv_ua_user_local_dir: "{{  pv_ua_user_home_dir  }}/.local"
+
+    - name: USERAPPS | Find User Share Directory
+      set_fact:
+        pv_ua_user_share_dir: "{{  pv_ua_user_local_dir  }}/share"
+
+    - name: USERAPPS | Find User temp Directory
+      set_fact:
+        pv_ua_user_tmp_dir: "{{  pv_ua_user_home_dir  }}/.tmp/userapps"
+
+    - name: USERAPPS | Install Terminal Themes
+      include_tasks: tasks/terminal_themes.yml
