@@ -28,10 +28,27 @@
       set_fact:
         pv_ua_user_tmp_dir: "{{  pv_ua_user_home_dir  }}/.tmp/userapps"
 
+    - name: USERAPPS | Create a directory if it does not exist
+      tags: always
+      ansible.builtin.file:
+        path: "{{  item  }}"
+        state: directory
+      with_items:
+        - "{{  pv_ua_user_home_dir  }}"
+        - "{{  pv_ua_user_config_dir  }}"
+        - "{{  pv_ua_user_local_dir  }}"
+        - "{{  pv_ua_user_share_dir  }}"
+        - "{{  pv_ua_user_tmp_dir  }}"
+        - "{{  pv_ua_user_local_dir  }}/bin"
+
     - name: USERAPPS | Install Terminal Themes
       import_tasks: tasks/terminal_themes.yml
       tags: terminal_themes
 
-    - name: USERAPPS | Install Terminal Themes
+    - name: USERAPPS | Install Bitwarden
       import_tasks: tasks/bitwarden_desktop.yml
       tags: bw
+
+    - name: USERAPPS | Install Bitwarden CLI
+      import_tasks: tasks/bitwarden_cli.yml
+      tags: bw_cli

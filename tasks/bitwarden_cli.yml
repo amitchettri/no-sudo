@@ -1,0 +1,36 @@
+- name: USERAPPS | Bitwarden CLI | Get latest releases
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/bitwarden/cli/releases/latest"
+    method: GET
+    return_content: yes
+    headers:
+      Accept: "application/vnd.github.v3+json"
+    status_code: 200
+  register: pv_ua_tmp_bw_cli_release_assets
+
+- name: USERAPPS | Bitwarden CLI | Get latest AppImage releases
+  set_fact:
+    pv_ua_bw_cli_latest_gh_release: "{{  pv_ua_tmp_bw_cli_release_assets.json.assets | community.general.json_query(jmesquery) | first }}"
+  vars:
+    jmesquery: "[?contains(browser_download_url, 'zip') && contains(browser_download_url, 'zip')]"
+
+- name: USERAPPS | Bitwarden CLI | Set archive download location
+  set_fact:
+    pv_ua_bw_cli_archive_download_path: "{{  pv_ua_user_tmp_dir  }}/{{  pv_ua_bw_cli_latest_gh_release.name  }}"
+
+- name: USERAPPS | Bitwarden CLI | Get archive info
+  stat:
+    path: "{{  pv_ua_bw_cli_archive_download_path  }}"
+  register: pv_ua_bw_cli_archive_stat
+
+- name: USERAPPS | Bitwarden CLI | Download in tmp path
+  ansible.builtin.get_url:
+    url: "{{  pv_ua_bw_cli_latest_gh_release.browser_download_url  }}"
+    dest: "{{  pv_ua_bw_cli_archive_download_path  }}"
+
+- name: USERAPPS | Bitwarden CLI | unarchive
+  ansible.builtin.unarchive:
+    src: "{{  pv_ua_bw_cli_archive_download_path  }}"
+    dest: "{{  pv_ua_user_local_dir  }}/bin"
+    remote_src: yes
+    mode: '0500'
