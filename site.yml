@@ -99,3 +99,9 @@
       tags:
         - never
         - kde
+
+    - name: Dotfiles
+      import_tasks: tasks/dotfiles.yml
+      tags:
+        - never
+        - dotfiles
