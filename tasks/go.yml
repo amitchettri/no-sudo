@@ -1,0 +1,39 @@
+- name: USERAPPS | golang | Set install directory
+  set_fact:
+    pv_ua_golang_install_path: "{{  pv_ua_user_share_dir  }}/go"
+
+- name: USERAPPS | golang | Set Version Tag
+  set_fact:
+    pv_ua_golang_version: 1.17.7
+
+- name: USERAPPS | golang | Set Download URL
+  set_fact:
+    pv_ua_golang_download_url: "https://go.dev/dl/go{{  pv_ua_golang_version  }}.linux-amd64.tar.gz"
+  when: ansible_facts.architecture == "x86_64"
+
+- name: USERAPPS | golang | Create install directory
+  ansible.builtin.file:
+    path: "{{  pv_ua_golang_install_path  }}"
+    state: directory
+
+- name: USERAPPS | golang | Set tarball download path.
+  set_fact:
+    pv_ua_golang_tarball_download_path: "{{  pv_ua_user_tmp_dir  }}/go{{  pv_ua_golang_version  }}.linux-amd64.tar.gz"
+
+- name: USERAPPS | golang | Get downloaded file stat
+  stat:
+    path: "{{  pv_ua_golang_tarball_download_path  }}"
+  register: pv_ua_golang_downloaded_file_stat
+
+- name: USERAPPS | golang | Download tarball
+  ansible.builtin.get_url:
+    url: "{{  pv_ua_golang_download_url  }}"
+    dest: "{{  pv_ua_golang_tarball_download_path  }}"
+  when: not pv_ua_golang_downloaded_file_stat.stat.exists
+
+- name: USERAPPS | golang | Unarchive the tarball
+  ansible.builtin.unarchive:
+    src: "{{  pv_ua_golang_tarball_download_path  }}"
+    dest: "{{  pv_ua_golang_install_path  }}"
+    extra_opts: [--strip-components=1]
+    remote_src: true

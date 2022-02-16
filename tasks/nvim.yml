@@ -1,3 +1,6 @@
+- name: USERAPPS | NEOVIM | Install NodeJS
+  import_tasks: tasks/nodejs.yml
+
 - name: USERAPPS | NEOVIM | Set install directory
   set_fact:
     pv_ua_nvim_install_path: "{{  pv_ua_user_share_dir  }}/nvim"
@@ -59,7 +62,7 @@
     path: "{{  pv_ua_nvim_plug_path  }}"
     state: directory
 
-- name: USERAPPS | NEOVIM | Download vimplug
+- name: USERAPPS | NEOVIM | Download vim-plug
   ansible.builtin.get_url:
     url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
     dest: "{{  pv_ua_nvim_plug_path  }}/plug.vim"
@@ -78,6 +81,7 @@
     executable: /bin/bash
 
 - name: USERAPPS | NEOVIM | yarn install
+  when: pv_ua_nvim_plug_updated.changed
   community.general.yarn:
     path: "{{  pv_ua_nvim_install_path  }}/plugged/coc.nvim"
     state: latest
