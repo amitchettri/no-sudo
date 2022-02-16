@@ -46,7 +46,6 @@
     src: "{{  pv_ua_td_tarball_download_path  }}"
     dest: "{{  pv_ua_td_install_path  }}"
     extra_opts: [--strip-components=1]
-    mode: '0750'
     remote_src: true
 
 - name: USERAPPS | Telegram Desktop | Set icon download path.

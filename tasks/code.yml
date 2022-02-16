@@ -1,0 +1,78 @@
+- name: USERAPPS | Visual Studio Code | Set install directory
+  set_fact:
+    pv_ua_code_install_path: "{{  pv_ua_user_share_dir  }}/vscode"
+
+- name: USERAPPS | Visual Studio Code | Create install directory
+  ansible.builtin.file:
+    path: "{{  pv_ua_code_install_path  }}"
+    state: directory
+
+- name: USERAPPS | Visual Studio Code | Get latest releases
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/microsoft/vscode/releases/latest"
+    method: GET
+    return_content: yes
+    headers:
+      Accept: "application/vnd.github.v3+json"
+    status_code: 200
+  register: pv_ua_code_latest_release
+
+- name: USERAPPS | Visual Studio Code | Set tarball download path.
+  set_fact:
+    pv_ua_code_tarball_download_path: "{{  pv_ua_user_tmp_dir  }}/vscode-{{  pv_ua_code_latest_release.json.tag_name  }}.linux.tar.gz"
+
+- name: USERAPPS | Visual Studio Code | Set Download URL
+  set_fact:
+    pv_ua_code_download_url: "https://update.code.visualstudio.com/{{  pv_ua_code_latest_release.json.tag_name  }}/linux-x64/stable"
+  when: ansible_facts.architecture == "x86_64"
+
+- name: USERAPPS | Visual Studio Code | Get downloaded file stat
+  stat:
+    path: "{{  pv_ua_code_tarball_download_path  }}"
+  register: pv_ua_code_tmp_downloaded_file_stat
+
+- name: USERAPPS | Visual Studio Code | Download tarball
+  ansible.builtin.get_url:
+    url: "{{  pv_ua_code_download_url  }}"
+    dest: "{{  pv_ua_code_tarball_download_path  }}"
+  when: not pv_ua_code_tmp_downloaded_file_stat.stat.exists
+
+- name: USERAPPS | Visual Studio Code | Unarchive the tarball
+  ansible.builtin.unarchive:
+    src: "{{  pv_ua_code_tarball_download_path  }}"
+    dest: "{{  pv_ua_code_install_path  }}"
+    extra_opts: [--strip-components=1]
+    remote_src: true
+
+# - name: USERAPPS | Visual Studio Code | Set icon download path.
+#   set_fact:
+#     pv_ua_code_icon_download_path: "{{  pv_ua_code_install_path  }}/Telegram-Icon-{{  pv_ua_code_version_number  }}.png"
+
+# - name: USERAPPS | Visual Studio Code | Get downloaded icon stat
+#   stat:
+#     path: "{{  pv_ua_code_icon_download_path  }}"
+#   register: pv_ua_code_downloaded_icon_file_stat
+
+# - name: USERAPPS | Visual Studio Code | Download Icon file
+#   ansible.builtin.get_url:
+#     url: 'https://avatars.githubusercontent.com/u/6113871?s=200&v=4'
+#     dest: "{{  pv_ua_code_icon_download_path  }}"
+#   when: not pv_ua_code_downloaded_icon_file_stat.stat.exists
+
+- name: USERAPPS | Visual Studio Code | Create symlink to bin
+  ansible.builtin.file:
+    src: "{{  pv_ua_code_install_path  }}/bin/code"
+    dest: "{{  pv_ua_user_local_dir  }}/bin/code"
+    state: link
+
+- name: USERAPPS | Visual Studio Code | Create desktop icon
+  ansible.builtin.template:
+    src: templates/code-userapps.desktop.j2
+    dest: "{{  pv_ua_user_share_dir  }}/applications/code-userapps.desktop"
+    mode: '0600'
+
+- name: USERAPPS | Visual Studio Code | Create url handler
+  ansible.builtin.template:
+    src: templates/code-url-handler-userapps.desktop.j2
+    dest: "{{  pv_ua_user_share_dir  }}/applications/code-url-handler-userapps.desktop"
+    mode: '0600'

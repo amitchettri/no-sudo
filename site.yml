@@ -89,3 +89,7 @@
     - name: USERAPPS | Apache Maven
       import_tasks: tasks/mvn.yml
       tags: mvn
+
+    - name: USERAPPS | VSCode
+      import_tasks: tasks/code.yml
+      tags: code
