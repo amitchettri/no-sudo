@@ -1,0 +1,36 @@
+- name: USERAPPS | JQ | Get latest releases
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/stedolan/jq/releases/latest"
+    method: GET
+    return_content: yes
+    headers:
+      Accept: "application/vnd.github.v3+json"
+    status_code: 200
+  register: pv_ua_jq_github_latest_release
+
+- name: USERAPPS | JQ | Set download path
+  set_fact:
+    pv_ua_jq_download_path: "{{  pv_ua_user_tmp_dir  }}/linux-x64-{{  pv_ua_jq_github_latest_release.json.tag_name  }}"
+
+- name: USERAPPS | JQ | Set download URL
+  set_fact:
+    pv_ua_jq_download_url: "https://github.com/stedolan/jq/releases/download/{{  pv_ua_jq_github_latest_release.json.tag_name  }}/jq-linux64"
+  when: ansible_facts.architecture == "x86_64"
+
+- name: USERAPPS | JQ | Get downloaded file stat
+  stat:
+    path: "{{  pv_ua_jq_download_path  }}"
+  register: pv_ua_jq_tmp_downloaded_file_stat
+
+- name: USERAPPS | JQ | Download bin
+  ansible.builtin.get_url:
+    url: "{{  pv_ua_jq_download_url  }}"
+    dest: "{{  pv_ua_jq_download_path  }}"
+  when: not pv_ua_jq_tmp_downloaded_file_stat.stat.exists
+
+- name: USERAPPS | JQ | Copy to local bin
+  ansible.builtin.copy:
+    src: "{{  pv_ua_jq_download_path  }}"
+    dest: "{{  pv_ua_user_local_dir  }}/bin/jq"
+    remote_src: yes
+    mode: '0755'

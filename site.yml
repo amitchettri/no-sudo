@@ -70,6 +70,10 @@
       import_tasks: tasks/nvim.yml
       tags: nvim
 
-    - name: USERAPPS | postman
+    - name: USERAPPS | Postman
       import_tasks: tasks/postman.yml
       tags: postman
+
+    - name: USERAPPS | Jq
+      import_tasks: tasks/jq.yml
+      tags: jq
