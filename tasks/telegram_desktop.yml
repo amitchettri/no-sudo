@@ -1,0 +1,71 @@
+- name: USERAPPS | Telegram Desktop | Set install directory
+  set_fact:
+    pv_ua_td_install_path: "{{  pv_ua_user_share_dir  }}/telegram-desktop-userapp/"
+
+- name: USERAPPS | Telegram Desktop | Create install directory
+  ansible.builtin.file:
+    path: "{{  pv_ua_td_install_path  }}"
+    state: directory
+
+- name: USERAPPS | Telegram Desktop | Get latest releases
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/telegramdesktop/tdesktop/releases/latest"
+    method: GET
+    return_content: yes
+    headers:
+      Accept: "application/vnd.github.v3+json"
+    status_code: 200
+  register: pv_ua_tmp_td_latest_release
+
+- name: USERAPPS | Telegram Desktop | Find the version number
+  set_fact:
+    pv_ua_td_version_number: "{{  pv_ua_tmp_td_latest_release.json.tag_name[1:]  }}"
+
+- name: USERAPPS | Telegram Desktop | Set tarball download path.
+  set_fact:
+    pv_ua_td_tarball_download_path: "{{  pv_ua_user_tmp_dir  }}/tsetup.{{  pv_ua_td_version_number  }}.tar.xz"
+
+- name: USERAPPS | Telegram Desktop | Set Download URL
+  set_fact:
+    pv_ua_td_download_url: "https://updates.tdesktop.com/tlinux/tsetup.{{  pv_ua_td_version_number  }}.tar.xz"
+  when: ansible_facts.architecture == "x86_64"
+
+- name: USERAPPS | Telegram Desktop | Get downloaded file stat
+  stat:
+    path: "{{  pv_ua_td_tarball_download_path  }}"
+  register: pv_ua_td_tmp_downloaded_file_stat
+
+- name: USERAPPS | Telegram Desktop | Download tarball
+  ansible.builtin.get_url:
+    url: "{{  pv_ua_td_download_url  }}"
+    dest: "{{  pv_ua_td_tarball_download_path  }}"
+  when: not pv_ua_td_tmp_downloaded_file_stat.stat.exists
+
+- name: USERAPPS | Telegram Desktop | Unarchive the tarball
+  ansible.builtin.unarchive:
+    src: "{{  pv_ua_td_tarball_download_path  }}"
+    dest: "{{  pv_ua_td_install_path  }}"
+    extra_opts: [--strip-components=1]
+    mode: '0750'
+    remote_src: true
+
+- name: USERAPPS | Telegram Desktop | Set icon download path.
+  set_fact:
+    pv_ua_td_icon_download_path: "{{  pv_ua_td_install_path  }}/Telegram-Icon-{{  pv_ua_td_version_number  }}.png"
+
+- name: USERAPPS | Telegram Desktop | Get downloaded icon stat
+  stat:
+    path: "{{  pv_ua_td_icon_download_path  }}"
+  register: pv_ua_td_downloaded_icon_file_stat
+
+- name: USERAPPS | Telegram Desktop | Download Icon file
+  ansible.builtin.get_url:
+    url: 'https://avatars.githubusercontent.com/u/6113871?s=200&v=4'
+    dest: "{{  pv_ua_td_icon_download_path  }}"
+  when: not pv_ua_td_downloaded_icon_file_stat.stat.exists
+
+- name: USERAPPS | Telegram Desktop | Create desktop icon
+  ansible.builtin.template:
+    src: templates/telegram-desktop-userapps.desktop.j2
+    dest: "{{  pv_ua_user_share_dir  }}/applications/telegram-desktop-userapps.desktop"
+    mode: '0600'

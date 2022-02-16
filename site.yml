@@ -56,4 +56,8 @@
 
     - name: USERAPPS | Mattermost
       import_tasks: tasks/mattermost_desktop.yml
-      tags: mm
+      tags: mattermost
+
+    - name: USERAPPS | Mattermost
+      import_tasks: tasks/telegram_desktop.yml
+      tags: telegram

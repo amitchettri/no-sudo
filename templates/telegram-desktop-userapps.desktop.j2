@@ -1,0 +1,22 @@
+[Desktop Entry]
+Version={{  pv_ua_tmp_td_latest_release.json.tag_name  }}
+Name=Telegram Desktop - Userapps
+Comment=Official desktop version of Telegram messaging app
+TryExec={{  pv_ua_td_install_path  }}/Telegram
+Exec={{  pv_ua_td_install_path  }}/Telegram -workdir {{  pv_ua_user_share_dir  }}/TelegramDesktop/ -- %u
+Icon={{  pv_ua_td_icon_download_path  }}
+Terminal=false
+StartupWMClass=TelegramDesktop
+Type=Application
+Categories=Chat;Network;InstantMessaging;Qt;
+MimeType=x-scheme-handler/tg;
+Keywords=tg;chat;im;messaging;messenger;sms;tdesktop;
+Actions=Quit;
+SingleMainWindow=true
+X-GNOME-UsesNotifications=true
+X-GNOME-SingleWindow=true
+
+[Desktop Action Quit]
+Exec={{  pv_ua_td_install_path  }}/Telegram -workdir {{  pv_ua_user_share_dir  }}/TelegramDesktop/ -quit
+Name=Quit Telegram - Userapps
+Icon=application-exit

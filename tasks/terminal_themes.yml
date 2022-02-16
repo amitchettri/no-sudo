@@ -30,7 +30,7 @@
 - name: USERAPPS | Terminal Themes | Set default ZSH_CUSTOM directory
   set_fact:
     pv_ua_user_zsh_custom_dir: "{{  pv_ua_user_home_dir  }}/.oh-my-zsh/custom"
-  when: asdasasd is undefined or asdasasd is none or asdasasd == ""
+  when: pv_ua_user_zsh_custom_dir is undefined or pv_ua_user_zsh_custom_dir is none or pv_ua_user_zsh_custom_dir == ""
 
 - name: USERAPPS | Terminal Themes | Download zsh syntax highlighting
   ansible.builtin.git:
