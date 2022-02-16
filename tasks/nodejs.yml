@@ -1,0 +1,39 @@
+- name: USERAPPS | NodeJS | Set install directory
+  set_fact:
+    pv_ua_nodejs_install_path: "{{  pv_ua_user_share_dir  }}/node"
+
+- name: USERAPPS | NodeJS | Set Version Tag
+  set_fact:
+    pv_ua_nodejs_version: v16.13.2
+
+- name: USERAPPS | NodeJS | Set Download URL
+  set_fact:
+    pv_ua_nodejs_download_url: "https://nodejs.org/dist/{{  pv_ua_nodejs_version  }}/node-{{  pv_ua_nodejs_version  }}.tar.xz"
+  when: ansible_facts.architecture == "x86_64"
+
+- name: USERAPPS | NodeJS | Create install directory
+  ansible.builtin.file:
+    path: "{{  pv_ua_nodejs_install_path  }}"
+    state: directory
+
+- name: USERAPPS | NodeJS | Set tarball download path.
+  set_fact:
+    pv_ua_nodejs_tarball_download_path: "{{  pv_ua_user_tmp_dir  }}/node-{{  pv_ua_nodejs_version  }}.tar.xz"
+
+- name: USERAPPS | NodeJS | Get downloaded file stat
+  stat:
+    path: "{{  pv_ua_nodejs_tarball_download_path  }}"
+  register: pv_ua_nodejs_downloaded_file_stat
+
+- name: USERAPPS | NodeJS | Download tarball
+  ansible.builtin.get_url:
+    url: "{{  pv_ua_nodejs_download_url  }}"
+    dest: "{{  pv_ua_nodejs_tarball_download_path  }}"
+  when: not pv_ua_nodejs_downloaded_file_stat.stat.exists
+
+- name: USERAPPS | NodeJS | Unarchive the tarball
+  ansible.builtin.unarchive:
+    src: "{{  pv_ua_nodejs_tarball_download_path  }}"
+    dest: "{{  pv_ua_nodejs_install_path  }}"
+    extra_opts: [--strip-components=1]
+    remote_src: true

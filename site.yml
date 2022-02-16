@@ -58,6 +58,10 @@
       import_tasks: tasks/mattermost_desktop.yml
       tags: mattermost
 
-    - name: USERAPPS | Mattermost
+    - name: USERAPPS | Telegram
       import_tasks: tasks/telegram_desktop.yml
       tags: telegram
+
+    - name: USERAPPS | NodeJS
+      import_tasks: tasks/nodejs.yml
+      tags: nodejs
