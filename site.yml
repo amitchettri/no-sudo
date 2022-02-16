@@ -93,3 +93,9 @@
     - name: USERAPPS | VSCode
       import_tasks: tasks/code.yml
       tags: code
+
+    - name: USERAPPS | kde
+      import_tasks: tasks/download_kde_themes.yml
+      tags:
+        - never
+        - kde
