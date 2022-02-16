@@ -69,3 +69,7 @@
     - name: USERAPPS | nvim
       import_tasks: tasks/nvim.yml
       tags: nvim
+
+    - name: USERAPPS | postman
+      import_tasks: tasks/postman.yml
+      tags: postman
