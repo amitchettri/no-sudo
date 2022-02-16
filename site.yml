@@ -2,6 +2,7 @@
 - name: Master
   hosts: localhost
   become: false
+  gather_facts: true
   tasks:
     - name: USERAPPS | Find User Home Directory
       set_fact:

@@ -18,11 +18,14 @@
     status_code: 200
   register: pv_ua_tmp_bw_latest_release_assets
 
+- name: USERAPPS | Bitwarden Desktop | Get ansible_architecture based jmesquery x86_64
+  set_fact:
+    pv_ua_bw_download_url_jmesquery: "[?contains(browser_download_url, 'AppImage')&&contains(browser_download_url, 'x86_64')]"
+  when: ansible_facts.architecture == "x86_64" and false
+
 - name: USERAPPS | Bitwarden Desktop | Get latest AppImage releases
   set_fact:
-    pv_ua_bw_latest_gh_release: "{{  pv_ua_tmp_bw_latest_release_assets.json.assets | community.general.json_query(jmesquery) | first }}"
-  vars:
-    jmesquery: "[?contains(browser_download_url, 'AppImage')]"
+    pv_ua_bw_latest_gh_release: "{{  pv_ua_tmp_bw_latest_release_assets.json.assets | community.general.json_query(pv_ua_bw_download_url_jmesquery) | first }}"
 
 - name: USERAPPS | Bitwarden Desktop | Download AppImage
   ansible.builtin.get_url:
