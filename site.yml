@@ -81,3 +81,11 @@
     - name: USERAPPS | GoLang
       import_tasks: tasks/go.yml
       tags: go
+
+    - name: USERAPPS | jdk
+      import_tasks: tasks/jdk.yml
+      tags: jdk
+
+    - name: USERAPPS | Apache Maven
+      import_tasks: tasks/mvn.yml
+      tags: mvn

@@ -1,0 +1,42 @@
+- name: USERAPPS | Apache Maven | Install JDK
+  import_tasks: tasks/jdk.yml
+
+- name: USERAPPS | Apache Maven | Set install directory
+  set_fact:
+    pv_ua_mvn_install_path: "{{  pv_ua_user_share_dir  }}/maven"
+
+- name: USERAPPS | Apache Maven | Set Version Tag
+  set_fact:
+    pv_ua_mvn_version: 3.8.4
+
+- name: USERAPPS | Apache Maven | Set Download URL
+  set_fact:
+    pv_ua_mvn_download_url: "https://dlcdn.apache.org/maven/maven-3/{{  pv_ua_mvn_version  }}/binaries/apache-maven-{{  pv_ua_mvn_version  }}-bin.tar.gz"
+  when: ansible_facts.architecture == "x86_64"
+
+- name: USERAPPS | Apache Maven | Create install directory
+  ansible.builtin.file:
+    path: "{{  pv_ua_mvn_install_path  }}"
+    state: directory
+
+- name: USERAPPS | Apache Maven | Set tarball download path.
+  set_fact:
+    pv_ua_mvn_tarball_download_path: "{{  pv_ua_user_tmp_dir  }}/apache-maven-{{  pv_ua_mvn_version  }}-bin.tar.gz"
+
+- name: USERAPPS | Apache Maven | Get downloaded file stat
+  stat:
+    path: "{{  pv_ua_mvn_tarball_download_path  }}"
+  register: pv_ua_mvn_downloaded_file_stat
+
+- name: USERAPPS | Apache Maven | Download tarball
+  ansible.builtin.get_url:
+    url: "{{  pv_ua_mvn_download_url  }}"
+    dest: "{{  pv_ua_mvn_tarball_download_path  }}"
+  when: not pv_ua_mvn_downloaded_file_stat.stat.exists
+
+- name: USERAPPS | Apache Maven | Unarchive the tarball
+  ansible.builtin.unarchive:
+    src: "{{  pv_ua_mvn_tarball_download_path  }}"
+    dest: "{{  pv_ua_mvn_install_path  }}"
+    extra_opts: [--strip-components=1]
+    remote_src: true
