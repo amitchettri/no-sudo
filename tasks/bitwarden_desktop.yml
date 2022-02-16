@@ -1,6 +1,6 @@
 - name: USERAPPS | Bitwarden Desktop | Set install directory
   set_fact:
-    pv_ua_bw_install_path: "{{  pv_ua_user_share_dir  }}/bitwarden-desktop/"
+    pv_ua_bw_install_path: "{{  pv_ua_user_share_dir  }}/bitwarden-desktop"
 
 - name: USERAPPS | Bitwarden Desktop | Create install directory
   ansible.builtin.file:

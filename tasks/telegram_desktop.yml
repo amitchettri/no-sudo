@@ -1,6 +1,6 @@
 - name: USERAPPS | Telegram Desktop | Set install directory
   set_fact:
-    pv_ua_td_install_path: "{{  pv_ua_user_share_dir  }}/telegram-desktop-userapp/"
+    pv_ua_td_install_path: "{{  pv_ua_user_share_dir  }}/telegram-desktop-userapp"
 
 - name: USERAPPS | Telegram Desktop | Create install directory
   ansible.builtin.file:

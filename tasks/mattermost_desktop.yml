@@ -1,6 +1,6 @@
 - name: USERAPPS | Mattermost Desktop | Set install directory
   set_fact:
-    pv_ua_mm_install_path: "{{  pv_ua_user_share_dir  }}/mattermost-desktop/"
+    pv_ua_mm_install_path: "{{  pv_ua_user_share_dir  }}/mattermost-desktop"
 
 - name: USERAPPS | Mattermost Desktop | Create install directory
   ansible.builtin.file:
