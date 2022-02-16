@@ -1,0 +1,89 @@
+- name: USERAPPS | NEOVIM | Set install directory
+  set_fact:
+    pv_ua_nvim_install_path: "{{  pv_ua_user_share_dir  }}/nvim"
+
+- name: USERAPPS | NEOVIM | Create install directory
+  ansible.builtin.file:
+    path: "{{  pv_ua_nvim_install_path  }}"
+    state: directory
+
+- name: USERAPPS | NEOVIM | Get latest releases
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/neovim/neovim/releases/latest"
+    method: GET
+    return_content: yes
+    headers:
+      Accept: "application/vnd.github.v3+json"
+    status_code: 200
+  register: pv_ua_tmp_td_latest_release
+
+- name: USERAPPS | NEOVIM | Set tarball download path
+  set_fact:
+    pv_ua_nvim_tarball_download_path: "{{  pv_ua_user_tmp_dir  }}/nvim-linux-{{  pv_ua_tmp_td_latest_release.json.tag_name  }}.tar.gz"
+
+- name: USERAPPS | NEOVIM | Set Download URL
+  set_fact:
+    pv_ua_nvim_download_url: "https://github.com/neovim/neovim/releases/download/{{  pv_ua_tmp_td_latest_release.json.tag_name  }}/nvim-linux64.tar.gz"
+  when: ansible_facts.architecture == "x86_64"
+
+- name: USERAPPS | NEOVIM | Get downloaded file stat
+  stat:
+    path: "{{  pv_ua_nvim_tarball_download_path  }}"
+  register: pv_ua_nvim_tmp_downloaded_file_stat
+
+- name: USERAPPS | NEOVIM | Download tarball
+  ansible.builtin.get_url:
+    url: "{{  pv_ua_nvim_download_url  }}"
+    dest: "{{  pv_ua_nvim_tarball_download_path  }}"
+  when: not pv_ua_nvim_tmp_downloaded_file_stat.stat.exists
+
+- name: USERAPPS | NEOVIM | Unarchive the tarball
+  ansible.builtin.unarchive:
+    src: "{{  pv_ua_nvim_tarball_download_path  }}"
+    dest: "{{  pv_ua_nvim_install_path  }}"
+    extra_opts: [--strip-components=1]
+    remote_src: true
+
+- name: USERAPPS | NEOVIM | Create symlink to bin
+  ansible.builtin.file:
+    src: "{{  pv_ua_nvim_install_path  }}/bin/nvim"
+    dest: "{{  pv_ua_user_local_dir  }}/bin/nvim"
+    state: link
+
+- name: USERAPPS | NEOVIM | Set plug directory
+  set_fact:
+    pv_ua_nvim_plug_path: "{{  pv_ua_nvim_install_path  }}/site/autoload"
+
+- name: USERAPPS | NEOVIM | Create plug directory
+  ansible.builtin.file:
+    path: "{{  pv_ua_nvim_plug_path  }}"
+    state: directory
+
+- name: USERAPPS | NEOVIM | Download vimplug
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    dest: "{{  pv_ua_nvim_plug_path  }}/plug.vim"
+  register: pv_ua_nvim_plug_updated
+
+- name: USERAPPS | NEOVIM | Install yarn
+  community.general.npm:
+    name: yarn
+    global: yes
+    state: latest
+
+- name: USERAPPS | NEOVIM | Install vim plug
+  when: pv_ua_nvim_plug_updated.changed
+  ansible.builtin.raw: "{{  pv_ua_user_local_dir  }}/bin/nvim --headless +PlugInstall +qa"
+  args:
+    executable: /bin/bash
+
+- name: USERAPPS | NEOVIM | yarn install
+  community.general.yarn:
+    path: "{{  pv_ua_nvim_install_path  }}/plugged/coc.nvim"
+    state: latest
+
+- name: USERAPPS | NEOVIM | Install coc-python
+  when: pv_ua_nvim_plug_updated.changed
+  ansible.builtin.raw: "{{  pv_ua_user_local_dir  }}/bin/nvim --headless +\"CocInstall coc-python\" +qa"
+  args:
+    executable: /bin/bash

@@ -65,3 +65,7 @@
     - name: USERAPPS | NodeJS
       import_tasks: tasks/nodejs.yml
       tags: nodejs
+
+    - name: USERAPPS | nvim
+      import_tasks: tasks/nvim.yml
+      tags: nvim
