@@ -53,3 +53,7 @@
     - name: USERAPPS | Install Bitwarden CLI
       import_tasks: tasks/bitwarden_cli.yml
       tags: bw_cli
+
+    - name: USERAPPS | Mattermost
+      import_tasks: tasks/mattermost_desktop.yml
+      tags: mm

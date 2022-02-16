@@ -24,6 +24,7 @@
   register: pv_ua_bw_cli_archive_stat
 
 - name: USERAPPS | Bitwarden CLI | Download in tmp path
+  when: not pv_ua_bw_cli_archive_stat.stat.exists
   ansible.builtin.get_url:
     url: "{{  pv_ua_bw_cli_latest_gh_release.browser_download_url  }}"
     dest: "{{  pv_ua_bw_cli_archive_download_path  }}"
