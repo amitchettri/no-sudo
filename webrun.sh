@@ -32,7 +32,7 @@ echo "Pip Packages installed"
 mkdir -p "${__tmp_directory}"
 
 if [[ ! -d  "${__tmp_directory}/ansible-playbook-usersetup"  ]]; then
-    git clone "${__git_setup_repo}" "${__tmp_directory}/ansible-playbook-usersetup"
+    git clone --depth 1 --single-branch "${__git_setup_repo}" "${__tmp_directory}/ansible-playbook-usersetup"
     cd "${__tmp_directory}/ansible-playbook-usersetup"
     virtualenv venv
 fi
