@@ -35,10 +35,11 @@ if [[ ! -d  "${__tmp_directory}/ansible-playbook-usersetup"  ]]; then
     git clone --depth 1 --single-branch "${__git_setup_repo}" "${__tmp_directory}/ansible-playbook-usersetup"
     cd "${__tmp_directory}/ansible-playbook-usersetup"
     virtualenv venv
+    pip install -r requirements.txt
+else
+    cd "${__tmp_directory}/ansible-playbook-usersetup"
+    git pull
 fi
 
-cd "${__tmp_directory}/ansible-playbook-usersetup"
 source venv/bin/activate
-pip install -r requirements.txt
-
 ansible-playbook site.yml
