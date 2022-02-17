@@ -101,7 +101,7 @@
         - never
 
     - name: USERAPPS | kde
-      import_tasks: tasks/download_kde_themes.yml
+      import_tasks: tasks/kde.yml
       tags:
         - never
         - kde

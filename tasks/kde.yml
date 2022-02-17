@@ -1,4 +1,19 @@
 ---
+- name: KDE | Cleanup | Git tracker
+  when: false
+  file:
+    path: "{{  item  }}"
+    state: absent
+  with_items:
+    - "{{  pv_ua_user_share_dir  }}/themes/Nordic"
+    - "{{  pv_ua_user_tmp_dir  }}/EliverLara-Nordic-git-bare"
+    - "{{  pv_ua_user_share_dir  }}/plasma/desktoptheme/Nordic"
+    - "{{  pv_ua_user_tmp_dir  }}/EliverLara-Nordic-kde-git-bare"
+    - "{{  pv_ua_user_share_dir  }}/icons/candy-icons"
+    - "{{  pv_ua_user_tmp_dir  }}/EliverLara-candy-icons-git-bare"
+    - "{{  pv_ua_user_share_dir  }}/themes/Sweet-mars"
+    - "{{  pv_ua_user_tmp_dir  }}/EliverLara-Sweet-mars-git-bare"
+
 - name: KDE | Download | Theme | EliverLara Nordic
   block:
     - name: KDE | Download | Theme | EliverLara Nordic | Clone git
