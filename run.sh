@@ -6,7 +6,7 @@ if [[ -n "${VIRTUAL_ENV}" ]]; then
     exit 1
 fi
 
-export PATH="${HOME}/.local/share/node/bin/node:${HOME}/.local/bin:${PATH}"
+export PATH="${HOME}/.local/share/node/bin:${HOME}/.local/bin:${PATH}"
 
 echo "Updating Python packages"
 $(readlink -f $(which python3)) -m pip install wheel setuptools pip virtualenv jedi --user --upgrade
