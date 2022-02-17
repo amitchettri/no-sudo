@@ -5,3 +5,23 @@
     dest: "{{  pv_ua_user_home_dir  }}/.dotfiles"
     depth: 1
     bare: true
+
+- name: USERAPPS | Dotfiles | Check if  ~/.aliasrc is present
+  stat:
+    path: "{{  pv_ua_user_home_dir  }}/.aliasrc"
+  register: pv_ua_dotfiles_aliasrc_stat
+
+- name: USERAPPS | Dotfiles | Ensure config alias is set in ~/.aliasrc
+  when: pv_ua_dotfiles_aliasrc_stat.stat.exists
+  ansible.builtin.lineinfile:
+    path: "{{  pv_ua_user_home_dir  }}/.aliasrc"
+    line: "alias config='git --git-dir=\"$HOME/.dotfiles\" --work-tree=$HOME'"
+
+- name: USERAPPS | Dotfiles | Ensure config alias is set in ~/.bashrc and ~/.zshrc
+  when: not pv_ua_dotfiles_aliasrc_stat.stat.exists
+  ansible.builtin.lineinfile:
+    path: "{{  item  }}"
+    line: "alias config='git --git-dir=\"$HOME/.dotfiles\" --work-tree=$HOME'"
+  with_items:
+    - "{{  pv_ua_user_home_dir  }}/.bashrc"
+    - "{{  pv_ua_user_home_dir  }}/.zshrc"
