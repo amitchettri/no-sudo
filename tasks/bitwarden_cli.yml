@@ -23,15 +23,16 @@
     path: "{{  pv_ua_bw_cli_archive_download_path  }}"
   register: pv_ua_bw_cli_archive_stat
 
-- name: USERAPPS | Bitwarden CLI | Download in tmp path
+- name: USERAPPS | Bitwarden CLI | Newly download
   when: not pv_ua_bw_cli_archive_stat.stat.exists
-  ansible.builtin.get_url:
-    url: "{{  pv_ua_bw_cli_latest_gh_release.browser_download_url  }}"
-    dest: "{{  pv_ua_bw_cli_archive_download_path  }}"
+    - name: USERAPPS | Bitwarden CLI | Download in tmp path
+      ansible.builtin.get_url:
+        url: "{{  pv_ua_bw_cli_latest_gh_release.browser_download_url  }}"
+        dest: "{{  pv_ua_bw_cli_archive_download_path  }}"
 
-- name: USERAPPS | Bitwarden CLI | unarchive
-  ansible.builtin.unarchive:
-    src: "{{  pv_ua_bw_cli_archive_download_path  }}"
-    dest: "{{  pv_ua_user_bin_dir  }}"
-    remote_src: yes
-    mode: '0750'
+    - name: USERAPPS | Bitwarden CLI | unarchive
+      ansible.builtin.unarchive:
+        src: "{{  pv_ua_bw_cli_archive_download_path  }}"
+        dest: "{{  pv_ua_user_bin_dir  }}"
+        remote_src: yes
+        mode: '0750'
