@@ -1,19 +1,6 @@
 ---
-- name: addhost
-  hosts: localhost
-  become: false
-  gather_facts: true
-  tasks:
-    - name: addhost
-      add_host:
-        hostname: 'user_host'
-        ansible_host: '192.168.175.128'
-        ansible_ssh_user: user1
-      tags: always
-      changed_when: false
-
 - name: Master
-  hosts: user_host
+  hosts: localhost
   become: false
   gather_facts: true
   tasks:
@@ -69,55 +56,81 @@
 
     - name: USERAPPS | Install Terminal Themes
       import_tasks: tasks/terminal_themes.yml
-      tags: terminal_themes
+      tags:
+        - terminal_themes
+        - never
 
     - name: USERAPPS | Install Bitwarden
       import_tasks: tasks/bitwarden_desktop.yml
-      tags: bw
+      tags:
+        - bw
+        - never
 
     - name: USERAPPS | Install Bitwarden CLI
       import_tasks: tasks/bitwarden_cli.yml
-      tags: bw_cli
+      tags:
+        - bw_cli
+        - never
 
     - name: USERAPPS | Mattermost
       import_tasks: tasks/mattermost_desktop.yml
-      tags: mattermost
+      tags:
+        - mattermost
+        - never
 
     - name: USERAPPS | Telegram
       import_tasks: tasks/telegram_desktop.yml
-      tags: telegram
+      tags:
+        - telegram
+        - never
 
     - name: USERAPPS | NodeJS
       import_tasks: tasks/nodejs.yml
-      tags: nodejs
+      tags:
+        - nodejs
+        - never
 
     - name: USERAPPS | nvim
       import_tasks: tasks/nvim.yml
-      tags: nvim
+      tags:
+        - nvim
+        - never
 
     - name: USERAPPS | Postman
       import_tasks: tasks/postman.yml
-      tags: postman
+      tags:
+        - postman
+        - never
 
     - name: USERAPPS | Jq
       import_tasks: tasks/jq.yml
-      tags: jq
+      tags:
+        - jq
+        - never
 
     - name: USERAPPS | GoLang
       import_tasks: tasks/go.yml
-      tags: go
+      tags:
+        - go
+        - never
 
     - name: USERAPPS | jdk
       import_tasks: tasks/jdk.yml
-      tags: jdk
+      tags:
+        - jdk
+        - never
 
     - name: USERAPPS | Apache Maven
       import_tasks: tasks/mvn.yml
-      tags: mvn
+      tags:
+        - mvn
+        - never
 
     - name: USERAPPS | VSCode
       import_tasks: tasks/code.yml
-      tags: code
+      tags:
+        - code
+        - never
 
     - name: USERAPPS | kde
       import_tasks: tasks/download_kde_themes.yml
