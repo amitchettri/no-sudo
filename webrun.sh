@@ -23,7 +23,7 @@ if ! hash "${prog}" &>/dev/null ; then
 fi
 done
 
-export PATH="${HOME}/.local/bin:${PATH}"
+export PATH="${HOME}/.local/share/node/bin/node:${HOME}/.local/bin:${PATH}"
 
 echo "Updating Python packages"
 $(readlink -f $(which python3)) -m pip install wheel setuptools pip virtualenv jedi --user --upgrade
