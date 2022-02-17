@@ -8,11 +8,8 @@
 
 - name: USERAPPS | Dotfiles | Cloning git bare
   ansible.builtin.git:
-    single_branch: true
     repo: "{{  pv_ua_dotfiles_git_remote  }}"
     dest: "{{  pv_ua_user_home_dir  }}/{{  pv_ua_dotfiles_bare_relative_dir  }}"
-    depth: 1
-    version: main
     bare: true
 
 - name: USERAPPS | Dotfiles | Check if  ~/.aliasrc is present
