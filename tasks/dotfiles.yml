@@ -1,4 +1,4 @@
-- name: USERAPPS | Dotfiles
+- name: USERAPPS | Dotfiles | Cloning git bare
   ansible.builtin.git:
     single_branch: true
     repo: 'https://github.com/arpanrec/dotfiles.git'
