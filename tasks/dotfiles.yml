@@ -31,7 +31,7 @@
     line: "alias config='git --git-dir=\"$HOME/{{  pv_ua_dotfiles_bare_relative_dir  }}\" --work-tree=$HOME'"
   with_items:
     - "{{  pv_ua_user_home_dir  }}/.bashrc"
-    - "{{  pv_ua_user_home_dir  }}/.zshrc"
+    # - "{{  pv_ua_user_home_dir  }}/.zshrc"
 
 - name: USERAPPS | Dotfiles | Set git config
   ansible.builtin.template:
