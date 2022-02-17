@@ -1,0 +1,13 @@
+[General]
+Version=201
+ViewPropsTimestamp=2022,2,15,12,20,0.102
+
+[MainWindow]
+MenuBar=Disabled
+ToolBarsMovable=Disabled
+eDP Window-Maximized 2560x1600=true
+eDP XPosition 2560x1600=328
+eDP YPosition 2560x1600=219
+
+[Search]
+Location=Everywhere
