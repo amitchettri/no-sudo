@@ -2,7 +2,7 @@
 set -e
 
 __tmp_directory="${HOME}/.tmp"
-__git_setup_repo='https://github.com/arpanrec/ansible-playbook-usersetup.git'
+__git_setup_repo='https://github.com/arpanrec/no-sudo.git'
 
 if [[ $(id -u) -eq 0 ]]; then
     echo "Root user detected!!!! Error"
