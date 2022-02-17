@@ -32,6 +32,6 @@
 - name: USERAPPS | Bitwarden CLI | unarchive
   ansible.builtin.unarchive:
     src: "{{  pv_ua_bw_cli_archive_download_path  }}"
-    dest: "{{  pv_ua_user_local_dir  }}/bin"
+    dest: "{{  pv_ua_user_bin_dir  }}"
     remote_src: yes
-    mode: '0500'
+    mode: '0750'

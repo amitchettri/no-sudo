@@ -31,6 +31,6 @@
 - name: USERAPPS | JQ | Copy to local bin
   ansible.builtin.copy:
     src: "{{  pv_ua_jq_download_path  }}"
-    dest: "{{  pv_ua_user_local_dir  }}/bin/jq"
+    dest: "{{  pv_ua_user_bin_dir  }}/jq"
     remote_src: yes
     mode: '0755'

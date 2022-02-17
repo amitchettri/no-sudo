@@ -40,13 +40,8 @@
         path: "{{  item  }}"
         state: directory
       with_items:
-        - "{{  pv_ua_user_home_dir  }}"
-        - "{{  pv_ua_user_config_dir  }}"
         - "{{  pv_ua_user_share_dir  }}/applications"
-        - "{{  pv_ua_user_tmp_dir  }}"
-        - "{{  pv_ua_user_local_dir  }}/bin"
-        - "{{  pv_ua_user_home_dir  }}"
-        - "{{  pv_ua_user_share_dir  }}/../bin"
+        - "{{  pv_ua_user_bin_dir  }}"
         - "{{  pv_ua_user_share_dir  }}/themes"
         - "{{  pv_ua_user_share_dir  }}/plasma/desktoptheme"
         - "{{  pv_ua_user_share_dir  }}/aurorae/themes"

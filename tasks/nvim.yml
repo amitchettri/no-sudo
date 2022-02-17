@@ -50,7 +50,7 @@
 - name: USERAPPS | NEOVIM | Create symlink to bin
   ansible.builtin.file:
     src: "{{  pv_ua_nvim_install_path  }}/bin/nvim"
-    dest: "{{  pv_ua_user_local_dir  }}/bin/nvim"
+    dest: "{{  pv_ua_user_bin_dir  }}/nvim"
     state: link
 
 - name: USERAPPS | NEOVIM | Set plug directory

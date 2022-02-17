@@ -62,7 +62,7 @@
 - name: USERAPPS | Visual Studio Code | Create symlink to bin
   ansible.builtin.file:
     src: "{{  pv_ua_code_install_path  }}/bin/code"
-    dest: "{{  pv_ua_user_local_dir  }}/bin/code"
+    dest: "{{  pv_ua_user_bin_dir  }}/code"
     state: link
 
 - name: USERAPPS | Visual Studio Code | Create desktop icon
