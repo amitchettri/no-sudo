@@ -1,8 +1,16 @@
+- name: USERAPPS | Dotfiles | Set Git Remote
+  set_fact:
+    pv_ua_dotfiles_git_remote: 'https://github.com/arpanrec/dotfiles.git'
+
+- name: USERAPPS | Dotfiles | Set Bare directory relative path
+  set_fact:
+    pv_ua_dotfiles_bare_relative_dir: ".dotfiles"
+
 - name: USERAPPS | Dotfiles | Cloning git bare
   ansible.builtin.git:
     single_branch: true
-    repo: 'https://github.com/arpanrec/dotfiles.git'
-    dest: "{{  pv_ua_user_home_dir  }}/.dotfiles"
+    repo: "{{  pv_ua_dotfiles_git_remote  }}"
+    dest: "{{  pv_ua_user_home_dir  }}/{{  pv_ua_dotfiles_bare_relative_dir  }}"
     depth: 1
     bare: true
 
@@ -15,13 +23,19 @@
   when: pv_ua_dotfiles_aliasrc_stat.stat.exists
   ansible.builtin.lineinfile:
     path: "{{  pv_ua_user_home_dir  }}/.aliasrc"
-    line: "alias config='git --git-dir=\"$HOME/.dotfiles\" --work-tree=$HOME'"
+    line: "alias config='git --git-dir=\"$HOME/{{  pv_ua_dotfiles_bare_relative_dir  }}\" --work-tree=$HOME'"
 
 - name: USERAPPS | Dotfiles | Ensure config alias is set in ~/.bashrc and ~/.zshrc
   when: not pv_ua_dotfiles_aliasrc_stat.stat.exists
   ansible.builtin.lineinfile:
     path: "{{  item  }}"
-    line: "alias config='git --git-dir=\"$HOME/.dotfiles\" --work-tree=$HOME'"
+    line: "alias config='git --git-dir=\"$HOME/{{  pv_ua_dotfiles_bare_relative_dir  }}\" --work-tree=$HOME'"
   with_items:
     - "{{  pv_ua_user_home_dir  }}/.bashrc"
     - "{{  pv_ua_user_home_dir  }}/.zshrc"
+
+- name: USERAPPS | Dotfiles | Set git config
+  ansible.builtin.template:
+    src: templates/dotfiles.gitconfig.j2
+    dest: "{{  pv_ua_user_home_dir  }}/{{  pv_ua_dotfiles_bare_relative_dir  }}/config"
+    mode: '0644'
