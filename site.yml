@@ -40,6 +40,18 @@
         - "{{  pv_ua_user_share_dir  }}/applications"
         - "{{  pv_ua_user_tmp_dir  }}"
         - "{{  pv_ua_user_local_dir  }}/bin"
+        - "{{  pv_ua_user_home_dir  }}"
+        - "{{  pv_ua_user_share_dir  }}/../bin"
+        - "{{  pv_ua_user_share_dir  }}/themes"
+        - "{{  pv_ua_user_share_dir  }}/plasma/desktoptheme"
+        - "{{  pv_ua_user_share_dir  }}/aurorae/themes"
+        - "{{  pv_ua_user_share_dir  }}/color-schemes"
+        - "{{  pv_ua_user_share_dir  }}/plasma/look-and-feel"
+        - "{{  pv_ua_user_config_dir  }}/Kvantum"
+        - "{{  pv_ua_user_config_dir  }}/konsave"
+        - "{{  pv_ua_user_tmp_dir  }}"
+        - "{{  pv_ua_user_share_dir  }}/konsole"
+        - "{{  pv_ua_user_share_dir  }}/icons/Nordic-cursors"
 
     - name: USERAPPS | Install Terminal Themes
       import_tasks: tasks/terminal_themes.yml
