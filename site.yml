@@ -37,8 +37,7 @@
       with_items:
         - "{{  pv_ua_user_home_dir  }}"
         - "{{  pv_ua_user_config_dir  }}"
-        - "{{  pv_ua_user_local_dir  }}"
-        - "{{  pv_ua_user_share_dir  }}"
+        - "{{  pv_ua_user_share_dir  }}/applications"
         - "{{  pv_ua_user_tmp_dir  }}"
         - "{{  pv_ua_user_local_dir  }}/bin"
 
