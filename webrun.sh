@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-__tmp_directory="${HOME}/.tmp"
+__tmp_directory="${HOME}/.tmp/no-sudo"
 __git_setup_repo='https://github.com/arpanrec/no-sudo.git'
 
 if [[ $(id -u) -eq 0 ]]; then
@@ -16,11 +16,11 @@ fi
 
 mkdir -p "${__tmp_directory}"
 
-if [[ ! -d  "${__tmp_directory}/ansible-playbook-usersetup"  ]]; then
-    git clone --depth 1 --single-branch "${__git_setup_repo}" "${__tmp_directory}/ansible-playbook-usersetup"
-    cd "${__tmp_directory}/ansible-playbook-usersetup"
+if [[ ! -d  "${__tmp_directory}"  ]]; then
+    git clone --depth 1 --single-branch "${__git_setup_repo}" "${__tmp_directory}"
+    cd "${__tmp_directory}"
 else
-    cd "${__tmp_directory}/ansible-playbook-usersetup"
+    cd "${__tmp_directory}"
     git pull
 fi
 
