@@ -18,10 +18,10 @@ mkdir -p "${__tmp_directory}"
 
 if [[ ! -d  "${__tmp_directory}/ansible-playbook-usersetup"  ]]; then
     git clone --depth 1 --single-branch "${__git_setup_repo}" "${__tmp_directory}/ansible-playbook-usersetup"
+    cd "${__tmp_directory}/ansible-playbook-usersetup"
 else
-    git --git-dir="${__tmp_directory}/ansible-playbook-usersetup" --work-tree="${__tmp_directory}/ansible-playbook-usersetup" pull
+    cd "${__tmp_directory}/ansible-playbook-usersetup"
+    git pull
 fi
-
-cd "${__tmp_directory}/ansible-playbook-usersetup"
 
 ./run.sh
