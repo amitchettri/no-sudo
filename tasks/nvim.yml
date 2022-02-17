@@ -82,21 +82,39 @@
     name: yarn
     global: yes
     state: latest
+  environment:
+    PATH: "{{  pv_ua_nodejs_install_path  }}/bin:{{  ansible_env.PATH  }}"
 
 - name: USERAPPS | NEOVIM | Install vim plug
   when: pv_ua_nvim_plug_updated.changed
-  ansible.builtin.raw: "{{  pv_ua_user_local_dir  }}/bin/nvim --headless +PlugInstall +qa"
+  ansible.builtin.shell: "{{  pv_ua_user_local_dir  }}/bin/nvim --headless +PlugInstall +qa"
+  register: pv_ua_nvim_plug_install_result
   args:
     executable: /bin/bash
+  environment:
+    PATH: "{{  pv_ua_nodejs_install_path  }}/bin:{{  ansible_env.PATH  }}"
+
+- name: USERAPPS | NEOVIM | Install result
+  debug:
+    var: pv_ua_nvim_plug_install_result
 
 - name: USERAPPS | NEOVIM | yarn install
   when: pv_ua_nvim_plug_updated.changed
   community.general.yarn:
     path: "{{  pv_ua_nvim_install_path  }}/plugged/coc.nvim"
     state: latest
+  environment:
+    PATH: "{{  pv_ua_nodejs_install_path  }}/bin:{{  ansible_env.PATH  }}"
 
 - name: USERAPPS | NEOVIM | Install coc-python
   when: pv_ua_nvim_plug_updated.changed
-  ansible.builtin.raw: "{{  pv_ua_user_local_dir  }}/bin/nvim --headless +\"CocInstall coc-python\" +qa"
+  register: pv_ua_nvim_coc_python_install_result
+  ansible.builtin.shell: "{{  pv_ua_user_local_dir  }}/bin/nvim --headless +\"CocInstall coc-python\" +qa"
   args:
     executable: /bin/bash
+  environment:
+    PATH: "{{  pv_ua_nodejs_install_path  }}/bin:{{  ansible_env.PATH  }}"
+
+- name: USERAPPS | NEOVIM | Install coc-python result
+  debug:
+    var: pv_ua_nvim_coc_python_install_result
