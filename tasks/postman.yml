@@ -7,35 +7,52 @@
     path: "{{  pv_ua_postman_install_path  }}"
     state: directory
 
-- name: USERAPPS | Postman | Set tarball download path.
-  set_fact:
-    pv_ua_postman_tarball_download_path: "{{  pv_ua_user_tmp_dir  }}/postman.tar.gz"
-
 - name: USERAPPS | Postman | Set Download URL
   set_fact:
     pv_ua_postman_download_url: "https://dl.pstmn.io/download/latest/linux64"
   when: ansible_facts.architecture == "x86_64"
+
+- name: USERAPPS | Postman | URI Head for file name
+  ansible.builtin.uri:
+    url: "{{  pv_ua_postman_download_url  }}"
+    method: HEAD
+    status_code: 200
+  register: pv_ua_postman_url_head_run
+
+- name: USERAPPS | Postman | filter content_disposition from URI Head
+  set_fact:
+    pv_ua_postman_url_head_content_disposition: "{{  pv_ua_postman_url_head_run.content_disposition  | split('=') }}"
+
+- name: USERAPPS | Postman | filter filename from content_disposition
+  set_fact:
+    pv_ua_postman_url_head_filename: "{{  pv_ua_postman_url_head_content_disposition[1] }}"
+
+- name: USERAPPS | Postman | Set tarball download path.
+  set_fact:
+    pv_ua_postman_tarball_download_path: "{{  pv_ua_user_tmp_dir  }}/{{  pv_ua_postman_url_head_filename  }}"
 
 - name: USERAPPS | Postman | Get downloaded file stat
   stat:
     path: "{{  pv_ua_postman_tarball_download_path  }}"
   register: pv_ua_postman_tmp_downloaded_file_stat
 
-- name: USERAPPS | Postman | Download tarball
-  ansible.builtin.get_url:
-    url: "{{  pv_ua_postman_download_url  }}"
-    dest: "{{  pv_ua_postman_tarball_download_path  }}"
+- name: USERAPPS | Postman | New download
   when: not pv_ua_postman_tmp_downloaded_file_stat.stat.exists
+  block:
+    - name: USERAPPS | Postman | Download tarball
+      ansible.builtin.get_url:
+        url: "{{  pv_ua_postman_download_url  }}"
+        dest: "{{  pv_ua_postman_tarball_download_path  }}"
 
-- name: USERAPPS | Postman | Unarchive the tarball
-  ansible.builtin.unarchive:
-    src: "{{  pv_ua_postman_tarball_download_path  }}"
-    dest: "{{  pv_ua_postman_install_path  }}"
-    extra_opts: [--strip-components=1]
-    remote_src: true
+    - name: USERAPPS | Postman | Unarchive the tarball
+      ansible.builtin.unarchive:
+        src: "{{  pv_ua_postman_tarball_download_path  }}"
+        dest: "{{  pv_ua_postman_install_path  }}"
+        extra_opts: [--strip-components=1]
+        remote_src: true
 
-- name: USERAPPS | Postman | Create desktop icon
-  ansible.builtin.template:
-    src: templates/postman-userapps.desktop.j2
-    dest: "{{  pv_ua_user_share_dir  }}/applications/postman-userapps.desktop"
-    mode: '0600'
+    - name: USERAPPS | Postman | Create desktop icon
+      ansible.builtin.template:
+        src: templates/postman-userapps.desktop.j2
+        dest: "{{  pv_ua_user_share_dir  }}/applications/postman-userapps.desktop"
+        mode: '0600'
