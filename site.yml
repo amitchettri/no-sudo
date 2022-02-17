@@ -9,6 +9,8 @@
         hostname: 'user_host'
         ansible_host: '192.168.175.128'
         ansible_ssh_user: user1
+      tags: always
+      changed_when: false
 
 - name: Master
   hosts: user_host
@@ -63,6 +65,7 @@
         - "{{  pv_ua_user_tmp_dir  }}"
         - "{{  pv_ua_user_share_dir  }}/konsole"
         - "{{  pv_ua_user_share_dir  }}/icons/Nordic-cursors"
+        - "{{  pv_ua_user_share_dir  }}/fonts"
 
     - name: USERAPPS | Install Terminal Themes
       import_tasks: tasks/terminal_themes.yml
@@ -127,3 +130,9 @@
       tags:
         - never
         - dotfiles
+
+    - name: fonts
+      import_tasks: tasks/fonts.yml
+      tags:
+        - never
+        - fonts
