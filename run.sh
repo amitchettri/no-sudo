@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-if [[ -n "${VIRTUAL_ENV}" ]]; then
-    echo "Virtual env detected!!!! Error"
-    exit 1
-fi
-
 if [[ $(id -u) -eq 0 ]]; then
     echo "Root user detected!!!! Error"
     exit 1
@@ -123,22 +118,26 @@ fi
 __ansible_tags_tmp=$(printf ",%s" "${__install_tags[@]}")
 __ansible_tags=${__ansible_tags_tmp:1}
 
-export PATH="${HOME}/.local/bin:${PATH}"
-
-echo "Updating Python packages"
-"$(readlink -f "$(which python3)")" -m pip install wheel setuptools pip virtualenv --user --upgrade
-echo "Pip Packages installed"
-
-if [[ ! -d  "${PWD}/venv"  ]]; then
-    virtualenv venv
+if [[ -z "${VIRTUAL_ENV}" ]]; then
+    export PATH="${HOME}/.local/bin:${PATH}"
+    echo "Updating Python packages"
+    "$(readlink -f "$(which python3)")" -m pip install wheel setuptools pip virtualenv --user --upgrade
+    echo "Pip Packages installed"
+    if [[ ! -d  "${PWD}/venv"  ]]; then
+        virtualenv venv
+    fi
+    source venv/bin/activate
 fi
 
-source venv/bin/activate
+echo ""
+echo ""
+echo ""
+echo "Virtual Env :: ${VIRTUAL_ENV}"
+echo "Working dir :: ${PWD}"
+echo ""
+echo ""
+echo ""
 
 pip install -r requirements.txt --upgrade
 
-echo "Virtual Env :: ${VIRTUAL_ENV}"
-echo "Working dir :: ${PWD}"
-
 ansible-playbook site.yml --tags "${__ansible_tags}"
-
