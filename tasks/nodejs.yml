@@ -27,7 +27,7 @@
 
 - name: USERAPPS | NodeJS | New Download
   when: not pv_ua_nodejs_downloaded_file_stat.stat.exists
-
+  block:
     - name: USERAPPS | NodeJS | Download tarball
       ansible.builtin.get_url:
         url: "{{  pv_ua_nodejs_download_url  }}"

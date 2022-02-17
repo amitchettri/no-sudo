@@ -24,6 +24,7 @@
 
 - name: USERAPPS | JQ | Newly Downloaded
   when: not pv_ua_jq_tmp_downloaded_file_stat.stat.exists
+  block:
     - name: USERAPPS | JQ | Download bin
       ansible.builtin.get_url:
         url: "{{  pv_ua_jq_download_url  }}"

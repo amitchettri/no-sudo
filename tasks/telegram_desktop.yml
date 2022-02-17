@@ -37,7 +37,7 @@
 
 - name: USERAPPS | Telegram Desktop | New Download
   when: not pv_ua_td_tmp_downloaded_file_stat.stat.exists
-
+  block:
     - name: USERAPPS | Telegram Desktop | Download tarball
       ansible.builtin.get_url:
         url: "{{  pv_ua_td_download_url  }}"

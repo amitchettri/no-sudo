@@ -37,7 +37,7 @@
 
 - name: USERAPPS | Mattermost Desktop | Newly Downloaded
   when: not pv_ua_mm_archive_stat.stat.exists
-
+  block:
     - name: USERAPPS | Mattermost Desktop | Download in tmp path
       ansible.builtin.get_url:
         url: "{{  pv_ua_mm_asset_to_download_release.browser_download_url  }}"

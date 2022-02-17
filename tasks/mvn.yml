@@ -30,7 +30,7 @@
 
 - name: USERAPPS | Apache Maven | Newly Downloaded
   when: not pv_ua_mvn_downloaded_file_stat.stat.exists
-
+  block:
     - name: USERAPPS | Apache Maven | Download tarball
       ansible.builtin.get_url:
         url: "{{  pv_ua_mvn_download_url  }}"

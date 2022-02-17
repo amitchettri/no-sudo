@@ -25,6 +25,7 @@
 
 - name: USERAPPS | Bitwarden CLI | Newly download
   when: not pv_ua_bw_cli_archive_stat.stat.exists
+  block:
     - name: USERAPPS | Bitwarden CLI | Download in tmp path
       ansible.builtin.get_url:
         url: "{{  pv_ua_bw_cli_latest_gh_release.browser_download_url  }}"
