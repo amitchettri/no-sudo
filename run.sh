@@ -131,10 +131,9 @@ echo "Pip Packages installed"
 
 if [[ ! -d  "${PWD}/venv"  ]]; then
     virtualenv venv
-    source venv/bin/activate
-else
-    source venv/bin/activate
 fi
+
+source venv/bin/activate
 
 pip install -r requirements.txt --upgrade
 
