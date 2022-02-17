@@ -36,23 +36,6 @@ save:
         entries:
             - dolphin
             - konsole
-    share_folder:
-        location: "$SHARE_DIR"
-        entries:
-            - plasma
-            - kwin
-            - konsole
-            - fonts
-            - color-schemes
-            - aurorae
-            - icons
-            - wallpapers
-    home_folder:
-        location: "$HOME/"
-        entries:
-            - .fonts
-            - .themes
-            - .icons
 export:
     configs:
         location: "$CONFIG_DIR"
@@ -90,21 +73,4 @@ export:
         entries:
             - dolphin
             - konsole
-    share_folder:
-        location: "$SHARE_DIR"
-        entries:
-            - plasma
-            - kwin
-            - konsole
-            - fonts
-            - color-schemes
-            - aurorae
-            - icons
-            - wallpapers
-    home_folder:
-        location: "$HOME/"
-        entries:
-            - .fonts
-            - .themes
-            - .icons
 ...
