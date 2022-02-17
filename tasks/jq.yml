@@ -22,15 +22,16 @@
     path: "{{  pv_ua_jq_download_path  }}"
   register: pv_ua_jq_tmp_downloaded_file_stat
 
-- name: USERAPPS | JQ | Download bin
-  ansible.builtin.get_url:
-    url: "{{  pv_ua_jq_download_url  }}"
-    dest: "{{  pv_ua_jq_download_path  }}"
+- name: USERAPPS | JQ | Newly Downloaded
   when: not pv_ua_jq_tmp_downloaded_file_stat.stat.exists
+    - name: USERAPPS | JQ | Download bin
+      ansible.builtin.get_url:
+        url: "{{  pv_ua_jq_download_url  }}"
+        dest: "{{  pv_ua_jq_download_path  }}"
 
-- name: USERAPPS | JQ | Copy to local bin
-  ansible.builtin.copy:
-    src: "{{  pv_ua_jq_download_path  }}"
-    dest: "{{  pv_ua_user_bin_dir  }}/jq"
-    remote_src: yes
-    mode: '0755'
+    - name: USERAPPS | JQ | Copy to local bin
+      ansible.builtin.copy:
+        src: "{{  pv_ua_jq_download_path  }}"
+        dest: "{{  pv_ua_user_bin_dir  }}/jq"
+        remote_src: yes
+        mode: '0755'

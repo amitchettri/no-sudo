@@ -25,15 +25,17 @@
     path: "{{  pv_ua_golang_tarball_download_path  }}"
   register: pv_ua_golang_downloaded_file_stat
 
-- name: USERAPPS | Golang | Download tarball
-  ansible.builtin.get_url:
-    url: "{{  pv_ua_golang_download_url  }}"
-    dest: "{{  pv_ua_golang_tarball_download_path  }}"
+- name: USERAPPS | Golang | Newly downloaded
   when: not pv_ua_golang_downloaded_file_stat.stat.exists
 
-- name: USERAPPS | Golang | Unarchive the tarball
-  ansible.builtin.unarchive:
-    src: "{{  pv_ua_golang_tarball_download_path  }}"
-    dest: "{{  pv_ua_golang_install_path  }}"
-    extra_opts: [--strip-components=1]
-    remote_src: true
+    - name: USERAPPS | Golang | Download tarball
+      ansible.builtin.get_url:
+        url: "{{  pv_ua_golang_download_url  }}"
+        dest: "{{  pv_ua_golang_tarball_download_path  }}"
+
+    - name: USERAPPS | Golang | Unarchive the tarball
+      ansible.builtin.unarchive:
+        src: "{{  pv_ua_golang_tarball_download_path  }}"
+        dest: "{{  pv_ua_golang_install_path  }}"
+        extra_opts: [--strip-components=1]
+        remote_src: true

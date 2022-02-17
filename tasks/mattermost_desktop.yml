@@ -35,22 +35,24 @@
     path: "{{  pv_ua_bw_mm_archive_download_path  }}"
   register: pv_ua_mm_archive_stat
 
-- name: USERAPPS | Mattermost Desktop | Download in tmp path
-  ansible.builtin.get_url:
-    url: "{{  pv_ua_mm_asset_to_download_release.browser_download_url  }}"
-    dest: "{{  pv_ua_bw_mm_archive_download_path  }}"
+- name: USERAPPS | Mattermost Desktop | Newly Downloaded
   when: not pv_ua_mm_archive_stat.stat.exists
 
-- name: USERAPPS | Mattermost Desktop | Unarchive the tar ball
-  ansible.builtin.unarchive:
-    src: "{{  pv_ua_bw_mm_archive_download_path  }}"
-    dest: "{{  pv_ua_mm_install_path  }}"
-    extra_opts: [--strip-components=1]
-    mode: '0750'
-    remote_src: true
+    - name: USERAPPS | Mattermost Desktop | Download in tmp path
+      ansible.builtin.get_url:
+        url: "{{  pv_ua_mm_asset_to_download_release.browser_download_url  }}"
+        dest: "{{  pv_ua_bw_mm_archive_download_path  }}"
 
-- name: USERAPPS | Mattermost Desktop | Create desktop icon
-  ansible.builtin.template:
-    src: templates/mattermost-desktop-userapps.desktop.j2
-    dest: "{{  pv_ua_user_share_dir  }}/applications/mattermost-desktop-userapps.desktop"
-    mode: '0600'
+    - name: USERAPPS | Mattermost Desktop | Unarchive the tar ball
+      ansible.builtin.unarchive:
+        src: "{{  pv_ua_bw_mm_archive_download_path  }}"
+        dest: "{{  pv_ua_mm_install_path  }}"
+        extra_opts: [--strip-components=1]
+        mode: '0750'
+        remote_src: true
+
+    - name: USERAPPS | Mattermost Desktop | Create desktop icon
+      ansible.builtin.template:
+        src: templates/mattermost-desktop-userapps.desktop.j2
+        dest: "{{  pv_ua_user_share_dir  }}/applications/mattermost-desktop-userapps.desktop"
+        mode: '0600'
