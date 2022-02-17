@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-__tmp_directory="${HOME}/.tmp/no-sudo"
+__clone_directory="${HOME}/.tmp/no-sudo"
 __git_setup_repo='https://github.com/arpanrec/no-sudo.git'
 
 if [[ $(id -u) -eq 0 ]]; then
@@ -14,14 +14,14 @@ if ! hash git &>/dev/null ; then
     exit 1
 fi
 
-mkdir -p "${__tmp_directory}"
+mkdir -p $(dirname "${__clone_directory}")
 
-if [[ ! -d  "${__tmp_directory}"  ]]; then
-    git clone --depth 1 --single-branch "${__git_setup_repo}" "${__tmp_directory}"
-    cd "${__tmp_directory}"
+if [[ ! -d "${__clone_directory}"  ]]; then
+    git clone --depth 1 --single-branch "${__git_setup_repo}" "${__clone_directory}"
+    cd "${__clone_directory}"
 else
-    cd "${__tmp_directory}"
+    cd "${__clone_directory}"
     git pull
 fi
 
-./run.sh
+./run.sh $@
