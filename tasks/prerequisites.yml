@@ -1,0 +1,49 @@
+- name: USERAPPS | Prerequisites | Find User Home Directory
+  set_fact:
+    pv_ua_user_home_dir: "{{  ansible_facts.user_dir  }}"
+  tags: always
+
+- name: USERAPPS | Prerequisites | Find User Config Directory
+  tags: always
+  set_fact:
+    pv_ua_user_config_dir: "{{  pv_ua_user_home_dir  }}/.config"
+
+- name: USERAPPS | Prerequisites | Find User local Directory
+  tags: always
+  set_fact:
+    pv_ua_user_local_dir: "{{  pv_ua_user_home_dir  }}/.local"
+
+- name: USERAPPS | Prerequisites | Find User bin Directory
+  tags: always
+  set_fact:
+    pv_ua_user_bin_dir: "{{  pv_ua_user_local_dir  }}/bin"
+
+- name: USERAPPS | Prerequisites | Find User Share Directory
+  tags: always
+  set_fact:
+    pv_ua_user_share_dir: "{{  pv_ua_user_local_dir  }}/share"
+
+- name: USERAPPS | Prerequisites | Find User temp Directory
+  tags: always
+  set_fact:
+    pv_ua_user_tmp_dir: "{{  pv_ua_user_home_dir  }}/.tmp/userapps"
+
+- name: USERAPPS | Prerequisites | Create a directory if it does not exist
+  tags: always
+  ansible.builtin.file:
+    path: "{{  item  }}"
+    state: directory
+  with_items:
+    - "{{  pv_ua_user_share_dir  }}/applications"
+    - "{{  pv_ua_user_bin_dir  }}"
+    - "{{  pv_ua_user_share_dir  }}/themes"
+    - "{{  pv_ua_user_share_dir  }}/plasma/desktoptheme"
+    - "{{  pv_ua_user_share_dir  }}/aurorae/themes"
+    - "{{  pv_ua_user_share_dir  }}/color-schemes"
+    - "{{  pv_ua_user_share_dir  }}/plasma/look-and-feel"
+    - "{{  pv_ua_user_config_dir  }}/Kvantum"
+    - "{{  pv_ua_user_config_dir  }}/konsave/profiles"
+    - "{{  pv_ua_user_tmp_dir  }}"
+    - "{{  pv_ua_user_share_dir  }}/konsole"
+    - "{{  pv_ua_user_share_dir  }}/icons/Nordic-cursors"
+    - "{{  pv_ua_user_share_dir  }}/fonts"
