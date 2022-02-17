@@ -6,7 +6,7 @@ if [[ -n "${VIRTUAL_ENV}" ]]; then
     exit 1
 fi
 
-export PATH="${HOME}/.local/share/node/bin:${HOME}/.local/bin:${PATH}"
+export PATH="${HOME}/.local/bin:${PATH}"
 
 echo "Updating Python packages"
 $(readlink -f $(which python3)) -m pip install wheel setuptools pip virtualenv jedi --user --upgrade
@@ -21,17 +21,13 @@ if ! hash "${prog}" &>/dev/null ; then
 fi
 done
 
-echo "Updating Python packages"
-$(readlink -f $(which python3)) -m pip install wheel setuptools pip virtualenv jedi --user --upgrade
-echo "Pip Packages installed"
-
 if [[ ! -d  "${PWD}/venv"  ]]; then
     virtualenv venv
     source venv/bin/activate
-    pip install -r requirements.txt
+    pip install -r requirements.txt --upgrade
 else
     source venv/bin/activate
-    pip install -r requirements.txt
+    pip install -r requirements.txt --upgrade
 fi
 
 ansible-playbook site.yml
