@@ -183,3 +183,8 @@
         src: "{{  pv_ua_user_share_dir  }}/themes/Sweet-mars/kde/konsole/"
         dest: "{{  pv_ua_user_share_dir  }}/konsole/"
         remote_src: true
+
+- name: KDE | Copy Konsave Profiles
+  ansible.builtin.copy:
+    src: "files/konsave_profiles"
+    dest: "{{  pv_ua_user_config_dir  }}/konsave/profiles"
