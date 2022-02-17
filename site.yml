@@ -1,6 +1,17 @@
 ---
-- name: Master
+- name: addhost
   hosts: localhost
+  become: false
+  gather_facts: true
+  tasks:
+    - name: addhost
+      add_host:
+        hostname: 'user_host'
+        ansible_host: '192.168.175.128'
+        ansible_ssh_user: user1
+
+- name: Master
+  hosts: user_host
   become: false
   gather_facts: true
   tasks:

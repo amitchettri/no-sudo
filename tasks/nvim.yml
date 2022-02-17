@@ -55,17 +55,26 @@
 
 - name: USERAPPS | NEOVIM | Set plug directory
   set_fact:
-    pv_ua_nvim_plug_path: "{{  pv_ua_nvim_install_path  }}/site/autoload"
+    pv_ua_nvim_autoload_dir: "{{  pv_ua_nvim_install_path  }}/site/autoload"
+    pv_ua_nvim_config_dir: "{{  pv_ua_user_config_dir  }}/nvim"
 
 - name: USERAPPS | NEOVIM | Create plug directory
   ansible.builtin.file:
-    path: "{{  pv_ua_nvim_plug_path  }}"
+    path: "{{  item  }}"
     state: directory
+  with_items:
+    - "{{  pv_ua_nvim_autoload_dir  }}"
+    - "{{  pv_ua_nvim_config_dir  }}"
+
+- name: USERAPPS | NEOVIM | Copy config
+  copy:
+    src: "files/init.vim"
+    dest: "{{  pv_ua_nvim_config_dir  }}/init.vim"
 
 - name: USERAPPS | NEOVIM | Download vim-plug
   ansible.builtin.get_url:
     url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-    dest: "{{  pv_ua_nvim_plug_path  }}/plug.vim"
+    dest: "{{  pv_ua_nvim_autoload_dir  }}/plug.vim"
   register: pv_ua_nvim_plug_updated
 
 - name: USERAPPS | NEOVIM | Install yarn
