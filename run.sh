@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-echo "${PWD}"
-
-exit 0
-
 if [[ -n "${VIRTUAL_ENV}" ]]; then
     echo "Virtual env detected!!!! Error"
     exit 1
