@@ -48,7 +48,7 @@
         - "{{  pv_ua_user_share_dir  }}/color-schemes"
         - "{{  pv_ua_user_share_dir  }}/plasma/look-and-feel"
         - "{{  pv_ua_user_config_dir  }}/Kvantum"
-        - "{{  pv_ua_user_config_dir  }}/konsave"
+        - "{{  pv_ua_user_config_dir  }}/konsave/profiles"
         - "{{  pv_ua_user_tmp_dir  }}"
         - "{{  pv_ua_user_share_dir  }}/konsole"
         - "{{  pv_ua_user_share_dir  }}/icons/Nordic-cursors"
