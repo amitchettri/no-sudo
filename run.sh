@@ -25,17 +25,13 @@ echo "Updating Python packages"
 $(readlink -f $(which python3)) -m pip install wheel setuptools pip virtualenv jedi --user --upgrade
 echo "Pip Packages installed"
 
-mkdir -p "${__tmp_directory}"
-
-if [[ ! -d  "${__tmp_directory}/ansible-playbook-usersetup"  ]]; then
-    git clone --depth 1 --single-branch "${__git_setup_repo}" "${__tmp_directory}/ansible-playbook-usersetup"
-    cd "${__tmp_directory}/ansible-playbook-usersetup"
+if [[ ! -d  "${PWD}/venv"  ]]; then
     virtualenv venv
+    source venv/bin/activate
     pip install -r requirements.txt
 else
-    cd "${__tmp_directory}/ansible-playbook-usersetup"
-    git pull
+    source venv/bin/activate
+    pip install -r requirements.txt
 fi
 
-source venv/bin/activate
 ansible-playbook site.yml
