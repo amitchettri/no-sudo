@@ -6,7 +6,7 @@ if [[ $(id -u) -eq 0 ]]; then
     exit 1
 fi
 
-if [[ -z "$@" ]]; then
+if [[ -z "$*" ]]; then
 
     __install_tags=()
 
