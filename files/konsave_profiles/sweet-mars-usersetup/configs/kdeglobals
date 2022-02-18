@@ -98,10 +98,32 @@ BrowserApplication=google-chrome.desktop
 ColorScheme=Sweet-Mars
 ColorSchemeHash=a935e515e29025e6636b957f51c3dda99b47f986
 
+[Icons]
+Theme=BeautyLine-V3
+
 [KDE]
 LookAndFeelPackage=Sweet-Mars
 SingleClick=false
 widgetStyle=kvantum
+
+[KFileDialog Settings]
+Allow Expansion=false
+Automatically select filename extension=true
+Breadcrumb Navigation=true
+Decoration position=2
+LocationCombo Completionmode=5
+PathCombo Completionmode=5
+Show Bookmarks=false
+Show Full Path=false
+Show Inline Previews=true
+Show Preview=false
+Show Speedbar=true
+Show hidden files=false
+Sort by=Name
+Sort directories first=true
+Sort reversed=false
+Speedbar Width=138
+View Style=DetailTree
 
 [WM]
 activeBackground=47,52,63

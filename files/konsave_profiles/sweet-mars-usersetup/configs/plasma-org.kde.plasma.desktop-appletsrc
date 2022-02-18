@@ -18,26 +18,10 @@ plugin=org.kde.panel
 wallpaperplugin=org.kde.image
 
 [Containments][2][Applets][19][Configuration]
-PreloadWeight=42
+PreloadWeight=34
 
 [Containments][2][Applets][20][Configuration]
-PreloadWeight=42
-
-[Containments][2][Applets][3]
-immutability=1
-plugin=org.kde.plasma.kickoff
-
-[Containments][2][Applets][3][Configuration]
-PreloadWeight=92
-
-[Containments][2][Applets][3][Configuration][General]
-favoritesPortedToKAstats=true
-
-[Containments][2][Applets][3][Configuration][Shortcuts]
-global=Alt+F1
-
-[Containments][2][Applets][3][Shortcuts]
-global=Alt+F1
+PreloadWeight=34
 
 [Containments][2][Applets][4][Configuration]
 PreloadWeight=42
@@ -57,6 +41,22 @@ DialogWidth=720
 groupingStrategy=0
 launchers=
 maxStripes=1
+
+[Containments][2][Applets][49]
+immutability=1
+plugin=org.kde.plasma.kickerdash
+
+[Containments][2][Applets][49][Configuration][ConfigDialog]
+DialogHeight=540
+DialogWidth=720
+
+[Containments][2][Applets][49][Configuration][General]
+customButtonImage=start-here-arch
+favoritesPortedToKAstats=true
+useCustomButtonImage=true
+
+[Containments][2][Applets][49][Shortcuts]
+global=Alt+F1
 
 [Containments][2][Applets][5][Configuration]
 PreloadWeight=42
@@ -79,7 +79,7 @@ DialogWidth=2560
 PreloadWeight=34
 
 [Containments][2][General]
-AppletOrder=3;45;6
+AppletOrder=49;45;6
 
 [Containments][24]
 activityId=
@@ -109,14 +109,21 @@ immutability=1
 plugin=org.kde.plasma.minimizeall
 
 [Containments][24][Applets][27][Configuration]
-PreloadWeight=0
+PreloadWeight=5
+
+[Containments][24][Applets][27][Configuration][ConfigDialog]
+DialogHeight=540
+DialogWidth=720
+
+[Containments][24][Applets][27][Shortcuts]
+global=Meta+M
 
 [Containments][24][Applets][28]
 immutability=1
 plugin=org.kde.plasma.systemtray
 
 [Containments][24][Applets][28][Configuration]
-PreloadWeight=0
+PreloadWeight=5
 SystrayContainmentId=29
 
 [Containments][24][Applets][43]
@@ -227,7 +234,7 @@ immutability=1
 plugin=org.kde.plasma.bluetooth
 
 [Containments][29][Applets][40][Configuration]
-PreloadWeight=0
+PreloadWeight=5
 
 [Containments][29][Applets][41]
 immutability=1
@@ -250,10 +257,10 @@ PreloadWeight=0
 extraItems=org.kde.plasma.printmanager,org.kde.plasma.keyboardlayout,org.kde.plasma.bluetooth,org.kde.plasma.keyboardindicator,org.kde.plasma.clipboard,org.kde.plasma.battery,org.kde.plasma.nightcolorcontrol,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.devicenotifier,org.kde.plasma.vault,org.kde.plasma.notifications,org.kde.plasma.volume,org.kde.plasma.networkmanagement
 knownItems=org.kde.plasma.printmanager,org.kde.plasma.keyboardlayout,org.kde.plasma.bluetooth,org.kde.plasma.keyboardindicator,org.kde.plasma.clipboard,org.kde.plasma.battery,org.kde.plasma.nightcolorcontrol,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.devicenotifier,org.kde.plasma.vault,org.kde.plasma.notifications,org.kde.plasma.volume,org.kde.plasma.networkmanagement
 
-[Containments][47]
+[Containments][48]
 ItemGeometries-2560x1600=
 ItemGeometriesHorizontal=
-activityId=4268956c-58ad-4c39-bdec-1730552edbab
+activityId=cb4f7fc0-bc30-46dd-b10d-4b9998627abe
 formfactor=0
 immutability=1
 lastScreen=0
@@ -261,55 +268,55 @@ location=0
 plugin=org.kde.plasma.folder
 wallpaperplugin=org.kde.image
 
-[Containments][47][ConfigDialog]
+[Containments][48][ConfigDialog]
 DialogHeight=540
 DialogWidth=720
 
-[Containments][47][Configuration]
+[Containments][48][Configuration]
 PreloadWeight=42
 
-[Containments][47][Wallpaper][org.kde.image][General]
-Image=/usr/share/wallpapers/MilkyWay/
+[Containments][48][Wallpaper][org.kde.image][General]
+Image=file:///usr/share/wallpapers/MilkyWay/contents/images/5120x2880.png
 SlidePaths=/home/user1/.local/share/wallpapers,/usr/share/wallpapers
 
 [Containments][8][Applets][10][Configuration]
-PreloadWeight=42
+PreloadWeight=34
 
 [Containments][8][Applets][11][Configuration]
-PreloadWeight=42
+PreloadWeight=34
 
 [Containments][8][Applets][12][Configuration]
-PreloadWeight=42
+PreloadWeight=34
 
 [Containments][8][Applets][13][Configuration]
-PreloadWeight=42
+PreloadWeight=34
 
 [Containments][8][Applets][14][Configuration]
-PreloadWeight=42
+PreloadWeight=34
 
 [Containments][8][Applets][15][Configuration]
-PreloadWeight=42
+PreloadWeight=34
 
 [Containments][8][Applets][16][Configuration]
-PreloadWeight=42
+PreloadWeight=34
 
 [Containments][8][Applets][17][Configuration]
-PreloadWeight=42
+PreloadWeight=34
 
 [Containments][8][Applets][18][Configuration]
-PreloadWeight=42
+PreloadWeight=34
 
 [Containments][8][Applets][21][Configuration]
-PreloadWeight=42
+PreloadWeight=34
 
 [Containments][8][Applets][22][Configuration]
-PreloadWeight=42
+PreloadWeight=34
 
 [Containments][8][Applets][23][Configuration]
-PreloadWeight=42
+PreloadWeight=34
 
 [Containments][8][Applets][9][Configuration]
-PreloadWeight=42
+PreloadWeight=34
 
 [Containments][8][Configuration]
 PreloadWeight=42

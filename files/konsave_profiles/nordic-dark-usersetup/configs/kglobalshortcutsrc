@@ -2,6 +2,7 @@
 _k_friendly_name=Activity Manager
 switch-to-activity-39125ece-5ea9-4196-bb8e-12291cd455b4=none,none,Switch to activity "Default"
 switch-to-activity-82eb6d8f-98db-4827-ab02-14b1295558aa=none,none,Switch to activity "Default"
+switch-to-activity-cb4f7fc0-bc30-46dd-b10d-4b9998627abe=none,none,Switch to activity "Default"
 
 [KDE Keyboard Layout Switcher]
 Switch to Next Keyboard Layout=Ctrl+Alt+K,none,Switch to Next Keyboard Layout
@@ -239,6 +240,7 @@ activate task manager entry 6=Meta+6,Meta+6,Activate Task Manager Entry 6
 activate task manager entry 7=Meta+7,Meta+7,Activate Task Manager Entry 7
 activate task manager entry 8=Meta+8,Meta+8,Activate Task Manager Entry 8
 activate task manager entry 9=Meta+9,Meta+9,Activate Task Manager Entry 9
+activate widget 27=Meta+M,none,Activate Minimize all Windows Widget
 activate widget 3=Alt+F1,none,Activate Application Launcher Widget
 activate widget 45=none,none,Activate Task Manager Widget
 clear-history=none,,Clear Clipboard History

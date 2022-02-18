@@ -19,7 +19,7 @@ immutability=1
 plugin=org.kde.plasma.kickoff
 
 [Containments][2][Applets][3][Configuration]
-PreloadWeight=92
+PreloadWeight=97
 
 [Containments][2][Applets][3][Configuration][General]
 favoritesPortedToKAstats=true
@@ -46,19 +46,22 @@ groupingStrategy=0
 launchers=
 maxStripes=1
 
+[Containments][2][Applets][49][Configuration]
+PreloadWeight=92
+
 [Containments][2][Applets][6]
 immutability=1
 plugin=org.kde.plasma.marginsseparator
 
 [Containments][2][Applets][6][Configuration]
-PreloadWeight=0
+PreloadWeight=26
 
 [Containments][2][ConfigDialog]
 DialogHeight=50
 DialogWidth=2560
 
 [Containments][2][Configuration]
-PreloadWeight=0
+PreloadWeight=26
 
 [Containments][2][General]
 AppletOrder=3;45;6
@@ -93,12 +96,19 @@ plugin=org.kde.plasma.minimizeall
 [Containments][24][Applets][27][Configuration]
 PreloadWeight=0
 
+[Containments][24][Applets][27][Configuration][ConfigDialog]
+DialogHeight=540
+DialogWidth=720
+
+[Containments][24][Applets][27][Shortcuts]
+global=Meta+M
+
 [Containments][24][Applets][28]
 immutability=1
 plugin=org.kde.plasma.systemtray
 
 [Containments][24][Applets][28][Configuration]
-PreloadWeight=5
+PreloadWeight=0
 SystrayContainmentId=29
 
 [Containments][24][Applets][43]
@@ -232,10 +242,10 @@ PreloadWeight=0
 extraItems=org.kde.plasma.printmanager,org.kde.plasma.keyboardlayout,org.kde.plasma.bluetooth,org.kde.plasma.keyboardindicator,org.kde.plasma.clipboard,org.kde.plasma.battery,org.kde.plasma.nightcolorcontrol,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.devicenotifier,org.kde.plasma.vault,org.kde.plasma.notifications,org.kde.plasma.volume,org.kde.plasma.networkmanagement
 knownItems=org.kde.plasma.printmanager,org.kde.plasma.keyboardlayout,org.kde.plasma.bluetooth,org.kde.plasma.keyboardindicator,org.kde.plasma.clipboard,org.kde.plasma.battery,org.kde.plasma.nightcolorcontrol,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.devicenotifier,org.kde.plasma.vault,org.kde.plasma.notifications,org.kde.plasma.volume,org.kde.plasma.networkmanagement
 
-[Containments][46]
+[Containments][47]
 ItemGeometries-2560x1600=
 ItemGeometriesHorizontal=
-activityId=82eb6d8f-98db-4827-ab02-14b1295558aa
+activityId=cb4f7fc0-bc30-46dd-b10d-4b9998627abe
 formfactor=0
 immutability=1
 lastScreen=0
@@ -243,16 +253,8 @@ location=0
 plugin=org.kde.plasma.folder
 wallpaperplugin=org.kde.image
 
-[Containments][46][ConfigDialog]
-DialogHeight=540
-DialogWidth=720
-
-[Containments][46][Configuration]
-PreloadWeight=0
-
-[Containments][46][Wallpaper][org.kde.image][General]
-Image=file:///usr/share/wallpapers/DarkestHour/contents/images/2560x1600.jpg
-SlidePaths=/home/user1/.local/share/wallpapers,/usr/share/wallpapers
+[Containments][48][Configuration]
+PreloadWeight=34
 
 [ScreenMapping]
 itemsOnDisabledScreens=
