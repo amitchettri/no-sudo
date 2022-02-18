@@ -101,12 +101,28 @@
         # creates: "{{  pv_ua_user_share_dir  }}/icons/Tela"
 
 - name: KDE | Icon | EliverLara Candy
-  ansible.builtin.git:
-    single_branch: true
-    repo: "https://github.com/EliverLara/candy-icons.git"
-    dest: "{{  pv_ua_user_share_dir  }}/icons/candy-icons"
-    depth: 1
-    separate_git_dir: "{{  pv_ua_user_tmp_dir  }}/EliverLara-candy-icons-git-bare"
+  block:
+    - name: KDE | Icon | EliverLara Candy | Git clone
+      ansible.builtin.git:
+        single_branch: true
+        repo: "https://github.com/EliverLara/candy-icons.git"
+        dest: "{{  pv_ua_user_tmp_dir  }}/EliverLara-candy-icons-git/"
+        depth: 1
+      register: pv_kde_tmp_eliverLara_candy_icon_updated
+
+    - name: KDE | Icon | EliverLara Candy | Copy Resources
+      when: pv_kde_tmp_eliverLara_candy_icon_updated.changed
+      block:
+        - name: KDE | Icon | EliverLara Candy | Copy Resources | Copy icons
+          ansible.builtin.copy:
+            src: "{{  pv_ua_user_tmp_dir  }}/EliverLara-candy-icons-git/"
+            dest: "{{  pv_ua_user_share_dir  }}/icons/candy-icons/"
+            remote_src: true
+
+        - name: KDE | Icon | EliverLara Candy | Copy Resources | Delete git tracker from gtk directory
+          ansible.builtin.file:
+            path: "{{  pv_ua_user_share_dir  }}/icons/candy-icons//.git"
+            state: absent
 
 - name: KDE | Theme | vinceliuice Layan-kde
   block:
@@ -187,7 +203,6 @@
     - name: KDE | Theme | EliverLara Sweet Mars | Copy Resources
       when: pv_kde_tmp_eliverLara_Sweet_mars_updated.changed
       block:
-
         - name: KDE | Theme | EliverLara Sweet Mars | Copy Resources | gtk themes
           ansible.builtin.copy:
             src: "{{  pv_ua_user_tmp_dir  }}/EliverLara-Sweet-mars-git/"
