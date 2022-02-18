@@ -3,6 +3,13 @@
   hosts: localhost
   become: false
   gather_facts: true
+  vars:
+    pv_ua_user_home_dir: "{{  ansible_facts.user_dir  }}"
+    pv_ua_user_config_dir: "{{  pv_ua_user_home_dir  }}/.config"
+    pv_ua_user_local_dir: "{{  pv_ua_user_home_dir  }}/.local"
+    pv_ua_user_bin_dir: "{{  pv_ua_user_local_dir  }}/bin"
+    pv_ua_user_share_dir: "{{  pv_ua_user_local_dir  }}/share"
+    pv_ua_user_tmp_dir: "{{  pv_ua_user_home_dir  }}/.tmp"
   tasks:
 
     - name: prerequisites
