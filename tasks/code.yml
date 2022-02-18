@@ -78,3 +78,6 @@
         src: templates/code-url-handler-userapps.desktop.j2
         dest: "{{  pv_ua_user_share_dir  }}/applications/code-url-handler-userapps.desktop"
         mode: '0600'
+
+- name: USERAPPS | Visual Studio Code | Install Extensions
+  import_tasks: tasks/code-extensions.yml
