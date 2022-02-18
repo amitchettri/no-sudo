@@ -99,23 +99,6 @@
       args:
         executable: /bin/bash
 
-- name: USERAPPS | Cursors | vinceliuice Layan-cursors
-  block:
-    - name: USERAPPS | Cursors | vinceliuice Layan-cursors | Git Clone
-      ansible.builtin.git:
-        single_branch: true
-        repo: "https://github.com/vinceliuice/Layan-cursors.git"
-        dest: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-cursors"
-        depth: 1
-      register: pv_kde_tmp_layan_cursors_updated
-
-    - name: USERAPPS | Cursors | vinceliuice Layan-cursors | Install
-      ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-cursors/install.sh"
-      when: pv_kde_tmp_layan_cursors_updated.changed
-      args:
-        executable: /bin/bash
-        chdir: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-cursors"
-
 - name: USERAPPS | Theme | vinceliuice Layan-gtk-theme
   block:
     - name: USERAPPS | Theme | vinceliuice Layan-gtk-theme | Git Clone
