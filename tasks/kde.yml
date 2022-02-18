@@ -83,9 +83,9 @@
             path: "{{  pv_ua_user_share_dir  }}/plasma/desktoptheme/Nordic/.git"
             state: absent
 
-- name: KDE | Download | Icon | vinceliuice Tela
+- name: KDE | Icon | vinceliuice Tela
   block:
-    - name: KDE | Download | Icon | vinceliuice Tela | Git Clone
+    - name: KDE | Icon | vinceliuice Tela | Git Clone
       ansible.builtin.git:
         single_branch: true
         repo: "https://github.com/vinceliuice/Tela-icon-theme.git"
@@ -93,14 +93,14 @@
         depth: 1
       register: pv_kde_tmp_tela_icon_updated
 
-    - name: KDE | Download | Icon | vinceliuice Tela | Install
+    - name: KDE | Icon | vinceliuice Tela | Install
       when: pv_kde_tmp_tela_icon_updated.changed
       ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Tela-icon-theme/install.sh -a"
       args:
         executable: /bin/bash
         # creates: "{{  pv_ua_user_share_dir  }}/icons/Tela"
 
-- name: KDE | Download | Icon | EliverLara Candy
+- name: KDE | Icon | EliverLara Candy
   ansible.builtin.git:
     single_branch: true
     repo: "https://github.com/EliverLara/candy-icons.git"
@@ -108,9 +108,9 @@
     depth: 1
     separate_git_dir: "{{  pv_ua_user_tmp_dir  }}/EliverLara-candy-icons-git-bare"
 
-- name: KDE | Download | Theme | vinceliuice Layan-kde
+- name: KDE | Theme | vinceliuice Layan-kde
   block:
-    - name: KDE | Download | Theme | vinceliuice Layan-kde | Git Clone
+    - name: KDE | Theme | vinceliuice Layan-kde | Git Clone
       ansible.builtin.git:
         single_branch: true
         repo: "https://github.com/vinceliuice/Layan-kde.git"
@@ -118,15 +118,15 @@
         depth: 1
       register: pv_kde_tmp_layan_kde_theme_updated
 
-    - name: KDE | Download | Theme | vinceliuice Layan-kde | Install
+    - name: KDE | Theme | vinceliuice Layan-kde | Install
       ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-kde/install.sh"
       when: pv_kde_tmp_layan_kde_theme_updated.changed
       args:
         executable: /bin/bash
 
-- name: KDE | Download | Cursors | vinceliuice Layan-cursors
+- name: KDE | Cursors | vinceliuice Layan-cursors
   block:
-    - name: KDE | Download | Cursors | vinceliuice Layan-cursors | Git Clone
+    - name: KDE | Cursors | vinceliuice Layan-cursors | Git Clone
       ansible.builtin.git:
         single_branch: true
         repo: "https://github.com/vinceliuice/Layan-cursors.git"
@@ -134,16 +134,16 @@
         depth: 1
       register: pv_kde_tmp_layan_cursors_updated
 
-    - name: KDE | Download | Cursors | vinceliuice Layan-cursors | Install
+    - name: KDE | Cursors | vinceliuice Layan-cursors | Install
       ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-cursors/install.sh"
       when: pv_kde_tmp_layan_cursors_updated.changed
       args:
         executable: /bin/bash
         chdir: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-cursors"
 
-- name: KDE | Download | Theme | vinceliuice Layan-gtk-theme
+- name: KDE | Theme | vinceliuice Layan-gtk-theme
   block:
-    - name: KDE | Download | Theme | vinceliuice Layan-gtk-theme | Git Clone
+    - name: KDE | Theme | vinceliuice Layan-gtk-theme | Git Clone
       ansible.builtin.git:
         single_branch: true
         repo: "https://github.com/vinceliuice/Layan-gtk-theme.git"
@@ -151,7 +151,7 @@
         depth: 1
       register: pv_kde_tmp_layan_gtk_theme_updated
 
-    - name: KDE | Download | Theme | vinceliuice Layan-gtk-theme | Install
+    - name: KDE | Theme | vinceliuice Layan-gtk-theme | Install
       ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-gtk-theme/install.sh"
       when: pv_kde_tmp_layan_gtk_theme_updated.changed
       args:
