@@ -41,6 +41,7 @@
       - "vscjava.vscode-spring-boot-dashboard"
       - "vscjava.vscode-spring-initializr"
       - "streetsidesoftware.code-spell-checker"
+      - "dhruv.maven-dependency-explorer"
 
 - name: USERAPPS | Visual Studio Code | Extensions | get currently installed
   ansible.builtin.shell: code --list-extensions
