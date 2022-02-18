@@ -50,21 +50,6 @@
         extra_opts: [--strip-components=1]
         remote_src: true
 
-    - name: USERAPPS | Telegram Desktop | Set icon download path.
-      set_fact:
-        pv_ua_td_icon_download_path: "{{  pv_ua_td_install_path  }}/Telegram-Icon-{{  pv_ua_td_version_number  }}.png"
-
-    - name: USERAPPS | Telegram Desktop | Get downloaded icon stat
-      stat:
-        path: "{{  pv_ua_td_icon_download_path  }}"
-      register: pv_ua_td_downloaded_icon_file_stat
-
-    - name: USERAPPS | Telegram Desktop | Download Icon file
-      ansible.builtin.get_url:
-        url: 'https://avatars.githubusercontent.com/u/6113871?s=200&v=4'
-        dest: "{{  pv_ua_td_icon_download_path  }}"
-      when: not pv_ua_td_downloaded_icon_file_stat.stat.exists
-
     - name: USERAPPS | Telegram Desktop | Create desktop icon
       ansible.builtin.template:
         src: templates/telegram-desktop-userapps.desktop.j2
