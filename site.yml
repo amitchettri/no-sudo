@@ -38,23 +38,23 @@
     - name: USERAPPS | Install Bitwarden
       import_tasks: tasks/bitwarden_desktop.yml
       tags:
-        - bw
+        - bitwarden_desktop
         - never
 
     - name: USERAPPS | Install Bitwarden CLI
-      import_tasks: tasks/bitwarden_cli.yml
+      import_tasks: tasks/bw.yml
       tags:
-        - bw_cli
+        - bw
         - never
 
     - name: USERAPPS | Mattermost
       import_tasks: tasks/mattermost_desktop.yml
       tags:
-        - mattermost
+        - mattermost_desktop
         - never
 
     - name: USERAPPS | Telegram
-      import_tasks: tasks/telegram_desktop.yml
+      import_tasks: tasks/telegram.yml
       tags:
         - telegram
         - never

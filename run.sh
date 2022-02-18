@@ -78,15 +78,15 @@ if [[ -z "$*" ]]; then
     fi
 
     if [[ "$install_bitwarden_app_image" == "Y" || "$install_bitwarden_app_image" == "y" ]]; then
-        __install_tags+=('bw')
+        __install_tags+=('bitwarden_desktop')
     fi
 
     if [[ "$install_bitwarden_cli" == "Y" || "$install_bitwarden_cli" == "y" ]]; then
-        __install_tags+=('bw_cli')
+        __install_tags+=('bw')
     fi
 
     if [[ "$install_mattermost" == "Y" || "$install_mattermost" == "y" ]]; then
-        __install_tags+=('mattermost')
+        __install_tags+=('mattermost_desktop')
     fi
 
     if [[ "$install_postman" == "Y" || "$install_postman" == "y" ]]; then
