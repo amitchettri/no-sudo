@@ -47,8 +47,12 @@ echo ""
 read -n1 -r -p "Enter \"Y\" to install Visual Studio Code (Press any other key to Skip*) : " install_vscode
 echo ""
 
-echo "________________________________________"
-read -n1 -r -p "Enter \"Y\" to download KDE themes (Press any other key to Skip*) : " download_kde_themes
+echo ""
+read -n1 -r -p "Enter \"Y\" to download themes (Press any other key to Skip*) : " download_themes
+echo ""
+
+echo ""
+read -n1 -r -p "Enter \"Y\" to download icons (Press any other key to Skip*) : " download_icnos
 echo ""
 
 if [[ "${install_dotfiles}" == "Y" || "${install_dotfiles}" == "y" ]]; then
@@ -111,8 +115,12 @@ if [[ "$install_maven" == "Y" || "$install_maven" == "y" ]]; then
     __install_tags+=('mvn')
 fi
 
-if [[ "$download_kde_themes" == "Y" || "$download_kde_themes" == "y" ]]; then
-    __install_tags+=('kde')
+if [[ "$download_themes" == "Y" || "$download_themes" == "y" ]]; then
+    __install_tags+=('themes')
+fi
+
+if [[ "$download_icnos" == "Y" || "$download_icnos" == "y" ]]; then
+    __install_tags+=('icons')
 fi
 
 __ansible_tags_tmp=$(printf ",%s" "${__install_tags[@]}")

@@ -1,7 +1,7 @@
 ---
-- name: KDE | Theme | EliverLara Nordic
+- name: USERAPPS | Theme | EliverLara Nordic
   block:
-    - name: KDE | Theme | EliverLara Nordic | Clone git
+    - name: USERAPPS | Theme | EliverLara Nordic | Clone git
       ansible.builtin.git:
         single_branch: true
         repo: "https://github.com/EliverLara/Nordic.git"
@@ -9,59 +9,59 @@
         depth: 1
       register: pv_kde_tmp_eliverLara_nordic_updated
 
-    - name: KDE | Theme | EliverLara Nordic | Copy Resources
+    - name: USERAPPS | Theme | EliverLara Nordic | Copy Resources
       when: pv_kde_tmp_eliverLara_nordic_updated.changed
       block:
-        - name: KDE | Theme | EliverLara Nordic | Copy Resources | gtk themes
+        - name: USERAPPS | Theme | EliverLara Nordic | Copy Resources | gtk themes
           ansible.builtin.copy:
             src: "{{  pv_ua_user_tmp_dir  }}/EliverLara-Nordic-git/"
             dest: "{{  pv_ua_user_share_dir  }}/themes/Nordic/"
             remote_src: true
 
-        - name: KDE | Theme | EliverLara Nordic | Copy Resources | Delete git tracker from gtk directory
+        - name: USERAPPS | Theme | EliverLara Nordic | Copy Resources | Delete git tracker from gtk directory
           ansible.builtin.file:
             path: "{{  pv_ua_user_share_dir  }}/themes/Nordic/.git"
             state: absent
 
-        - name: KDE | Theme | EliverLara Nordic | Copy Resources | aurorae themes
+        - name: USERAPPS | Theme | EliverLara Nordic | Copy Resources | aurorae themes
           ansible.builtin.copy:
             src: "{{  pv_ua_user_share_dir  }}/themes/Nordic/kde/aurorae/Nordic/"
             dest: "{{  pv_ua_user_share_dir  }}/aurorae/themes/Nordic/"
             remote_src: true
 
-        - name: KDE | Theme | EliverLara Nordic | Copy Resources | color schemes
+        - name: USERAPPS | Theme | EliverLara Nordic | Copy Resources | color schemes
           ansible.builtin.copy:
             src: "{{  pv_ua_user_share_dir  }}/themes/Nordic/kde/colorschemes/"
             dest: "{{  pv_ua_user_share_dir  }}/color-schemes/"
             remote_src: true
 
-        - name: KDE | Theme | EliverLara Nordic | Copy Resources | look-and-feel
+        - name: USERAPPS | Theme | EliverLara Nordic | Copy Resources | look-and-feel
           ansible.builtin.copy:
             src: "{{  pv_ua_user_share_dir  }}/themes/Nordic/kde/plasma/look-and-feel/"
             dest: "{{  pv_ua_user_share_dir  }}/plasma/look-and-feel/"
             remote_src: true
 
-        - name: KDE | Theme | EliverLara Nordic | Copy Resources | Kvantum
+        - name: USERAPPS | Theme | EliverLara Nordic | Copy Resources | Kvantum
           ansible.builtin.copy:
             src: "{{  pv_ua_user_share_dir  }}/themes/Nordic/kde/kvantum/"
             dest: "{{  pv_ua_user_config_dir  }}/Kvantum/"
             remote_src: true
 
-        - name: KDE | Theme | EliverLara Nordic | Copy Resources | konsole Themes
+        - name: USERAPPS | Theme | EliverLara Nordic | Copy Resources | konsole Themes
           ansible.builtin.copy:
             src: "{{  pv_ua_user_share_dir  }}/themes/Nordic/kde/konsole/"
             dest: "{{  pv_ua_user_share_dir  }}/konsole/"
             remote_src: true
 
-        - name: KDE | Theme | EliverLara Nordic | Copy Resources | Nordic-cursors
+        - name: USERAPPS | Theme | EliverLara Nordic | Copy Resources | Nordic-cursors
           ansible.builtin.copy:
             src: "{{  pv_ua_user_share_dir  }}/themes/Nordic/kde/cursors/Nordic-cursors/"
             dest: "{{  pv_ua_user_share_dir  }}/icons/Nordic-cursors/"
             remote_src: true
 
-- name: KDE | Theme | EliverLara Nordic-kde
+- name: USERAPPS | Theme | EliverLara Nordic-kde
   block:
-    - name: KDE | Theme | EliverLara Nordic-kde | Git clone
+    - name: USERAPPS | Theme | EliverLara Nordic-USERAPPS | Git clone
       ansible.builtin.git:
         single_branch: true
         repo: "https://github.com/EliverLara/Nordic-kde.git"
@@ -69,64 +69,23 @@
         depth: 1
       register: pv_kde_tmp_eliverLara_nordic_kde_updated
 
-    - name: KDE | Theme | EliverLara Nordic-kde | Copy Resources
+    - name: USERAPPS | Theme | EliverLara Nordic-USERAPPS | Copy Resources
       when: pv_kde_tmp_eliverLara_nordic_kde_updated.changed
       block:
-        - name: KDE | Theme | EliverLara Nordic-kde | Copy Resources | plasma desktoptheme
+        - name: USERAPPS | Theme | EliverLara Nordic-USERAPPS | Copy Resources | plasma desktoptheme
           ansible.builtin.copy:
             src: "{{  pv_ua_user_tmp_dir  }}/EliverLara-Nordic-kde-git/"
             dest: "{{  pv_ua_user_share_dir  }}/plasma/desktoptheme/Nordic/"
             remote_src: true
 
-        - name: KDE | Theme | EliverLara Nordic-kde | Copy Resources | Delete git tracker
+        - name: USERAPPS | Theme | EliverLara Nordic-USERAPPS | Copy Resources | Delete git tracker
           ansible.builtin.file:
             path: "{{  pv_ua_user_share_dir  }}/plasma/desktoptheme/Nordic/.git"
             state: absent
 
-- name: KDE | Icon | vinceliuice Tela
+- name: USERAPPS | Theme | vinceliuice Layan-kde
   block:
-    - name: KDE | Icon | vinceliuice Tela | Git Clone
-      ansible.builtin.git:
-        single_branch: true
-        repo: "https://github.com/vinceliuice/Tela-icon-theme.git"
-        dest: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Tela-icon-theme"
-        depth: 1
-      register: pv_kde_tmp_tela_icon_updated
-
-    - name: KDE | Icon | vinceliuice Tela | Install
-      when: pv_kde_tmp_tela_icon_updated.changed
-      ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Tela-icon-theme/install.sh -a"
-      args:
-        executable: /bin/bash
-        # creates: "{{  pv_ua_user_share_dir  }}/icons/Tela"
-
-- name: KDE | Icon | EliverLara Candy
-  block:
-    - name: KDE | Icon | EliverLara Candy | Git clone
-      ansible.builtin.git:
-        single_branch: true
-        repo: "https://github.com/EliverLara/candy-icons.git"
-        dest: "{{  pv_ua_user_tmp_dir  }}/EliverLara-candy-icons-git/"
-        depth: 1
-      register: pv_kde_tmp_eliverLara_candy_icon_updated
-
-    - name: KDE | Icon | EliverLara Candy | Copy Resources
-      when: pv_kde_tmp_eliverLara_candy_icon_updated.changed
-      block:
-        - name: KDE | Icon | EliverLara Candy | Copy Resources | Copy icons
-          ansible.builtin.copy:
-            src: "{{  pv_ua_user_tmp_dir  }}/EliverLara-candy-icons-git/"
-            dest: "{{  pv_ua_user_share_dir  }}/icons/candy-icons/"
-            remote_src: true
-
-        - name: KDE | Icon | EliverLara Candy | Copy Resources | Delete git tracker from gtk directory
-          ansible.builtin.file:
-            path: "{{  pv_ua_user_share_dir  }}/icons/candy-icons//.git"
-            state: absent
-
-- name: KDE | Theme | vinceliuice Layan-kde
-  block:
-    - name: KDE | Theme | vinceliuice Layan-kde | Git Clone
+    - name: USERAPPS | Theme | vinceliuice Layan-USERAPPS | Git Clone
       ansible.builtin.git:
         single_branch: true
         repo: "https://github.com/vinceliuice/Layan-kde.git"
@@ -134,15 +93,15 @@
         depth: 1
       register: pv_kde_tmp_layan_kde_theme_updated
 
-    - name: KDE | Theme | vinceliuice Layan-kde | Install
+    - name: USERAPPS | Theme | vinceliuice Layan-USERAPPS | Install
       ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-kde/install.sh"
       when: pv_kde_tmp_layan_kde_theme_updated.changed
       args:
         executable: /bin/bash
 
-- name: KDE | Cursors | vinceliuice Layan-cursors
+- name: USERAPPS | Cursors | vinceliuice Layan-cursors
   block:
-    - name: KDE | Cursors | vinceliuice Layan-cursors | Git Clone
+    - name: USERAPPS | Cursors | vinceliuice Layan-cursors | Git Clone
       ansible.builtin.git:
         single_branch: true
         repo: "https://github.com/vinceliuice/Layan-cursors.git"
@@ -150,16 +109,16 @@
         depth: 1
       register: pv_kde_tmp_layan_cursors_updated
 
-    - name: KDE | Cursors | vinceliuice Layan-cursors | Install
+    - name: USERAPPS | Cursors | vinceliuice Layan-cursors | Install
       ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-cursors/install.sh"
       when: pv_kde_tmp_layan_cursors_updated.changed
       args:
         executable: /bin/bash
         chdir: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-cursors"
 
-- name: KDE | Theme | vinceliuice Layan-gtk-theme
+- name: USERAPPS | Theme | vinceliuice Layan-gtk-theme
   block:
-    - name: KDE | Theme | vinceliuice Layan-gtk-theme | Git Clone
+    - name: USERAPPS | Theme | vinceliuice Layan-gtk-theme | Git Clone
       ansible.builtin.git:
         single_branch: true
         repo: "https://github.com/vinceliuice/Layan-gtk-theme.git"
@@ -167,13 +126,13 @@
         depth: 1
       register: pv_kde_tmp_layan_gtk_theme_updated
 
-    - name: KDE | Theme | vinceliuice Layan-gtk-theme | Install
+    - name: USERAPPS | Theme | vinceliuice Layan-gtk-theme | Install
       ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-gtk-theme/install.sh"
       when: pv_kde_tmp_layan_gtk_theme_updated.changed
       args:
         executable: /bin/bash
 
-# - name: KDE | Download | Theme | EliverLara Sweet-kde
+# - name: USERAPPS | Download | Theme | EliverLara Sweet-kde
 #   ansible.builtin.git:
 #     single_branch: true
 #     repo: 'https://github.com/EliverLara/Sweet-kde.git'
@@ -181,7 +140,7 @@
 #     depth: 1
 #     separate_git_dir: "{{  pv_ua_user_tmp_dir  }}/EliverLara-Sweet-kde-git-bare"
 
-# - name: KDE | Download | Theme | EliverLara Sweet
+# - name: USERAPPS | Download | Theme | EliverLara Sweet
 #   ansible.builtin.git:
 #     single_branch: true
 #     repo: 'https://github.com/EliverLara/Sweet.git'
@@ -189,9 +148,9 @@
 #     depth: 1
 #     separate_git_dir: "{{  pv_ua_user_tmp_dir  }}/EliverLara-Sweet-git-bare"
 
-- name: KDE | Theme | EliverLara Sweet Mars
+- name: USERAPPS | Theme | EliverLara Sweet Mars
   block:
-    - name: KDE | Theme | EliverLara Sweet Mars | Git Clone
+    - name: USERAPPS | Theme | EliverLara Sweet Mars | Git Clone
       ansible.builtin.git:
         single_branch: true
         repo: "https://github.com/EliverLara/Sweet.git"
@@ -200,51 +159,51 @@
         version: mars
       register: pv_kde_tmp_eliverLara_Sweet_mars_updated
 
-    - name: KDE | Theme | EliverLara Sweet Mars | Copy Resources
+    - name: USERAPPS | Theme | EliverLara Sweet Mars | Copy Resources
       when: pv_kde_tmp_eliverLara_Sweet_mars_updated.changed
       block:
-        - name: KDE | Theme | EliverLara Sweet Mars | Copy Resources | gtk themes
+        - name: USERAPPS | Theme | EliverLara Sweet Mars | Copy Resources | gtk themes
           ansible.builtin.copy:
             src: "{{  pv_ua_user_tmp_dir  }}/EliverLara-Sweet-mars-git/"
             dest: "{{  pv_ua_user_share_dir  }}/themes/Sweet-mars/"
             remote_src: true
 
-        - name: KDE | Theme | EliverLara Sweet Mars | Copy Resources | Delete git tracker from gtk directory
+        - name: USERAPPS | Theme | EliverLara Sweet Mars | Copy Resources | Delete git tracker from gtk directory
           ansible.builtin.file:
             path: "{{  pv_ua_user_share_dir  }}/themes/Sweet-mars/.git"
             state: absent
 
-        - name: KDE | Theme | EliverLara Sweet Mars | Copy Resources | Copy aurorae themes
+        - name: USERAPPS | Theme | EliverLara Sweet Mars | Copy Resources | Copy aurorae themes
           ansible.builtin.copy:
             src: "{{  pv_ua_user_share_dir  }}/themes/Sweet-mars/kde/aurorae/"
             dest: "{{  pv_ua_user_share_dir  }}/aurorae/themes/"
             remote_src: true
 
-        - name: KDE | Theme | EliverLara Sweet Mars | Copy Resources | Copy color schemes
+        - name: USERAPPS | Theme | EliverLara Sweet Mars | Copy Resources | Copy color schemes
           ansible.builtin.copy:
             src: "{{  pv_ua_user_share_dir  }}/themes/Sweet-mars/kde/colorschemes/"
             dest: "{{  pv_ua_user_share_dir  }}/color-schemes/"
             remote_src: true
 
-        - name: KDE | Theme | EliverLara Sweet Mars | Copy Resources | Copy plasma schemes
+        - name: USERAPPS | Theme | EliverLara Sweet Mars | Copy Resources | Copy plasma schemes
           ansible.builtin.copy:
             src: "{{  pv_ua_user_share_dir  }}/themes/Sweet-mars/kde/plasma/"
             dest: "{{  pv_ua_user_share_dir  }}/plasma/"
             remote_src: true
 
-        - name: KDE | Theme | EliverLara Sweet Mars | Copy Resources | Copy Kvantum schemes
+        - name: USERAPPS | Theme | EliverLara Sweet Mars | Copy Resources | Copy Kvantum schemes
           ansible.builtin.copy:
             src: "{{  pv_ua_user_share_dir  }}/themes/Sweet-mars/kde/kvantum/"
             dest: "{{  pv_ua_user_config_dir  }}/Kvantum/"
             remote_src: true
 
-        - name: KDE | Theme | EliverLara Sweet Mars | Copy Resources | Copy konsole schemes
+        - name: USERAPPS | Theme | EliverLara Sweet Mars | Copy Resources | Copy konsole schemes
           ansible.builtin.copy:
             src: "{{  pv_ua_user_share_dir  }}/themes/Sweet-mars/kde/konsole/"
             dest: "{{  pv_ua_user_share_dir  }}/konsole/"
             remote_src: true
 
-- name: KDE | Copy Konsave Profiles
+- name: USERAPPS | Copy Konsave Profiles
   ansible.builtin.copy:
     src: "files/konsave_profiles/"
     dest: "{{  pv_ua_user_config_dir  }}/konsave/profiles"

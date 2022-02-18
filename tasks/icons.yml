@@ -1,0 +1,41 @@
+
+- name: USERAPPS | Icon | vinceliuice Tela
+  block:
+    - name: USERAPPS | Icon | vinceliuice Tela | Git Clone
+      ansible.builtin.git:
+        single_branch: true
+        repo: "https://github.com/vinceliuice/Tela-icon-theme.git"
+        dest: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Tela-icon-theme"
+        depth: 1
+      register: pv_kde_tmp_tela_icon_updated
+
+    - name: USERAPPS | Icon | vinceliuice Tela | Install
+      when: pv_kde_tmp_tela_icon_updated.changed
+      ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Tela-icon-theme/install.sh -a"
+      args:
+        executable: /bin/bash
+        # creates: "{{  pv_ua_user_share_dir  }}/icons/Tela"
+
+- name: USERAPPS | Icon | EliverLara Candy
+  block:
+    - name: USERAPPS | Icon | EliverLara Candy | Git clone
+      ansible.builtin.git:
+        single_branch: true
+        repo: "https://github.com/EliverLara/candy-icons.git"
+        dest: "{{  pv_ua_user_tmp_dir  }}/EliverLara-candy-icons-git/"
+        depth: 1
+      register: pv_kde_tmp_eliverLara_candy_icon_updated
+
+    - name: USERAPPS | Icon | EliverLara Candy | Copy Resources
+      when: pv_kde_tmp_eliverLara_candy_icon_updated.changed
+      block:
+        - name: USERAPPS | Icon | EliverLara Candy | Copy Resources | Copy icons
+          ansible.builtin.copy:
+            src: "{{  pv_ua_user_tmp_dir  }}/EliverLara-candy-icons-git/"
+            dest: "{{  pv_ua_user_share_dir  }}/icons/candy-icons/"
+            remote_src: true
+
+        - name: USERAPPS | Icon | EliverLara Candy | Copy Resources | Delete git tracker from gtk directory
+          ansible.builtin.file:
+            path: "{{  pv_ua_user_share_dir  }}/icons/candy-icons//.git"
+            state: absent
