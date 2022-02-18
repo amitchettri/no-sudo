@@ -148,4 +148,4 @@ echo ""
 
 pip install -r requirements.txt --upgrade
 
-ansible-playbook site.yml "${__ansible_tags}" $@
+ansible-playbook site.yml ${__ansible_tags} $@
