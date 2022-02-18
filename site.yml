@@ -1,5 +1,5 @@
 ---
-- name: Master
+- name: Mater No Sudo
   hosts: localhost
   become: false
   gather_facts: true
