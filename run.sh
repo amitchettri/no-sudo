@@ -124,7 +124,7 @@ if [[ "$download_icnos" == "Y" || "$download_icnos" == "y" ]]; then
 fi
 
 __ansible_tags_tmp=$(printf ",%s" "${__install_tags[@]}")
-__ansible_tags=${__ansible_tags_tmp:1}
+__ansible_tags="--tags ${__ansible_tags_tmp:1}"
 
 if [[ -z "${VIRTUAL_ENV}" ]]; then
     export PATH="${HOME}/.local/bin:${PATH}"
@@ -148,4 +148,4 @@ echo ""
 
 pip install -r requirements.txt --upgrade
 
-ansible-playbook site.yml --tags "${__ansible_tags}" $@
+ansible-playbook site.yml "${__ansible_tags}" $@

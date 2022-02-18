@@ -55,3 +55,20 @@
       args:
         executable: /bin/bash
         chdir: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-cursors"
+
+- name: USERAPPS | Icon | Gvolpe BeautyLine
+  block:
+    - name: USERAPPS | Icon | Gvolpe BeautyLine | Git Clone
+      ansible.builtin.git:
+        single_branch: true
+        repo: "https://github.com/gvolpe/BeautyLine.git"
+        dest: "{{  pv_ua_user_tmp_dir  }}/gvolpe-BeautyLine"
+        depth: 1
+      register: pv_kde_tmp_gvolpe_beautyline_updated
+
+    - name: USERAPPS | Icon | Gvolpe BeautyLine | Copy Resources | Copy icons
+      when: pv_kde_tmp_gvolpe_beautyline_updated.changed
+      ansible.builtin.copy:
+        src: "{{  pv_ua_user_tmp_dir  }}/gvolpe-BeautyLine/BeautyLine-V3/"
+        dest: "{{  pv_ua_user_share_dir  }}/icons/BeautyLine-V3/"
+        remote_src: true
