@@ -1,0 +1,25 @@
+- name: USERAPPS | JetBrains | IntelliJ IDEA Ultimate | Get Latest Version | Get Release XML
+  when: pv_jb_ideaui_version is undefined
+  block:
+    - name: USERAPPS | JetBrains | IntelliJ IDEA Ultimate | Get Latest Version | Get Release XML
+      uri:
+        url: https://www.jetbrains.com/updates/updates.xml
+        return_content: true
+      register: pv_jb_ideaui_release_xml
+
+    - name: USERAPPS | JetBrains | IntelliJ IDEA Ultimate | Get Latest Version | Get Filter Release
+      community.general.xml:
+        xmlstring: "{{  pv_jb_ideaui_release_xml.content  }}"
+        xpath: "//channel[@id='IC-IU-RELEASE-licensing-RELEASE']/build[1]"
+        content: attribute
+      register: pv_jb_ideaui_release_attribute
+
+    - name: USERAPPS | JetBrains | IntelliJ IDEA Ultimate | Get Latest Version | Set Version Number
+      set_fact:
+        pv_jb_ideaui_version: "{{  pv_jb_ideaui_release_attribute.matches[0].build.version  }}"
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA Ultimate | Version
+  debug: var=pv_jb_ideaui_version
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA Ultimate | Set Install Path
+  when: pv_jb_ideaui_install_path is undefined
