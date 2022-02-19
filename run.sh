@@ -31,11 +31,11 @@ if [[ -z "$*" ]]; then
 
     ## Neovim requires nodejs
     if [[ "$install_neovim" == "Y" || "$install_neovim" == "y" ]]; then
-    echo "Neovim COC requires nodejs"
-    install_node_js=y
+        echo "Neovim COC requires nodejs"
+        install_node_js=y
     else
-    read -n1 -r -p "Enter \"Y\" to install node js (Press any other key to Skip*) : " install_node_js
-    echo ""
+        read -n1 -r -p "Enter \"Y\" to install node js (Press any other key to Skip*) : " install_node_js
+        echo ""
     fi
 
     read -n1 -r -p "Enter \"Y\" to install Jq (Press any other key to Skip*) : " install_jq
@@ -135,7 +135,7 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
     echo "Updating Python packages"
     "$(readlink -f "$(which python3)")" -m pip install wheel setuptools pip virtualenv --user --upgrade
     echo "Pip Packages installed"
-    if [[ ! -d  "${PWD}/venv"  ]]; then
+    if [[ ! -d "${PWD}/venv" ]]; then
         virtualenv venv
     fi
     source venv/bin/activate

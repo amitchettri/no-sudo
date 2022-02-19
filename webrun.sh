@@ -9,14 +9,14 @@ if [[ $(id -u) -eq 0 ]]; then
     exit 1
 fi
 
-if ! hash git &>/dev/null ; then
-	echo "git not Installed"
+if ! hash git &>/dev/null; then
+    echo "git not Installed"
     exit 1
 fi
 
 mkdir -p $(dirname "${__clone_directory}")
 
-if [[ ! -d "${__clone_directory}"  ]]; then
+if [[ ! -d "${__clone_directory}" ]]; then
     git clone --depth 1 --single-branch "${__git_setup_repo}" "${__clone_directory}"
     cd "${__clone_directory}"
 else
