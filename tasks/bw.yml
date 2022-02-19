@@ -36,4 +36,4 @@
         src: "{{  pv_ua_bw_cli_archive_download_path  }}"
         dest: "{{  pv_ua_user_bin_dir  }}"
         remote_src: yes
-        mode: '0750'
+        mode: "0750"

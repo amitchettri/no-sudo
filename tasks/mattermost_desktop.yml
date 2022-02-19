@@ -48,11 +48,11 @@
         src: "{{  pv_ua_bw_mm_archive_download_path  }}"
         dest: "{{  pv_ua_mm_install_path  }}"
         extra_opts: [--strip-components=1]
-        mode: '0750'
+        mode: "0750"
         remote_src: true
 
     - name: USERAPPS | Mattermost Desktop | Create desktop icon
       ansible.builtin.template:
         src: templates/mattermost-desktop-userapps.desktop.j2
         dest: "{{  pv_ua_user_share_dir  }}/applications/mattermost-desktop-userapps.desktop"
-        mode: '0600'
+        mode: "0600"

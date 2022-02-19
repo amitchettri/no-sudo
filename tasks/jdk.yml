@@ -28,14 +28,14 @@
 - name: USERAPPS | Oracle JDK | Newly Downloaded
   when: not pv_ua_jdk_downloaded_file_stat.stat.exists
   block:
-  - name: USERAPPS | Oracle JDK | Download tarball
-    ansible.builtin.get_url:
-      url: "{{  pv_ua_jdk_download_url  }}"
-      dest: "{{  pv_ua_jdk_tarball_download_path  }}"
+    - name: USERAPPS | Oracle JDK | Download tarball
+      ansible.builtin.get_url:
+        url: "{{  pv_ua_jdk_download_url  }}"
+        dest: "{{  pv_ua_jdk_tarball_download_path  }}"
 
-  - name: USERAPPS | Oracle JDK | Unarchive the tarball
-    ansible.builtin.unarchive:
-      src: "{{  pv_ua_jdk_tarball_download_path  }}"
-      dest: "{{  pv_ua_jdk_install_path  }}"
-      extra_opts: [--strip-components=1]
-      remote_src: true
+    - name: USERAPPS | Oracle JDK | Unarchive the tarball
+      ansible.builtin.unarchive:
+        src: "{{  pv_ua_jdk_tarball_download_path  }}"
+        dest: "{{  pv_ua_jdk_install_path  }}"
+        extra_opts: [--strip-components=1]
+        remote_src: true

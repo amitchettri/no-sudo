@@ -71,13 +71,13 @@
       ansible.builtin.template:
         src: templates/code-userapps.desktop.j2
         dest: "{{  pv_ua_user_share_dir  }}/applications/code-userapps.desktop"
-        mode: '0600'
+        mode: "0600"
 
     - name: USERAPPS | Visual Studio Code | Create url handler
       ansible.builtin.template:
         src: templates/code-url-handler-userapps.desktop.j2
         dest: "{{  pv_ua_user_share_dir  }}/applications/code-url-handler-userapps.desktop"
-        mode: '0600'
+        mode: "0600"
 
 - name: USERAPPS | Visual Studio Code | Install Extensions
   import_tasks: extensions.yml

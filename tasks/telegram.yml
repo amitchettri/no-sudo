@@ -54,4 +54,4 @@
       ansible.builtin.template:
         src: templates/telegram-desktop-userapps.desktop.j2
         dest: "{{  pv_ua_user_share_dir  }}/applications/telegram-desktop-userapps.desktop"
-        mode: '0600'
+        mode: "0600"

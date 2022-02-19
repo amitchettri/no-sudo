@@ -35,4 +35,4 @@
         src: "{{  pv_ua_jq_download_path  }}"
         dest: "{{  pv_ua_user_bin_dir  }}/jq"
         remote_src: yes
-        mode: '0755'
+        mode: "0755"

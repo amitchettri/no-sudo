@@ -55,4 +55,4 @@
       ansible.builtin.template:
         src: templates/postman-userapps.desktop.j2
         dest: "{{  pv_ua_user_share_dir  }}/applications/postman-userapps.desktop"
-        mode: '0600'
+        mode: "0600"

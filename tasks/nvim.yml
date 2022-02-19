@@ -109,7 +109,7 @@
 - name: USERAPPS | NEOVIM | Install coc-python
   when: pv_ua_nvim_plug_updated.changed
   register: pv_ua_nvim_coc_python_install_result
-  ansible.builtin.shell: "{{  pv_ua_user_local_dir  }}/bin/nvim --headless +\"CocInstall coc-python\" +qa"
+  ansible.builtin.shell: '{{  pv_ua_user_local_dir  }}/bin/nvim --headless +"CocInstall coc-python" +qa'
   args:
     executable: /bin/bash
   environment:

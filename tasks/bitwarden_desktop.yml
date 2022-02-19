@@ -6,7 +6,7 @@
   ansible.builtin.file:
     path: "{{  pv_ua_bw_install_path  }}"
     state: directory
-    mode: '0700'
+    mode: "0700"
 
 - name: USERAPPS | Bitwarden Desktop | Get latest releases
   ansible.builtin.uri:
@@ -37,10 +37,10 @@
   ansible.builtin.get_url:
     url: "{{  pv_ua_bw_asset_to_download_release.browser_download_url  }}"
     dest: "{{  pv_ua_bw_install_path  }}/{{  pv_ua_bw_asset_to_download_release.name  }}"
-    mode: '0700'
+    mode: "0700"
 
 - name: USERAPPS | Bitwarden Desktop | Create desktop icon
   ansible.builtin.template:
     src: templates/bitwarden-desktop-userapps.desktop.j2
     dest: "{{  pv_ua_user_share_dir  }}/applications/bitwarden-desktop-userapps.desktop"
-    mode: '0600'
+    mode: "0600"
