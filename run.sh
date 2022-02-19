@@ -48,15 +48,14 @@ if [[ -z "$*" ]]; then
     echo ""
     read -n1 -r -p "Enter \"Y\" to install Visual Studio Code (Press any other key to Skip*) : " install_vscode
     echo ""
-
     echo ""
     read -n1 -r -p "Enter \"Y\" to download themes (Press any other key to Skip*) : " download_themes
     echo ""
-
     echo ""
     read -n1 -r -p "Enter \"Y\" to download icons (Press any other key to Skip*) : " download_icnos
     echo ""
-
+    read -n1 -r -p "Enter \"Y\" to copy KDE profiles (Press any other key to Skip*) : " copy_kde_konsave
+    echo ""
     if [[ "${install_dotfiles}" == "Y" || "${install_dotfiles}" == "y" ]]; then
         __install_tags+=('dotfiles')
     fi
@@ -123,6 +122,10 @@ if [[ -z "$*" ]]; then
 
     if [[ "$download_icnos" == "Y" || "$download_icnos" == "y" ]]; then
         __install_tags+=('icons')
+    fi
+
+    if [[ "${copy_kde_konsave}" == "Y" || "${copy_kde_konsave}" == "y" ]]; then
+        __install_tags+=('kde')
     fi
 
     __ansible_tags_tmp=$(printf ",%s" "${__install_tags[@]}")

@@ -123,3 +123,16 @@
       tags:
         - never
         - icons
+
+    # - name: USERAPPS | Idea
+    #   import_tasks: tasks/jetbrains/idea-iu.yml
+    #   tags:
+    #     - never
+    #     - ideaiu
+    #     - ideaic
+
+    - name: USERAPPS | Idea
+      import_tasks: tasks/kde.yml
+      tags:
+        - never
+        - kde
