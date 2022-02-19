@@ -80,4 +80,4 @@
         mode: '0600'
 
 - name: USERAPPS | Visual Studio Code | Install Extensions
-  import_tasks: tasks/code-extensions.yml
+  import_tasks: extensions.yml
