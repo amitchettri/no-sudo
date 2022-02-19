@@ -11,7 +11,6 @@
     pv_ua_user_share_dir: "{{  pv_ua_user_local_dir  }}/share"
     pv_ua_user_tmp_dir: "{{  pv_ua_user_home_dir  }}/.tmp"
   tasks:
-
     - name: prerequisites
       import_tasks: tasks/prerequisites.yml
       tags:
@@ -30,7 +29,7 @@
         - never
 
     - name: fonts
-      import_tasks: tasks/fonts.yml
+      import_tasks: tasks/fonts/hack.yml
       tags:
         - never
         - fonts
@@ -102,7 +101,7 @@
         - never
 
     - name: USERAPPS | VSCode
-      import_tasks: tasks/code.yml
+      import_tasks: tasks/code/install.yml
       tags:
         - code
         - never
