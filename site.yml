@@ -22,6 +22,12 @@
         - never
         - dotfiles
 
+    - name: Util Scripts
+      import_tasks: tasks/utils-scripts.yml
+      tags:
+        - never
+        - scripts
+
     - name: USERAPPS | Install Terminal Themes
       import_tasks: tasks/terminal_themes.yml
       tags:
