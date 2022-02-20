@@ -51,6 +51,10 @@ if [[ -z "$*" ]]; then
     echo ""
     read -n1 -r -p "Enter \"Y\" to install Visual Studio Code (Press any other key to Skip*) : " install_vscode
     echo ""
+    read -n1 -r -p "Enter \"Y\" to install Idea Community (Press any other key to Skip*) : " install_ideaic
+    echo ""
+    read -n1 -r -p "Enter \"Y\" to install Idea Ultimate (Press any other key to Skip*) : " install_ideaiu
+    echo ""
     read -n1 -r -p "Enter \"Y\" to download themes (Press any other key to Skip*) : " download_themes
     echo ""
     read -n1 -r -p "Enter \"Y\" to download icons (Press any other key to Skip*) : " download_icnos
@@ -61,7 +65,7 @@ if [[ -z "$*" ]]; then
         __install_tags+=('dotfiles')
     fi
 
-    if [[ "${install_termincal_themes}" == "Y" || "${install_termincal_themes}" == "y" ]]; then
+    if [[ "${install_scripts}" == "Y" || "${install_scripts}" == "y" ]]; then
         __install_tags+=('install_scripts')
     fi
 
@@ -131,6 +135,14 @@ if [[ -z "$*" ]]; then
 
     if [[ "${copy_kde_konsave}" == "Y" || "${copy_kde_konsave}" == "y" ]]; then
         __install_tags+=('kde')
+    fi
+
+    if [[ "${install_ideaic}" == "Y" || "${install_ideaic}" == "y" ]]; then
+        __install_tags+=('ideaic')
+    fi
+
+    if [[ "${install_ideaiu}" == "Y" || "${install_ideaiu}" == "y" ]]; then
+        __install_tags+=('ideaiu')
     fi
 
     __ansible_tags_tmp=$(printf ",%s" "${__install_tags[@]}")

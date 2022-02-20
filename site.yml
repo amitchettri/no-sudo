@@ -124,11 +124,21 @@
         - never
         - icons
 
-    - name: USERAPPS | Idea
+    - name: USERAPPS | Idea Ultimate
       import_tasks: tasks/jetbrains/idea-iu.yml
+      vars:
+        pv_jb_idea_ultimate_or_community: ultimate
       tags:
         - never
         - ideaiu
+
+    - name: USERAPPS | Idea Community
+      import_tasks: tasks/jetbrains/idea-iu.yml
+      vars:
+        pv_jb_idea_ultimate_or_community: community
+      tags:
+        - never
+        - ideaic
 
     - name: USERAPPS | Idea
       import_tasks: tasks/kde.yml

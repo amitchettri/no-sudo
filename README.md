@@ -19,18 +19,26 @@ Run the playbook
 bash <(curl https://raw.githubusercontent.com/arpanrec/no-sudo/main/webrun.sh)
 ```
 
-## Jetbrains IntelliJ IDEA Ultimate
+## Jetbrains IntelliJ IDEA
 
-Variables
- |  |
-pv_jb_ideaui_install_path | Install Path |
+---
 
-- pv_jb_ideaui_version
-  - Description: Version of [Jetbrains IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)
+Tags:
+
+- Ultimate Edition: `ideaiu`
+
+- Community Edition: `ideaic`
+
+Variables:
+
+- pv_jb_idea_version
+  - Description: Version of [Jetbrains IntelliJ IDEA](https://www.jetbrains.com/idea/)
   - Default: Dynamically find the latest  form [updates xml](https://www.jetbrains.com/updates/updates.xml)
 
-- pv_jb_ideaui_version
+- pv_jb_idea_install_path
   - Description: Install Path
-  - Default: `{{ pv_ua_user_share_dir }}/IdeaUltimate-{{ pv_jb_ideaui_version }}`
+  - Default: `"{{ pv_ua_user_share_dir }}/idea-{{  pv_jb_idea_ultimate_or_community  }}-{{ pv_jb_idea_version }}"`
 
-Icon Path: `{{ pv_ua_user_share_dir }}/IdeaUltimate-{{ pv_jb_ideaui_version }}-userapps.desktop`
+- pv_jb_idea_icon_path
+  - Description: Icon Path
+  - Default: `{{ pv_ua_user_share_dir }}/applications/idea-{{  pv_jb_idea_ultimate_or_community  }}-{{ pv_jb_idea_version }}-userapps.desktop`

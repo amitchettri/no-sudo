@@ -1,25 +1,79 @@
-- name: USERAPPS | JetBrains | IntelliJ IDEA Ultimate | Get Latest Version | Get Release XML
-  when: pv_jb_ideaui_version is undefined
+- name: USERAPPS | JetBrains | IntelliJ IDEA | Ultimate or Community
+  fail:
+    msg: 'Set the value of "pv_jb_idea_ultimate_or_community" to "ultimate" or "community"'
+  when: ( pv_jb_idea_ultimate_or_community != "ultimate" ) and (pv_jb_idea_ultimate_or_community != "community")
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ultimate_or_community  }} | Get Latest Version | Get Release XML
+  when: pv_jb_idea_version is undefined
   block:
-    - name: USERAPPS | JetBrains | IntelliJ IDEA Ultimate | Get Latest Version | Get Release XML
+    - name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ultimate_or_community  }} | Get Latest Version | Get Release XML
       uri:
         url: https://www.jetbrains.com/updates/updates.xml
         return_content: true
-      register: pv_jb_ideaui_release_xml
+      register: pv_jb_idea_release_xml
 
-    - name: USERAPPS | JetBrains | IntelliJ IDEA Ultimate | Get Latest Version | Get Filter Release
+    - name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ultimate_or_community  }} | Get Latest Version | Get Filter Release
       community.general.xml:
-        xmlstring: "{{  pv_jb_ideaui_release_xml.content  }}"
+        xmlstring: "{{  pv_jb_idea_release_xml.content  }}"
         xpath: "//channel[@id='IC-IU-RELEASE-licensing-RELEASE']/build[1]"
         content: attribute
-      register: pv_jb_ideaui_release_attribute
+      register: pv_jb_idea_release_attribute
 
-    - name: USERAPPS | JetBrains | IntelliJ IDEA Ultimate | Get Latest Version | Set Version Number
+    - name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ultimate_or_community  }} | Get Latest Version | Set Version Number
       set_fact:
-        pv_jb_ideaui_version: "{{  pv_jb_ideaui_release_attribute.matches[0].build.version  }}"
+        pv_jb_idea_version: "{{  pv_jb_idea_release_attribute.matches[0].build.version  }}"
 
-- name: USERAPPS | JetBrains | IntelliJ IDEA Ultimate | Version
-  debug: var=pv_jb_ideaui_version
+- name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ultimate_or_community  }} | Version
+  debug: var=pv_jb_idea_version
 
-- name: USERAPPS | JetBrains | IntelliJ IDEA Ultimate | Set Install Path
-  when: pv_jb_ideaui_install_path is undefined
+- name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ultimate_or_community  }} | Set Install Path
+  when: pv_jb_idea_install_path is undefined
+  set_fact:
+    pv_jb_idea_install_path: "{{ pv_ua_user_share_dir }}/idea-{{  pv_jb_idea_ultimate_or_community  }}-{{ pv_jb_idea_version }}"
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ultimate_or_community  }} | Set tar download path
+  set_fact:
+    pv_jb_idea_tmp_tar_download_path: "{{  pv_ua_user_tmp_dir  }}/idea-{{  pv_jb_idea_ultimate_or_community  }}-{{ pv_jb_idea_version }}.tar.gz"
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ultimate_or_community  }} | Get Existing File Stat
+  stat:
+    path: "{{  pv_jb_idea_tmp_tar_download_path  }}"
+  register: pv_jb_idea_tmp_tar_stat
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ultimate_or_community  }} | Set Url for Ultimate
+  set_fact:
+    pv_jb_idea_download_url: "https://download-cdn.jetbrains.com/idea/ideaIU-{{  pv_jb_idea_version  }}.tar.gz"
+  when: pv_jb_idea_ultimate_or_community == "ultimate"
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ultimate_or_community  }} | Set Url for Community
+  set_fact:
+    pv_jb_idea_download_url: "https://download-cdn.jetbrains.com/idea/ideaIC-{{  pv_jb_idea_version  }}.tar.gz"
+  when: pv_jb_idea_ultimate_or_community == "community"
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ultimate_or_community  }} | Install
+  # when: not pv_jb_idea_tmp_tar_stat.stat.exists
+  block:
+    - name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ultimate_or_community  }} | Install | Create Directory
+      ansible.builtin.file:
+        path: "{{  pv_jb_idea_install_path  }}"
+        state: directory
+
+    - name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ultimate_or_community  }} | Install | Download Tar Ball
+      when: not pv_jb_idea_tmp_tar_stat.stat.exists
+      ansible.builtin.get_url:
+        url: "{{  pv_jb_idea_download_url  }}"
+        dest: "{{  pv_jb_idea_tmp_tar_download_path  }}"
+
+    - name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ultimate_or_community  }} | Install | Unarchive the tarball
+      when: not pv_jb_idea_tmp_tar_stat.stat.exists
+      ansible.builtin.unarchive:
+        src: "{{  pv_jb_idea_tmp_tar_download_path  }}"
+        dest: "{{  pv_jb_idea_install_path  }}"
+        extra_opts: [--strip-components=1]
+        remote_src: true
+
+    - name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ultimate_or_community  }} | Install | Create desktop icon
+      ansible.builtin.template:
+        src: templates/idea.desktop.j2
+        dest: "{{  pv_ua_user_share_dir  }}/applications/idea-{{  pv_jb_idea_ultimate_or_community  }}-{{ pv_jb_idea_version }}-userapps.desktop"
+        mode: "0600"
