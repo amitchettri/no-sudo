@@ -65,7 +65,7 @@ if [[ -z "$*" ]]; then
     fi
 
     if [[ "${install_scripts}" == "Y" || "${install_scripts}" == "y" ]]; then
-        __install_tags+=('install_scripts')
+        __install_tags+=('scripts')
     fi
 
     if [[ "${install_termincal_themes}" == "Y" || "${install_termincal_themes}" == "y" ]]; then
