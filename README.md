@@ -27,6 +27,9 @@ bash <(curl https://raw.githubusercontent.com/arpanrec/no-sudo/main/webrun.sh) \
 --extra-vars='pv_jb_idea_version=2021.3.2 pv_ua_code_version=1.64.2'
 ```
 
+<details>
+<summary>Bitwarden Desktop</summary>
+
 ## Bitwarden Desktop
 
 ---
@@ -46,6 +49,11 @@ Variables:
 - `pv_ua_bitwarden_desktop_icon_path`
   - Description: Icon Path.
   - Default: `{{ pv_ua_user_share_dir }}/applications/bitwarden-desktop-userapps.desktop`
+
+</details>
+
+<details>
+<summary>Jetbrains IntelliJ IDEA</summary>
 
 ## Jetbrains IntelliJ IDEA
 
@@ -70,6 +78,11 @@ Variables:
 - `pv_jb_idea_icon_path_<ideaiu\ideaic>`
   - Description: Icon Path
   - Default: `{{ pv_ua_user_share_dir }}/applications/{{  pv_jb_idea_ideaiu_or_ideaic  }}-{{ pv_jb_idea_version }}-userapps.desktop`
+
+</details>
+
+<details>
+<summary>Microsoft Visual Studio Code</summary>
 
 ## Microsoft Visual Studio Code
 
@@ -99,3 +112,5 @@ Variables:
   - Description: List of VSCode extension to be installed.
   - Type: `List[String]`
   - Default: [extensions-list.yml](tasks/code/extensions-list.yml)
+
+</details>
