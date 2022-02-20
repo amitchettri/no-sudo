@@ -144,8 +144,7 @@ if [[ -z "$*" ]]; then
         __install_tags+=('ideaiu')
     fi
 
-    __ansible_tags_tmp=$(printf ",%s" "${__install_tags[@]}")
-    __ansible_tags="--tags ${__ansible_tags_tmp:1}"
+    __ansible_tags=$(printf ",%s" "${__install_tags[@]}")
 
 fi
 
@@ -171,4 +170,8 @@ echo ""
 
 pip install -r requirements.txt --upgrade
 
-ansible-playbook site.yml ${__ansible_tags} $@
+if [[ -n "${__ansible_tags}" && "${__ansible_tags}" != "," && -z "$*" ]]; then
+    ansible-playbook site.yml --tags "${__ansible_tags::-1}"
+elif [[ -z ${__ansible_tags} && -n "$*" ]]; then
+    ansible-playbook site.yml "$@"
+fi
