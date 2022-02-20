@@ -1,9 +1,9 @@
 # Managed by Ansible
 [Desktop Entry]
 Name=Bitwarden - Userapps
-Exec="{{  pv_ua_bw_install_path  }}/{{  pv_ua_bw_asset_to_download_release.name  }}"
+Exec="{{  pv_ua_bitwarden_desktop_install_path  }}/{{  pv_ua_bitwarden_download_url | basename  }}"
 Icon=com.bitwarden.desktop
-Version={{  pv_ua_tmp_bw_latest_release.json.tag_name  }}
+Version=1.0
 Terminal=false
 Type=Application
 StartupWMClass=Bitwarden

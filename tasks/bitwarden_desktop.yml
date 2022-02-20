@@ -1,46 +1,55 @@
 - name: USERAPPS | Bitwarden Desktop | Set install directory
   set_fact:
-    pv_ua_bw_install_path: "{{  pv_ua_user_share_dir  }}/bitwarden-desktop"
+    pv_ua_bitwarden_desktop_install_path: "{{  pv_ua_user_share_dir  }}/bitwarden-desktop"
+  when: pv_ua_bitwarden_desktop_install_path is undefined
+
+- name: USERAPPS | Bitwarden Desktop | Set Desktop Icon Path
+  set_fact:
+    pv_ua_bitwarden_desktop_icon_path: "{{  pv_ua_user_share_dir  }}/applications/bitwarden-desktop-userapps.desktop"
+  when: pv_ua_bitwarden_desktop_icon_path is undefined
 
 - name: USERAPPS | Bitwarden Desktop | Create install directory
   ansible.builtin.file:
-    path: "{{  pv_ua_bw_install_path  }}"
+    path: "{{  pv_ua_bitwarden_desktop_install_path  }}"
     state: directory
     mode: "0700"
 
-- name: USERAPPS | Bitwarden Desktop | Get latest releases
-  ansible.builtin.uri:
-    url: "https://api.github.com/repos/bitwarden/desktop/releases/latest"
-    method: GET
-    return_content: yes
-    headers:
-      Accept: "application/vnd.github.v3+json"
-    status_code: 200
-  register: pv_ua_tmp_bw_latest_release
+- name: USERAPPS | Bitwarden Desktop | Get Version
+  when: pv_ua_bitwarden_desktop_version is undefined
+  block:
+    - name: USERAPPS | Bitwarden Desktop | Get Version | Get latest releases
+      ansible.builtin.uri:
+        url: "https://api.github.com/repos/bitwarden/desktop/releases/latest"
+        method: GET
+        return_content: yes
+        headers:
+          Accept: "application/vnd.github.v3+json"
+        status_code: 200
+      register: pv_ua_tmp_bw_latest_release
 
-- name: USERAPPS | Bitwarden Desktop | Get os and architecture based jmesquery for x86_64
+    - name: USERAPPS | Bitwarden Desktop | Get Version | Set Version
+      set_fact:
+        pv_ua_bitwarden_desktop_version: "{{  pv_ua_tmp_bw_latest_release.json.tag_name  }}"
+
+- name: USERAPPS | Bitwarden Desktop | Set Download URL
   set_fact:
-    pv_ua_bw_download_url_jmesquery: "[?contains(browser_download_url, 'AppImage')&&contains(browser_download_url, 'x86_64')]"
+    pv_ua_bitwarden_download_url: "https://github.com/bitwarden/desktop/releases/download/{{  pv_ua_bitwarden_desktop_version  }}/Bitwarden-{{  pv_ua_bitwarden_desktop_version[1:]  }}-x86_64.AppImage"
   when: ansible_facts.architecture == "x86_64"
-
-- name: USERAPPS | Bitwarden Desktop | Get latest AppImage releases
-  set_fact:
-    pv_ua_bw_asset_to_download_release: "{{  pv_ua_tmp_bw_latest_release.json.assets | community.general.json_query(pv_ua_bw_download_url_jmesquery) | first }}"
 
 - name: USERAPPS | Bitwarden Desktop | Get archive info
   stat:
-    path: "{{  pv_ua_bw_install_path  }}/{{  pv_ua_bw_asset_to_download_release.name  }}"
+    path: "{{  pv_ua_bitwarden_desktop_install_path  }}/{{  pv_ua_bitwarden_download_url | basename  }}"
   register: pv_ua_bw_archive_stat
 
 - name: USERAPPS | Bitwarden Desktop | Download AppImage
   when: not pv_ua_bw_archive_stat.stat.exists
   ansible.builtin.get_url:
-    url: "{{  pv_ua_bw_asset_to_download_release.browser_download_url  }}"
-    dest: "{{  pv_ua_bw_install_path  }}/{{  pv_ua_bw_asset_to_download_release.name  }}"
+    url: "{{  pv_ua_bitwarden_download_url  }}/{{  pv_ua_bitwarden_download_url | basename  }}"
+    dest: "{{  pv_ua_bitwarden_desktop_install_path  }}/{{  pv_ua_bitwarden_download_url | basename  }}"
     mode: "0700"
 
 - name: USERAPPS | Bitwarden Desktop | Create desktop icon
   ansible.builtin.template:
     src: templates/bitwarden-desktop-userapps.desktop.j2
-    dest: "{{  pv_ua_user_share_dir  }}/applications/bitwarden-desktop-userapps.desktop"
+    dest: "{{  pv_ua_bitwarden_desktop_icon_path  }}"
     mode: "0600"
