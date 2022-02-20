@@ -12,7 +12,6 @@ if [[ -z "$*" ]]; then
 
     read -n1 -r -p "Enter \"Y\" to track dotfiles from 'https://github.com/arpanrec/dotfiles' (Press any other key to Skip*) : " install_dotfiles
     echo ""
-    echo ""
     read -n1 -r -p "Enter \"Y\" to install utility scripts (Press any other key to Skip*) : " install_scripts
     echo ""
     read -n1 -r -p "Enter \"Y\" to install Bash-IT, oh-my-zsh and fzf (Press any other key to Skip*) : " install_termincal_themes
