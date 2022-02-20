@@ -1,4 +1,5 @@
 - name: USERAPPS | Visual Studio Code | Extensions | List
+  when: pv_ua_code_ext_to_be_installed is undefined
   set_fact:
     pv_ua_code_ext_to_be_installed:
       - "Angular.ng-template"

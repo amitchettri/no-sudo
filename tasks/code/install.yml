@@ -1,29 +1,47 @@
 - name: USERAPPS | Visual Studio Code | Set install directory
   set_fact:
     pv_ua_code_install_path: "{{  pv_ua_user_share_dir  }}/vscode"
+  when: pv_ua_code_install_path is undefined
+
+- name: USERAPPS | Visual Studio Code | Set Desktop Icon Path
+  when: pv_ua_code_icon_path is undefined
+  set_fact:
+    pv_ua_code_icon_path: "{{  pv_ua_user_share_dir  }}/applications/code-userapps.desktop"
+
+- name: USERAPPS | Visual Studio Code | Set URI handler Path
+  when: pv_ua_code_uri_handler_path is undefined
+  set_fact:
+    pv_ua_code_uri_handler_path: "{{  pv_ua_user_share_dir  }}/applications/code-url-handler-userapps.desktop"
 
 - name: USERAPPS | Visual Studio Code | Create install directory
   ansible.builtin.file:
     path: "{{  pv_ua_code_install_path  }}"
     state: directory
 
-- name: USERAPPS | Visual Studio Code | Get latest releases
-  ansible.builtin.uri:
-    url: "https://api.github.com/repos/microsoft/vscode/releases/latest"
-    method: GET
-    return_content: yes
-    headers:
-      Accept: "application/vnd.github.v3+json"
-    status_code: 200
-  register: pv_ua_code_latest_release
+- name: USERAPPS | Visual Studio Code | Set Version
+  when: pv_ua_code_version is undefined
+  block:
+    - name: USERAPPS | Visual Studio Code | Set Version | Get latest releases from github
+      ansible.builtin.uri:
+        url: "https://api.github.com/repos/microsoft/vscode/releases/latest"
+        method: GET
+        return_content: yes
+        headers:
+          Accept: "application/vnd.github.v3+json"
+        status_code: 200
+      register: pv_ua_code_latest_release
+
+    - name: Set Version Number
+      set_fact:
+        pv_ua_code_version: "{{  pv_ua_code_latest_release.json.tag_name  }}"
 
 - name: USERAPPS | Visual Studio Code | Set tarball download path.
   set_fact:
-    pv_ua_code_tarball_download_path: "{{  pv_ua_user_tmp_dir  }}/vscode-{{  pv_ua_code_latest_release.json.tag_name  }}.linux.tar.gz"
+    pv_ua_code_tarball_download_path: "{{  pv_ua_user_tmp_dir  }}/vscode-{{  pv_ua_code_version  }}.linux.tar.gz"
 
 - name: USERAPPS | Visual Studio Code | Set Download URL
   set_fact:
-    pv_ua_code_download_url: "https://update.code.visualstudio.com/{{  pv_ua_code_latest_release.json.tag_name  }}/linux-x64/stable"
+    pv_ua_code_download_url: "https://update.code.visualstudio.com/{{  pv_ua_code_version  }}/linux-x64/stable"
   when: ansible_facts.architecture == "x86_64"
 
 - name: USERAPPS | Visual Studio Code | Get downloaded file stat
@@ -70,13 +88,13 @@
     - name: USERAPPS | Visual Studio Code | Create desktop icon
       ansible.builtin.template:
         src: templates/code-userapps.desktop.j2
-        dest: "{{  pv_ua_user_share_dir  }}/applications/code-userapps.desktop"
+        dest: "{{  pv_ua_code_icon_path  }}"
         mode: "0600"
 
     - name: USERAPPS | Visual Studio Code | Create url handler
       ansible.builtin.template:
         src: templates/code-url-handler-userapps.desktop.j2
-        dest: "{{  pv_ua_user_share_dir  }}/applications/code-url-handler-userapps.desktop"
+        dest: "{{  pv_ua_code_uri_handler_path  }}"
         mode: "0600"
 
 - name: USERAPPS | Visual Studio Code | Install Extensions

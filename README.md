@@ -19,6 +19,14 @@ Run the playbook
 bash <(curl https://raw.githubusercontent.com/arpanrec/no-sudo/main/webrun.sh)
 ```
 
+For custom/silent install tags, extra-vars are optional
+
+```bash
+bash <(curl https://raw.githubusercontent.com/arpanrec/no-sudo/main/webrun.sh) \
+--tags ideaiu,code \
+--extra-vars='pv_jb_idea_version=2021.3.2 pv_ua_code_version=1.64.2'
+```
+
 ## Jetbrains IntelliJ IDEA
 
 ---
@@ -33,7 +41,7 @@ Variables:
 
 - pv_jb_idea_version
   - Description: Version of [Jetbrains IntelliJ IDEA](https://www.jetbrains.com/idea/)
-  - Default: Dynamically find the latest  form [updates xml](https://www.jetbrains.com/updates/updates.xml)
+  - Default: Dynamically find the latest  form [updates xml](https://www.jetbrains.com/updates/updates.xml), like `2021.3.2`
 
 - pv_jb_idea_install_path
   - Description: Install Path
@@ -42,3 +50,73 @@ Variables:
 - pv_jb_idea_icon_path
   - Description: Icon Path
   - Default: `{{ pv_ua_user_share_dir }}/applications/idea-{{  pv_jb_idea_ultimate_or_community  }}-{{ pv_jb_idea_version }}-userapps.desktop`
+
+## Microsoft Visual Studio Code
+
+---
+
+- Tag: `code`
+
+Variables:
+
+- pv_ua_code_version
+  - Description: Version of [Microsoft Visual Studio Code](https://code.visualstudio.com/updates)
+  - Default: Dynamically find the latest form [github/microsoft/vscode](https://api.github.com/repos/microsoft/vscode/releases/latest), like `1.64.2`
+
+- pv_ua_code_install_path
+  - Description: Install Path
+  - Default: `{{  pv_ua_user_share_dir  }}/vscode`
+
+- pv_ua_code_icon_path
+  - Description: Icon Path
+  - Default: `{{  pv_ua_user_share_dir  }}/applications/code-userapps.desktop`
+
+- pv_ua_code_uri_handler_path
+  - Description: URI Handler path
+  - Default: `{{  pv_ua_user_share_dir  }}/applications/code-url-handler-userapps.desktop`
+
+- pv_ua_code_ext_to_be_installed
+  - Description: List of VSCode extension to be installed
+  - Type: `List[String]`
+  - Default:
+    - `Angular.ng-template`
+    - `DavidAnson.vscode-markdownlint`
+    - `GabrielBB.vscode-lombok`
+    - `GitHub.github-vscode-theme`
+    - `golang.go`
+    - `hashicorp.terraform`
+    - `johnpapa.Angular2`
+    - `johnpapa.winteriscoming`
+    - `ms-azuretools.vscode-docker`
+    - `ms-kubernetes-tools.vscode-kubernetes-tools`
+    - `ms-python.python`
+    - `ms-python.vscode-pylance`
+    - `ms-toolsai.jupyter`
+    - `ms-toolsai.jupyter-keymap`
+    - `ms-toolsai.jupyter-renderers`
+    - `ms-vscode-remote.remote-containers`
+    - `ms-vscode-remote.remote-ssh`
+    - `ms-vscode-remote.remote-ssh-edit`
+    - `ms-vscode-remote.remote-wsl`
+    - `ms-vscode-remote.vscode-remote-extensionpack`
+    - `Pivotal.vscode-boot-dev-pack`
+    - `Pivotal.vscode-spring-boot`
+    - `PKief.material-icon-theme`
+    - `redhat.ansible`
+    - `redhat.fabric8-analytics`
+    - `redhat.java`
+    - `redhat.vscode-xml`
+    - `redhat.vscode-yaml`
+    - `shengchen.vscode-checkstyle`
+    - `VisualStudioExptTeam.vscodeintellicode`
+    - `VisualStudioExptTeam.vscodeintellicode-completions`
+    - `vscjava.vscode-gradle`
+    - `vscjava.vscode-java-debug`
+    - `vscjava.vscode-java-dependency`
+    - `vscjava.vscode-java-pack`
+    - `vscjava.vscode-java-test`
+    - `vscjava.vscode-maven`
+    - `vscjava.vscode-spring-boot-dashboard`
+    - `vscjava.vscode-spring-initializr`
+    - `streetsidesoftware.code-spell-checker`
+    - `dhruv.maven-dependency-explorer`
