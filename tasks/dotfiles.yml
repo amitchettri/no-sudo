@@ -55,9 +55,3 @@
         line: 'alias config=''git --git-dir="$HOME/{{  pv_ua_dotfiles_bare_relative_dir  }}" --work-tree=$HOME'''
       loop: "{{  pv_ua_dotfiles_tmp_shell_rc_stat.results  }}"
       when: item.stat.exists
-
-- name: USERAPPS | Dotfiles | Reset Dotfiles
-  when: pv_ua_dotrepo_update.changed
-  ansible.builtin.shell: "git --git-dir=$HOME/{{  pv_ua_dotfiles_bare_relative_dir  }} --work-tree=$HOME"
-  args:
-    executable: /bin/bash
