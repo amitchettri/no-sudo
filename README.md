@@ -35,15 +35,15 @@ bash <(curl https://raw.githubusercontent.com/arpanrec/no-sudo/main/webrun.sh) \
 
 Variables:
 
-- pv_ua_bitwarden_desktop_version
+- `pv_ua_bitwarden_desktop_version`
   - Description: Version of [Bitwarden Desktop](https://bitwarden.com/download/) from [GitHub](https://github.com/bitwarden/desktop/releases).
   - Default: Dynamically find the [latest tag_name](https://api.github.com/repos/bitwarden/desktop/releases/latest), like `v1.31.3`.
 
-- pv_ua_bitwarden_desktop_install_path
+- `pv_ua_bitwarden_desktop_install_path`
   - Description: Install Path.
   - Default: `{{ pv_ua_user_share_dir }}/bitwarden-desktop`
 
-- pv_ua_bitwarden_desktop_icon_path
+- `pv_ua_bitwarden_desktop_icon_path`
   - Description: Icon Path.
   - Default: `{{ pv_ua_user_share_dir }}/applications/bitwarden-desktop-userapps.desktop`
 
@@ -59,15 +59,15 @@ Tags:
 
 Variables:
 
-- pv_jb_idea_version_<ideaiu\ideaic>
+- `pv_jb_idea_version_<ideaiu\ideaic>`
   - Description: Version of [Jetbrains IntelliJ IDEA](https://www.jetbrains.com/idea/)
   - Default: Dynamically find the latest  form [updates xml](https://www.jetbrains.com/updates/updates.xml), like `2021.3.2`
 
-- pv_jb_idea_install_path_<ideaiu\ideaic>
+- `pv_jb_idea_install_path_<ideaiu\ideaic>`
   - Description: Install Path
   - Default: `{{  pv_ua_user_share_dir  }}/JetBrains/{{  pv_jb_idea_ideaiu_or_ideaic  }}-{{  pv_jb_idea_version  }}`
 
-- pv_jb_idea_icon_path_<ideaiu\ideaic>
+- `pv_jb_idea_icon_path_<ideaiu\ideaic>`
   - Description: Icon Path
   - Default: `{{ pv_ua_user_share_dir }}/applications/{{  pv_jb_idea_ideaiu_or_ideaic  }}-{{ pv_jb_idea_version }}-userapps.desktop`
 
@@ -79,23 +79,23 @@ Variables:
 
 Variables:
 
-- pv_ua_code_version
+- `pv_ua_code_version`
   - Description: Version of [Microsoft Visual Studio Code](https://code.visualstudio.com/updates).
   - Default: Dynamically find the [latest tag_name](https://api.github.com/repos/microsoft/vscode/releases/latest), like `1.64.2`.
 
-- pv_ua_code_install_path
+- `pv_ua_code_install_path`
   - Description: Install Path.
   - Default: `{{ pv_ua_user_share_dir }}/vscode`
 
-- pv_ua_code_icon_path
+- `pv_ua_code_icon_path`
   - Description: Icon Path.
   - Default: `{{ pv_ua_user_share_dir }}/applications/code-userapps.desktop`
 
-- pv_ua_code_uri_handler_path
+- `pv_ua_code_uri_handler_path`
   - Description: URI Handler path
   - Default: `{{ pv_ua_user_share_dir }}/applications/code-url-handler-userapps.desktop`
 
-- pv_ua_code_ext_to_be_installed
+- `pv_ua_code_ext_to_be_installed`
   - Description: List of VSCode extension to be installed.
   - Type: `List[String]`
   - [Default](tasks/code/extensions-list.yml)
