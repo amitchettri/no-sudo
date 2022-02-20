@@ -125,17 +125,17 @@
         - icons
 
     - name: USERAPPS | Idea Ultimate
-      import_tasks: tasks/jetbrains/idea-iu.yml
+      import_tasks: tasks/jetbrains/idea.yml
       vars:
-        pv_jb_idea_ultimate_or_community: ultimate
+        pv_jb_idea_ideaiu_or_ideaic: ideaiu
       tags:
         - never
         - ideaiu
 
     - name: USERAPPS | Idea Community
-      import_tasks: tasks/jetbrains/idea-iu.yml
+      import_tasks: tasks/jetbrains/idea.yml
       vars:
-        pv_jb_idea_ultimate_or_community: community
+        pv_jb_idea_ideaiu_or_ideaic: ideaic
       tags:
         - never
         - ideaic
