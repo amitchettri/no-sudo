@@ -98,4 +98,4 @@ Variables:
 - `pv_ua_code_ext_to_be_installed`
   - Description: List of VSCode extension to be installed.
   - Type: `List[String]`
-  - [Default](tasks/code/extensions-list.yml)
+  - Default: [extensions-list.yml](tasks/code/extensions-list.yml)
