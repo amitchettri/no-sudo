@@ -33,21 +33,21 @@ bash <(curl https://raw.githubusercontent.com/arpanrec/no-sudo/main/webrun.sh) \
 
 Tags:
 
-- Ultimate Edition: `ideaiu`
+- Ultimate Edition: `ideaiu` *(`pv_jb_idea_ideaiu_or_ideaic` = `ideaiu`)
 
-- Community Edition: `ideaic`
+- Community Edition: `ideaic` *(`pv_jb_idea_ideaiu_or_ideaic` = `ideaic`)
 
 Variables:
 
-- pv_jb_idea_version
+- pv_jb_idea_version_<ideaiu\ideaic>
   - Description: Version of [Jetbrains IntelliJ IDEA](https://www.jetbrains.com/idea/)
   - Default: Dynamically find the latest  form [updates xml](https://www.jetbrains.com/updates/updates.xml), like `2021.3.2`
 
-- pv_jb_idea_install_path
+- pv_jb_idea_install_path_<ideaiu\ideaic>
   - Description: Install Path
-  - Default: `"{{ pv_ua_user_share_dir }}/idea-{{  pv_jb_idea_ultimate_or_community  }}-{{ pv_jb_idea_version }}"`
+  - Default: `{{  pv_ua_user_share_dir  }}/JetBrains/{{  pv_jb_idea_ideaiu_or_ideaic  }}-{{  pv_jb_idea_version  }}`
 
-- pv_jb_idea_icon_path
+- pv_jb_idea_icon_path_<ideaiu\ideaic>
   - Description: Icon Path
   - Default: `{{ pv_ua_user_share_dir }}/applications/idea-{{  pv_jb_idea_ultimate_or_community  }}-{{ pv_jb_idea_version }}-userapps.desktop`
 

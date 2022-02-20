@@ -1,0 +1,36 @@
+- name: USERAPPS | JetBrains | IntelliJ IDEA Community | Get Latest Version
+  when: pv_jb_idea_version_ideaic is undefined
+  import_tasks: get-version.yml
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA Community | Set User Defined Version
+  when: pv_jb_idea_version_ideaic is defined and pv_jb_idea_version_ideaic | length > 1
+  set_fact:
+    pv_jb_idea_version: "{{  pv_jb_idea_version_ideaic  }}"
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA Community | Set Install Path
+  when: pv_jb_idea_install_path_ideaic is undefined
+  set_fact:
+    pv_jb_idea_install_path: "{{  pv_ua_user_share_dir  }}/JetBrains/{{  pv_jb_idea_ideaiu_or_ideaic  }}-{{  pv_jb_idea_version  }}"
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA Community | Set User Install Path
+  when: pv_jb_idea_install_path_ideaic is defined and pv_jb_idea_install_path_ideaic | length > 1
+  set_fact:
+    pv_jb_idea_install_path: "{{  pv_jb_idea_install_path_ideaic  }}"
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA Community | Set Url
+  set_fact:
+    pv_jb_idea_download_url: "https://download-cdn.jetbrains.com/idea/ideaIC-{{  pv_jb_idea_version  }}.tar.gz"
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA Community | Set desktop icon Path
+  when: pv_jb_idea_desktop_icon_path_ideaic is undefined
+  set_fact:
+    pv_jb_idea_desktop_icon_path: "{{ pv_ua_user_share_dir }}/applications/{{  pv_jb_idea_ideaiu_or_ideaic  }}-{{ pv_jb_idea_version }}-userapps.desktop"
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA Community | Set User Install Path
+  when: pv_jb_idea_desktop_icon_path_ideaic is defined and pv_jb_idea_desktop_icon_path_ideaic | length > 1
+  set_fact:
+    pv_jb_idea_desktop_icon_path: "{{  pv_jb_idea_desktop_icon_path_ideaic  }}"
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA Community | Set Name
+  set_fact:
+    pv_jb_idea_product_name: "IntelliJ IDEA Community"

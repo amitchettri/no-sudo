@@ -1,0 +1,47 @@
+- name: USERAPPS | JetBrains | IntelliJ IDEA | Fail is Ultimate or Community version not defined
+  fail:
+    msg: 'Set the value of "pv_jb_idea_ideaiu_or_ideaic" to "ideaiu" or "ideaic"'
+  when: ( pv_jb_idea_ideaiu_or_ideaic != "ideaiu" ) and (pv_jb_idea_ideaiu_or_ideaic != "ideaic")
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA Community
+  when: pv_jb_idea_ideaiu_or_ideaic == "ideaic"
+  import_tasks: ideaic.yml
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA Ultimate
+  when: pv_jb_idea_ideaiu_or_ideaic == "ideaiu"
+  import_tasks: ideaiu.yml
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ideaiu_or_ideaic  }} | Set tar download path
+  set_fact:
+    pv_jb_idea_tmp_tar_download_path: "{{  pv_ua_user_tmp_dir  }}/idea-{{  pv_jb_idea_ideaiu_or_ideaic  }}-{{ pv_jb_idea_version }}.tar.gz"
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ideaiu_or_ideaic  }} | Get Existing File Stat
+  stat:
+    path: "{{  pv_jb_idea_tmp_tar_download_path  }}"
+  register: pv_jb_idea_tmp_tar_stat
+
+- name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ideaiu_or_ideaic  }} | Install
+  # when: not pv_jb_idea_tmp_tar_stat.stat.exists
+  block:
+    - name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ideaiu_or_ideaic  }} | Install | Create Directory
+      ansible.builtin.file:
+        path: "{{  pv_jb_idea_install_path  }}"
+        state: directory
+
+    - name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ideaiu_or_ideaic  }} | Install | Download Tar Ball
+      ansible.builtin.get_url:
+        url: "{{  pv_jb_idea_download_url  }}"
+        dest: "{{  pv_jb_idea_tmp_tar_download_path  }}"
+
+    - name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ideaiu_or_ideaic  }} | Install | Unarchive the tarball
+      ansible.builtin.unarchive:
+        src: "{{  pv_jb_idea_tmp_tar_download_path  }}"
+        dest: "{{  pv_jb_idea_install_path  }}"
+        extra_opts: [--strip-components=1]
+        remote_src: true
+
+    - name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ideaiu_or_ideaic  }} | Install | Create desktop icon
+      ansible.builtin.template:
+        src: templates/idea.desktop.j2
+        dest: "{{  pv_jb_idea_desktop_icon_path  }}"
+        mode: "0600"

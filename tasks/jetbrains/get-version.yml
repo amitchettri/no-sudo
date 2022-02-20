@@ -1,0 +1,19 @@
+- name: USERAPPS | JetBrains | Get Latest Version | Get Release XML
+  run_once: true
+  uri:
+    url: https://www.jetbrains.com/updates/updates.xml
+    return_content: true
+  register: pv_jb_idea_release_xml
+
+- name: USERAPPS | JetBrains | Get Latest Version | IntelliJ IDEA | Filter Release
+  run_once: true
+  community.general.xml:
+    xmlstring: "{{  pv_jb_idea_release_xml.content  }}"
+    xpath: "//channel[@id='IC-IU-RELEASE-licensing-RELEASE']/build[1]"
+    content: attribute
+  register: pv_jb_idea_release_attribute
+
+- name: USERAPPS | JetBrains | Get Latest Version | IntelliJ IDEA | Set Version
+  run_once: true
+  set_fact:
+    pv_jb_idea_version: "{{  pv_jb_idea_release_attribute.matches[0].build.version  }}"
