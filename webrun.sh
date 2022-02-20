@@ -21,6 +21,8 @@ if [[ ! -d "${__clone_directory}" ]]; then
     cd "${__clone_directory}"
 else
     cd "${__clone_directory}"
+    git reset --hard HEAD
+    git clean -f -d
     git pull
 fi
 
