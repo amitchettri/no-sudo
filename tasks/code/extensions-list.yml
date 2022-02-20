@@ -2,8 +2,13 @@
   when: pv_ua_code_ext_to_be_installed is undefined
   set_fact:
     pv_ua_code_ext_to_be_installed:
+      - "akamud.vscode-theme-onedark"
       - "Angular.ng-template"
+      - "bbenoist.shell"
+      - "ceciljacob.code-plus-theme"
       - "DavidAnson.vscode-markdownlint"
+      - "dracula-theme.theme-dracula"
+      - "foxundermoon.shell-format"
       - "GabrielBB.vscode-lombok"
       - "GitHub.github-vscode-theme"
       - "golang.go"
@@ -31,6 +36,8 @@
       - "redhat.vscode-xml"
       - "redhat.vscode-yaml"
       - "shengchen.vscode-checkstyle"
+      - "timonwong.shellcheck"
+      - "Tyriar.shell-launcher"
       - "VisualStudioExptTeam.vscodeintellicode"
       - "VisualStudioExptTeam.vscodeintellicode-completions"
       - "vscjava.vscode-gradle"
@@ -43,3 +50,5 @@
       - "vscjava.vscode-spring-initializr"
       - "streetsidesoftware.code-spell-checker"
       - "dhruv.maven-dependency-explorer"
+      - "yzhang.markdown-all-in-one"
+      - "zhuangtongfa.material-theme"
