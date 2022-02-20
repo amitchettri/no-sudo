@@ -144,7 +144,7 @@ if [[ -z "$*" ]]; then
         __install_tags+=('ideaiu')
     fi
 
-    __ansible_tags=$(printf ",%s" "${__install_tags[@]}")
+    __ansible_tags=$(printf "%s," "${__install_tags[@]}")
 
 fi
 
