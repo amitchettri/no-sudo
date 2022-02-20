@@ -44,7 +44,7 @@
 - name: USERAPPS | Bitwarden Desktop | Download AppImage
   when: not pv_ua_bw_archive_stat.stat.exists
   ansible.builtin.get_url:
-    url: "{{  pv_ua_bitwarden_download_url  }}/{{  pv_ua_bitwarden_download_url | basename  }}"
+    url: "{{  pv_ua_bitwarden_download_url  }}"
     dest: "{{  pv_ua_bitwarden_desktop_install_path  }}/{{  pv_ua_bitwarden_download_url | basename  }}"
     mode: "0700"
 
