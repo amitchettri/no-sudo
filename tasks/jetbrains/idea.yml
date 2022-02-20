@@ -21,7 +21,7 @@
   register: pv_jb_idea_tmp_tar_stat
 
 - name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ideaiu_or_ideaic  }} | Install
-  # when: not pv_jb_idea_tmp_tar_stat.stat.exists
+  when: not pv_jb_idea_tmp_tar_stat.stat.exists
   block:
     - name: USERAPPS | JetBrains | IntelliJ IDEA {{  pv_jb_idea_ideaiu_or_ideaic  }} | Install | Create Directory
       ansible.builtin.file:
