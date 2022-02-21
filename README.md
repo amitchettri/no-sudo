@@ -143,3 +143,23 @@ Variables:
   - Default: `{{ pv_ua_user_share_dir }}/applications/{{  pv_jb_pycharm_professional_community  }}-{{ pv_jb_pycharm_version }}-userapps.desktop`
 
 </details>
+
+<details>
+<summary>Fonts</summary>
+
+## Fonts
+
+---
+
+Tag: `fonts`
+
+Install below fonts in `{{  pv_ua_user_share_dir  }}/fonts/<font-name>`
+
+- [Hack Font](https://github.com/source-foundry/Hack)
+- [Cascadia Code](https://github.com/microsoft/cascadia-code)
+
+Variables:
+
+- Not Applicable
+
+</details>
