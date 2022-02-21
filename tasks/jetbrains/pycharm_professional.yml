@@ -1,0 +1,36 @@
+- name: USERAPPS | JetBrains | PyCharm | Professional | Get Latest Version
+  when: pv_jb_pycharm_version_professional is undefined
+  import_tasks: get-version.yml
+
+- name: USERAPPS | JetBrains | PyCharm | Professional | Set User Defined Version
+  when: pv_jb_pycharm_version_professional is defined and pv_jb_pycharm_version_professional | length > 1
+  set_fact:
+    pv_jb_pycharm_version: "{{  pv_jb_pycharm_version_professional  }}"
+
+- name: USERAPPS | JetBrains | PyCharm | Professional | Set Install Path
+  when: pv_jb_pycharm_install_path_professional is undefined
+  set_fact:
+    pv_jb_pycharm_install_path: "{{  pv_ua_user_share_dir  }}/JetBrains/{{  pv_jb_pycharm_professional_community  }}-{{  pv_jb_pycharm_version  }}"
+
+- name: USERAPPS | JetBrains | PyCharm | Professional | Set User Install Path
+  when: pv_jb_pycharm_install_path_professional is defined and pv_jb_pycharm_install_path_professional | length > 1
+  set_fact:
+    pv_jb_pycharm_install_path: "{{  pv_jb_pycharm_install_path_professional  }}"
+
+- name: USERAPPS | JetBrains | PyCharm | Professional | Set Url
+  set_fact:
+    pv_jb_pycharm_download_url: "https://download-cdn.jetbrains.com/python/pycharm-professional-{{  pv_jb_pycharm_version  }}.tar.gz"
+
+- name: USERAPPS | JetBrains | PyCharm | Professional | Set desktop icon Path
+  when: pv_jb_pycharm_desktop_icon_path_professional is undefined
+  set_fact:
+    pv_jb_pycharm_desktop_icon_path: "{{ pv_ua_user_share_dir }}/applications/{{  pv_jb_pycharm_professional_community  }}-{{ pv_jb_pycharm_version }}-userapps.desktop"
+
+- name: USERAPPS | JetBrains | PyCharm | Professional | Set User icon Path
+  when: pv_jb_pycharm_desktop_icon_path_professional is defined and pv_jb_pycharm_desktop_icon_path_professional | length > 1
+  set_fact:
+    pv_jb_pycharm_desktop_icon_path: "{{  pv_jb_pycharm_desktop_icon_path_professional  }}"
+
+- name: USERAPPS | JetBrains | PyCharm | Professional | Set Name
+  set_fact:
+    pv_jb_pycharm_product_name: "PyCharm Professional"

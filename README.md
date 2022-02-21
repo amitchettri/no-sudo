@@ -114,3 +114,32 @@ Variables:
   - Default: [extensions-list.yml](tasks/code/extensions-list.yml)
 
 </details>
+
+<details>
+<summary>Jetbrains PyCharm</summary>
+
+## Jetbrains PyCharm
+
+---
+
+Tags:
+
+- Ultimate Community: `pycharm_community` *(`pv_jb_pycharm_professional_community` = `pycharm_community`)
+
+- Community Professional: `pycharm_professional` *(`pv_jb_pycharm_professional_community` = `pycharm_professional`)
+
+Variables:
+
+- `pv_jb_pycharm_version_<professional\community>`
+  - Description: Version of [Jetbrains Pycharm](https://www.jetbrains.com/pycharm/)
+  - Default: Dynamically find the latest  form [updates xml](https://www.jetbrains.com/updates/updates.xml), like `2021.3.2`
+
+- `pv_jb_pycharm_install_path_<professional\community>`
+  - Description: Install Path
+  - Default: `{{  pv_ua_user_share_dir  }}/JetBrains/{{  pv_jb_pycharm_professional_community  }}-{{  pv_jb_pycharm_version  }}`
+
+- `pv_jb_pycharm_desktop_icon_path_<professional\community>`
+  - Description: Icon Path
+  - Default: `{{ pv_ua_user_share_dir }}/applications/{{  pv_jb_pycharm_professional_community  }}-{{ pv_jb_pycharm_version }}-userapps.desktop`
+
+</details>

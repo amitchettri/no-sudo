@@ -1,0 +1,36 @@
+- name: USERAPPS | JetBrains | PyCharm | Community | Get Latest Version
+  when: pv_jb_pycharm_version_community is undefined
+  import_tasks: get-version.yml
+
+- name: USERAPPS | JetBrains | PyCharm | Community | Set User Defined Version
+  when: pv_jb_pycharm_version_community is defined and pv_jb_pycharm_version_community | length > 1
+  set_fact:
+    pv_jb_pycharm_version: "{{  pv_jb_pycharm_version_community  }}"
+
+- name: USERAPPS | JetBrains | PyCharm | Community | Set Install Path
+  when: pv_jb_pycharm_install_path_community is undefined
+  set_fact:
+    pv_jb_pycharm_install_path: "{{  pv_ua_user_share_dir  }}/JetBrains/{{  pv_jb_pycharm_professional_community  }}-{{  pv_jb_pycharm_version  }}"
+
+- name: USERAPPS | JetBrains | PyCharm | Community | Set User Install Path
+  when: pv_jb_pycharm_install_path_community is defined and pv_jb_pycharm_install_path_community | length > 1
+  set_fact:
+    pv_jb_pycharm_install_path: "{{  pv_jb_pycharm_install_path_community  }}"
+
+- name: USERAPPS | JetBrains | PyCharm | Community | Set Url
+  set_fact:
+    pv_jb_pycharm_download_url: "https://download-cdn.jetbrains.com/python/pycharm-community-{{  pv_jb_pycharm_version  }}.tar.gz"
+
+- name: USERAPPS | JetBrains | PyCharm | Community | Set desktop icon Path
+  when: pv_jb_pycharm_desktop_icon_path_community is undefined
+  set_fact:
+    pv_jb_pycharm_desktop_icon_path: "{{ pv_ua_user_share_dir }}/applications/{{  pv_jb_pycharm_professional_community  }}-{{ pv_jb_pycharm_version }}-userapps.desktop"
+
+- name: USERAPPS | JetBrains | PyCharm | Community | Set User icon Path
+  when: pv_jb_pycharm_desktop_icon_path_community is defined and pv_jb_pycharm_desktop_icon_path_community | length > 1
+  set_fact:
+    pv_jb_pycharm_desktop_icon_path: "{{  pv_jb_pycharm_desktop_icon_path_community  }}"
+
+- name: USERAPPS | JetBrains | PyCharm | Community | Set Name
+  set_fact:
+    pv_jb_pycharm_product_name: "PyCharm Community"

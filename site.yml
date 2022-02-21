@@ -145,3 +145,19 @@
       tags:
         - never
         - kde
+
+    - name: USERAPPS | PyCharm Professional
+      import_tasks: tasks/jetbrains/pycharm.yml
+      vars:
+        pv_jb_pycharm_professional_community: pycharm_professional
+      tags:
+        - never
+        - pycharm_professional
+
+    - name: USERAPPS | Idea Community
+      import_tasks: tasks/jetbrains/pycharm.yml
+      vars:
+        pv_jb_pycharm_professional_community: pycharm_community
+      tags:
+        - never
+        - pycharm_community

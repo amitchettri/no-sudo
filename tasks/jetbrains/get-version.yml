@@ -17,3 +17,16 @@
   run_once: true
   set_fact:
     pv_jb_idea_version: "{{  pv_jb_idea_release_attribute.matches[0].build.version  }}"
+
+- name: USERAPPS | JetBrains | PyCharm | Filter Release
+  run_once: true
+  community.general.xml:
+    xmlstring: "{{  pv_jb_idea_release_xml.content  }}"
+    xpath: "//channel[@id='PC-PY-RELEASE-licensing-RELEASE']/build[1]"
+    content: attribute
+  register: pv_jb_pycharm_release_attribute
+
+- name: USERAPPS | JetBrains | PyCharm | Set Version
+  run_once: true
+  set_fact:
+    pv_jb_pycharm_version: "{{  pv_jb_pycharm_release_attribute.matches[0].build.version  }}"
