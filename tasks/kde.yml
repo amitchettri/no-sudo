@@ -1,24 +1,14 @@
-- name: USERAPPS | KDE | Find Konsave Profiles
-  ansible.builtin.find:
-    paths: "{{  playbook_dir  }}/files/"
-    recurse: yes
-    patterns: "*.knsv"
-  delegate_to: localhost
-  register: pv_kde_konsave_profiles
+- name: USERAPPS | KDE | Create Konsave Profiles Directory
+  file:
+    path: "{{  pv_ua_user_config_dir  }}/konsave/profiles"
+    state: directory
 
-- name: USERAPPS | KDE | Find Konsave Profiles
-  copy:
-    src: "{{  item.path  }}"
-    dest: "{{  pv_ua_user_tmp_dir  }}"
+- name: USERAPPS | KDE | Upload Konsave Profiles
+  ansible.builtin.unarchive:
+    src: files/konsave.tar.gz
+    dest: "{{  pv_ua_user_config_dir  }}/konsave/profiles"
     remote_src: false
-  with_items: "{{  pv_kde_konsave_profiles.files  }}"
   register: pv_kde_konsave_profiles_updated
-
-# - name: USERAPPS | KDE | Install konsave
-#   pip:
-#     name: konsave
-#   environment:
-#     PATH: "{{  pv_ua_user_bin_dir  }}:{{ ansible_env.PATH }}"
 
 - name: USERAPPS | KDE | Install konsave
   when: pv_kde_konsave_profiles_updated.changed
@@ -36,15 +26,42 @@
   debug:
     var: pv_kde_konsave_pip_install_result
 
-- name: USERAPPS | KDE | Import Konsave Profiles
-  shell: "konsave --import-profile {{  pv_ua_user_tmp_dir  }}/{{  item.path  | basename }} --force"
-  environment:
-    PATH: "{{  pv_ua_user_bin_dir  }}:{{ ansible_env.PATH }}"
-  with_items: "{{  pv_kde_konsave_profiles.files  }}"
-  register: pv_kde_konsave_profiles_import_result
-  when: pv_kde_konsave_profiles_updated.changed
+# - name: USERAPPS | KDE | Find Konsave Profiles
+#   ansible.builtin.find:
+#     paths: "{{  playbook_dir  }}/files/"
+#     recurse: yes
+#     patterns: "*.knsv"
+#   delegate_to: localhost
+#   register: pv_kde_konsave_profiles
 
-- name: USERAPPS | KDE | Import Konsave Profiles Result
-  debug:
-    var: pv_kde_konsave_profiles_import_result
-  when: pv_kde_konsave_profiles_updated.changed
+# - name: USERAPPS | KDE | Find Konsave Profiles
+#   copy:
+#     src: "{{  item.path  }}"
+#     dest: "{{  pv_ua_user_tmp_dir  }}"
+#     remote_src: false
+#   with_items: "{{  pv_kde_konsave_profiles.files  }}"
+#   register: pv_kde_konsave_profiles_updated
+
+# - name: USERAPPS | KDE | Install konsave
+#   pip:
+#     name: konsave
+#   environment:
+#     PATH: "{{  pv_ua_user_bin_dir  }}:{{ ansible_env.PATH }}"
+
+# - name: USERAPPS | KDE | Konsave Install Result
+#   when: pv_kde_konsave_profiles_updated.changed
+#   debug:
+#     var: pv_kde_konsave_pip_install_result
+
+# - name: USERAPPS | KDE | Import Konsave Profiles
+#   shell: "konsave --import-profile {{  pv_ua_user_tmp_dir  }}/{{  item.path  | basename }} --force"
+#   environment:
+#     PATH: "{{  pv_ua_user_bin_dir  }}:{{ ansible_env.PATH }}"
+#   with_items: "{{  pv_kde_konsave_profiles.files  }}"
+#   register: pv_kde_konsave_profiles_import_result
+#   when: pv_kde_konsave_profiles_updated.changed
+
+# - name: USERAPPS | KDE | Import Konsave Profiles Result
+#   debug:
+#     var: pv_kde_konsave_profiles_import_result
+#   when: pv_kde_konsave_profiles_updated.changed

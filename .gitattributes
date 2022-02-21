@@ -54,3 +54,5 @@
 *.pyd           binary
 *.konsave       binary
 *.knsv          binary
+*.gz            binary
+*.tar.gz        binary
