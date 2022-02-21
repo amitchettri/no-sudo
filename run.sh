@@ -52,6 +52,10 @@ if [[ -z "$*" ]]; then
     echo ""
     read -n1 -r -p "Enter \"Y\" to install Idea Community (Press any other key to Skip*) : " install_ideaic
     echo ""
+    read -n1 -r -p "Enter \"Y\" to install PyCharm Community (Press any other key to Skip*) : " install_pycharm_community
+    echo ""
+    read -n1 -r -p "Enter \"Y\" to install PyCharm Professional (Press any other key to Skip*) : " install_pycharm_professional
+    echo ""
     read -n1 -r -p "Enter \"Y\" to install Idea Ultimate (Press any other key to Skip*) : " install_ideaiu
     echo ""
     read -n1 -r -p "Enter \"Y\" to download themes (Press any other key to Skip*) : " download_themes
@@ -142,6 +146,14 @@ if [[ -z "$*" ]]; then
 
     if [[ "${install_ideaiu}" == "Y" || "${install_ideaiu}" == "y" ]]; then
         __install_tags+=('ideaiu')
+    fi
+
+    if [[ "${install_pycharm_community}" == "Y" || "${install_pycharm_community}" == "y" ]]; then
+        __install_tags+=('pycharm_community')
+    fi
+
+    if [[ "${install_pycharm_professional}" == "Y" || "${install_pycharm_professional}" == "y" ]]; then
+        __install_tags+=('pycharm_professional')
     fi
 
     __ansible_tags=$(printf "%s," "${__install_tags[@]}")
