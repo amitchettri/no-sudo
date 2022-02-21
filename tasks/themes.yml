@@ -61,7 +61,7 @@
 
 - name: USERAPPS | Theme | EliverLara Nordic-kde
   block:
-    - name: USERAPPS | Theme | EliverLara Nordic | Git clone
+    - name: USERAPPS | Theme | EliverLara Nordic-kde | Git clone
       ansible.builtin.git:
         single_branch: true
         repo: "https://github.com/EliverLara/Nordic-kde.git"
@@ -69,16 +69,16 @@
         depth: 1
       register: pv_kde_tmp_eliverLara_nordic_kde_updated
 
-    - name: USERAPPS | Theme | EliverLara Nordic | Copy Resources
+    - name: USERAPPS | Theme | EliverLara Nordic-kde | Copy Resources
       when: pv_kde_tmp_eliverLara_nordic_kde_updated.changed
       block:
-        - name: USERAPPS | Theme | EliverLara Nordic | Copy Resources | plasma desktoptheme
+        - name: USERAPPS | Theme | EliverLara Nordic-kde | Copy Resources | plasma desktoptheme
           ansible.builtin.copy:
             src: "{{  pv_ua_user_tmp_dir  }}/EliverLara-Nordic-kde-git/"
             dest: "{{  pv_ua_user_share_dir  }}/plasma/desktoptheme/Nordic/"
             remote_src: true
 
-        - name: USERAPPS | Theme | EliverLara Nordic | Copy Resources | Delete git tracker
+        - name: USERAPPS | Theme | EliverLara Nordic-kde | Copy Resources | Delete git tracker
           ansible.builtin.file:
             path: "{{  pv_ua_user_share_dir  }}/plasma/desktoptheme/Nordic/.git"
             state: absent
