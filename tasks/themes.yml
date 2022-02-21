@@ -85,7 +85,7 @@
 
 - name: USERAPPS | Theme | vinceliuice Layan-kde
   block:
-    - name: USERAPPS | Theme | vinceliuice Layan-USERAPPS | Git Clone
+    - name: USERAPPS | Theme | vinceliuice Layan | Git Clone
       ansible.builtin.git:
         single_branch: true
         repo: "https://github.com/vinceliuice/Layan-kde.git"
@@ -93,7 +93,7 @@
         depth: 1
       register: pv_kde_tmp_layan_kde_theme_updated
 
-    - name: USERAPPS | Theme | vinceliuice Layan-USERAPPS | Install
+    - name: USERAPPS | Theme | vinceliuice Layan | Install
       ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-kde/install.sh"
       when: pv_kde_tmp_layan_kde_theme_updated.changed
       args:

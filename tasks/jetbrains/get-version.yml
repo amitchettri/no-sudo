@@ -12,6 +12,7 @@
     xpath: "//channel[@id='IC-IU-RELEASE-licensing-RELEASE']/build[1]"
     content: attribute
   register: pv_jb_idea_release_attribute
+  delegate_to: localhost
 
 - name: USERAPPS | JetBrains | Get Latest Version | IntelliJ IDEA | Set Version
   run_once: true
@@ -20,6 +21,7 @@
 
 - name: USERAPPS | JetBrains | PyCharm | Filter Release
   run_once: true
+  delegate_to: localhost
   community.general.xml:
     xmlstring: "{{  pv_jb_idea_release_xml.content  }}"
     xpath: "//channel[@id='PC-PY-RELEASE-licensing-RELEASE']/build[1]"
