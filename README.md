@@ -163,3 +163,20 @@ Variables:
 - Not Applicable
 
 </details>
+
+<details>
+<summary>Utility Scripts</summary>
+
+## Utility Scripts
+
+---
+
+Tag: `scripts`
+
+Install [Utility Scripts](https://github.com/arpanrec/util-scripts/tree/main/bin) to `{{  pv_ua_user_bin_dir  }}`
+
+Variables:
+
+- Not Applicable
+
+</details>
