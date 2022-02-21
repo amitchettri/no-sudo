@@ -14,11 +14,27 @@
   with_items: "{{  pv_kde_konsave_profiles.files  }}"
   register: pv_kde_konsave_profiles_updated
 
+# - name: USERAPPS | KDE | Install konsave
+#   pip:
+#     name: konsave
+#   environment:
+#     PATH: "{{  pv_ua_user_bin_dir  }}:{{ ansible_env.PATH }}"
+
 - name: USERAPPS | KDE | Install konsave
-  pip:
-    name: konsave
+  when: pv_kde_konsave_profiles_updated.changed
+  shell: |
+    deactivate | true
+    "$(readlink -f "$(which python3)")" -m pip install konsave --user --upgrade
+  args:
+    executable: /bin/bash
+  register: pv_kde_konsave_pip_install_result
   environment:
     PATH: "{{  pv_ua_user_bin_dir  }}:{{ ansible_env.PATH }}"
+
+- name: USERAPPS | KDE | Konsave Install Result
+  when: pv_kde_konsave_profiles_updated.changed
+  debug:
+    var: pv_kde_konsave_pip_install_result
 
 - name: USERAPPS | KDE | Import Konsave Profiles
   shell: "konsave --import-profile {{  pv_ua_user_tmp_dir  }}/{{  item.path  | basename }} --force"

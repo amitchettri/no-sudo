@@ -1,6 +1,6 @@
 ---
-- name: Mater No Sudo
-  hosts: localhost
+- name: Installing apps in user $HOME directory
+  hosts: all
   become: false
   gather_facts: true
   vars:
