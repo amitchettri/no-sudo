@@ -1,0 +1,41 @@
+- name: USERAPPS | Fonts | Cascadia Code | Get latest releases
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/microsoft/cascadia-code/releases/latest"
+    method: GET
+    return_content: yes
+    headers:
+      Accept: "application/vnd.github.v3+json"
+    status_code: 200
+  register: pv_ua_fonts_cascadia_latest_release
+
+- name: USERAPPS | Fonts | Cascadia Code | Set download path
+  set_fact:
+    pv_ua_fonts_cascadia_download_path: "{{  pv_ua_user_tmp_dir  }}/CascadiaCode-{{  pv_ua_fonts_cascadia_latest_release.json.tag_name[1:]  }}.zip"
+
+- name: USERAPPS | Fonts | Cascadia Code | Set download URL
+  set_fact:
+    pv_ua_fonts_cascadia_download_url: "https://github.com/microsoft/cascadia-code/releases/download/{{  pv_ua_fonts_cascadia_latest_release.json.tag_name  }}/CascadiaCode-{{  pv_ua_fonts_cascadia_latest_release.json.tag_name[1:]  }}.zip"
+
+- name: USERAPPS | Fonts | Cascadia Code | Get downloaded file stat
+  stat:
+    path: "{{  pv_ua_fonts_cascadia_download_path  }}"
+  register: pv_ua_fonts_tmp_downloaded_file_stat
+
+- name: USERAPPS | Fonts | Cascadia Code | Download bin
+  ansible.builtin.get_url:
+    url: "{{  pv_ua_fonts_cascadia_download_url  }}"
+    dest: "{{  pv_ua_fonts_cascadia_download_path  }}"
+  when: not pv_ua_fonts_tmp_downloaded_file_stat.stat.exists
+
+- name: USERAPPS | Fonts | Cascadia Code | Copy to Fonts Directory
+  ansible.builtin.unarchive:
+    src: "{{  pv_ua_fonts_cascadia_download_path  }}"
+    dest: "{{  pv_ua_user_share_dir  }}/fonts"
+    remote_src: yes
+  register: pv_ua_fons_cascadia_fonts_updated
+
+- name: USERAPPS | Fonts | | Cascadia Code | Update font cache
+  shell: "fc-cache {{  pv_ua_user_share_dir  }}/fonts"
+  args:
+    executable: /bin/bash
+  when: pv_ua_fons_cascadia_fonts_updated.changed

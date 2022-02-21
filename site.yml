@@ -35,7 +35,7 @@
         - never
 
     - name: fonts
-      import_tasks: tasks/fonts/hack.yml
+      import_tasks: tasks/fonts/fonts.yml
       tags:
         - never
         - fonts
