@@ -19,109 +19,91 @@
     - name: Dotfiles
       import_tasks: tasks/dotfiles.yml
       tags:
-        - never
         - dotfiles
 
     - name: Util Scripts
       import_tasks: tasks/utils-scripts.yml
       tags:
-        - never
         - scripts
 
     - name: USERAPPS | Install Terminal Themes
       import_tasks: tasks/terminal_themes.yml
       tags:
         - terminal_themes
-        - never
 
     - name: fonts
       import_tasks: tasks/fonts/fonts.yml
       tags:
-        - never
         - fonts
 
     - name: USERAPPS | Install Bitwarden
       import_tasks: tasks/bitwarden_desktop.yml
       tags:
         - bitwarden_desktop
-        - never
 
     - name: USERAPPS | Install Bitwarden CLI
       import_tasks: tasks/bw.yml
       tags:
         - bw
-        - never
 
     - name: USERAPPS | Mattermost
       import_tasks: tasks/mattermost_desktop.yml
       tags:
         - mattermost_desktop
-        - never
 
     - name: USERAPPS | Telegram
       import_tasks: tasks/telegram.yml
       tags:
         - telegram
-        - never
 
     - name: USERAPPS | NodeJS
       import_tasks: tasks/nodejs.yml
       tags:
         - nodejs
-        - never
 
     - name: USERAPPS | nvim
       import_tasks: tasks/nvim.yml
       tags:
         - nvim
-        - never
 
     - name: USERAPPS | Postman
       import_tasks: tasks/postman.yml
       tags:
         - postman
-        - never
 
     - name: USERAPPS | Jq
       import_tasks: tasks/jq.yml
       tags:
         - jq
-        - never
 
     - name: USERAPPS | GoLang
       import_tasks: tasks/go.yml
       tags:
         - go
-        - never
 
     - name: USERAPPS | jdk
       import_tasks: tasks/jdk.yml
       tags:
         - jdk
-        - never
 
     - name: USERAPPS | Apache Maven
       import_tasks: tasks/mvn.yml
       tags:
         - mvn
-        - never
 
     - name: USERAPPS | VSCode
       import_tasks: tasks/code/install.yml
       tags:
         - code
-        - never
 
     - name: USERAPPS | themes
       import_tasks: tasks/themes.yml
       tags:
-        - never
         - themes
 
     - name: USERAPPS | Icons
       import_tasks: tasks/icons.yml
       tags:
-        - never
         - icons
 
     - name: USERAPPS | Idea Ultimate
@@ -129,7 +111,6 @@
       vars:
         pv_jb_idea_ideaiu_or_ideaic: ideaiu
       tags:
-        - never
         - ideaiu
 
     - name: USERAPPS | Idea Community
@@ -137,13 +118,11 @@
       vars:
         pv_jb_idea_ideaiu_or_ideaic: ideaic
       tags:
-        - never
         - ideaic
 
     - name: USERAPPS | Idea
       import_tasks: tasks/kde.yml
       tags:
-        - never
         - kde
 
     - name: USERAPPS | PyCharm Professional
@@ -151,7 +130,6 @@
       vars:
         pv_jb_pycharm_professional_community: pycharm_professional
       tags:
-        - never
         - pycharm_professional
 
     - name: USERAPPS | Idea Community
@@ -159,5 +137,4 @@
       vars:
         pv_jb_pycharm_professional_community: pycharm_community
       tags:
-        - never
         - pycharm_community
