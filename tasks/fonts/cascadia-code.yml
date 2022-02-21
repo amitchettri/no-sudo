@@ -19,23 +19,33 @@
 - name: USERAPPS | Fonts | Cascadia Code | Get downloaded file stat
   stat:
     path: "{{  pv_ua_fonts_cascadia_download_path  }}"
-  register: pv_ua_fonts_tmp_downloaded_file_stat
+  register: pv_ua_fonts_cascadia_tmp_downloaded_file_stat
 
-- name: USERAPPS | Fonts | Cascadia Code | Download bin
-  ansible.builtin.get_url:
-    url: "{{  pv_ua_fonts_cascadia_download_url  }}"
-    dest: "{{  pv_ua_fonts_cascadia_download_path  }}"
-  when: not pv_ua_fonts_tmp_downloaded_file_stat.stat.exists
+- name: USERAPPS | Fonts | Cascadia Code | Install
+  when: not pv_ua_fonts_cascadia_tmp_downloaded_file_stat.stat.exists
+  block:
+    - name: USERAPPS | Fonts | Cascadia Code | Install | Download bin
+      ansible.builtin.get_url:
+        url: "{{  pv_ua_fonts_cascadia_download_url  }}"
+        dest: "{{  pv_ua_fonts_cascadia_download_path  }}"
 
-- name: USERAPPS | Fonts | Cascadia Code | Copy to Fonts Directory
-  ansible.builtin.unarchive:
-    src: "{{  pv_ua_fonts_cascadia_download_path  }}"
-    dest: "{{  pv_ua_user_share_dir  }}/fonts"
-    remote_src: yes
-  register: pv_ua_fons_cascadia_fonts_updated
+    - name: USERAPPS | Fonts | Hack | Cascadia Code | Create Directory
+      ansible.builtin.file:
+        path: "{{  pv_ua_user_share_dir  }}/fonts/cascadia-code"
+        state: directory
 
-- name: USERAPPS | Fonts | | Cascadia Code | Update font cache
-  shell: "fc-cache {{  pv_ua_user_share_dir  }}/fonts"
-  args:
-    executable: /bin/bash
-  when: pv_ua_fons_cascadia_fonts_updated.changed
+    - name: USERAPPS | Fonts | Cascadia Code | Install | Copy to Fonts Directory
+      ansible.builtin.unarchive:
+        src: "{{  pv_ua_fonts_cascadia_download_path  }}"
+        dest: "{{  pv_ua_user_share_dir  }}/fonts/cascadia-code"
+        remote_src: yes
+
+    - name: USERAPPS | Fonts | Cascadia Code | Install | Update font cache
+      shell: "fc-cache -f -v {{  pv_ua_user_share_dir  }}/fonts/cascadia-code"
+      args:
+        executable: /bin/bash
+      register: pv_ua_fonts_cascadia_update_cache_result
+
+    - name: USERAPPS | Fonts | Cascadia Code | Install | Update Result
+      debug:
+        var: pv_ua_fonts_cascadia_update_cache_result
