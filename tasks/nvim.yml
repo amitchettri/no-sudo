@@ -34,87 +34,85 @@
     path: "{{  pv_ua_nvim_tarball_download_path  }}"
   register: pv_ua_nvim_tmp_downloaded_file_stat
 
-- name: USERAPPS | NEOVIM | Download tarball
-  ansible.builtin.get_url:
-    url: "{{  pv_ua_nvim_download_url  }}"
-    dest: "{{  pv_ua_nvim_tarball_download_path  }}"
+- name: USERAPPS | NEOVIM | Install
   when: not pv_ua_nvim_tmp_downloaded_file_stat.stat.exists
+  block:
+    - name: USERAPPS | NEOVIM | Install | Download tarball
+      ansible.builtin.get_url:
+        url: "{{  pv_ua_nvim_download_url  }}"
+        dest: "{{  pv_ua_nvim_tarball_download_path  }}"
 
-- name: USERAPPS | NEOVIM | Unarchive the tarball
-  ansible.builtin.unarchive:
-    src: "{{  pv_ua_nvim_tarball_download_path  }}"
-    dest: "{{  pv_ua_nvim_install_path  }}"
-    extra_opts: [--strip-components=1]
-    remote_src: true
+    - name: USERAPPS | NEOVIM | Install | Unarchive the tarball
+      ansible.builtin.unarchive:
+        src: "{{  pv_ua_nvim_tarball_download_path  }}"
+        dest: "{{  pv_ua_nvim_install_path  }}"
+        extra_opts: [--strip-components=1]
+        remote_src: true
 
-- name: USERAPPS | NEOVIM | Create symlink to bin
-  ansible.builtin.file:
-    src: "{{  pv_ua_nvim_install_path  }}/bin/nvim"
-    dest: "{{  pv_ua_user_bin_dir  }}/nvim"
-    state: link
+    - name: USERAPPS | NEOVIM | Install | Create symlink to bin
+      ansible.builtin.file:
+        src: "{{  pv_ua_nvim_install_path  }}/bin/nvim"
+        dest: "{{  pv_ua_user_bin_dir  }}/nvim"
+        state: link
 
-- name: USERAPPS | NEOVIM | Set plug directory
-  set_fact:
-    pv_ua_nvim_autoload_dir: "{{  pv_ua_nvim_install_path  }}/site/autoload"
-    pv_ua_nvim_config_dir: "{{  pv_ua_user_config_dir  }}/nvim"
+    - name: USERAPPS | NEOVIM | Install | Set plug directory
+      set_fact:
+        pv_ua_nvim_autoload_dir: "{{  pv_ua_nvim_install_path  }}/site/autoload"
+        pv_ua_nvim_config_dir: "{{  pv_ua_user_config_dir  }}/nvim"
 
-- name: USERAPPS | NEOVIM | Create plug directory
-  ansible.builtin.file:
-    path: "{{  item  }}"
-    state: directory
-  with_items:
-    - "{{  pv_ua_nvim_autoload_dir  }}"
-    - "{{  pv_ua_nvim_config_dir  }}"
+    - name: USERAPPS | NEOVIM | Install | Create plug directory
+      ansible.builtin.file:
+        path: "{{  item  }}"
+        state: directory
+      with_items:
+        - "{{  pv_ua_nvim_autoload_dir  }}"
+        - "{{  pv_ua_nvim_config_dir  }}"
 
-- name: USERAPPS | NEOVIM | Copy config
-  copy:
-    src: "files/init.vim"
-    dest: "{{  pv_ua_nvim_config_dir  }}/init.vim"
+    - name: USERAPPS | NEOVIM | Install | Copy config
+      copy:
+        src: "files/init.vim"
+        dest: "{{  pv_ua_nvim_config_dir  }}/init.vim"
 
-- name: USERAPPS | NEOVIM | Download vim-plug
-  ansible.builtin.get_url:
-    url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-    dest: "{{  pv_ua_nvim_autoload_dir  }}/plug.vim"
-  register: pv_ua_nvim_plug_updated
+    - name: USERAPPS | NEOVIM | Install | Download vim-plug
+      ansible.builtin.get_url:
+        url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+        dest: "{{  pv_ua_nvim_autoload_dir  }}/plug.vim"
 
-- name: USERAPPS | NEOVIM | Install yarn
-  community.general.npm:
-    name: yarn
-    global: yes
-    state: latest
-  environment:
-    PATH: "{{  pv_ua_nodejs_install_path  }}/bin:{{  ansible_env.PATH  }}"
+    - name: USERAPPS | NEOVIM | Install | Install yarn
+      community.general.npm:
+        name: yarn
+        global: yes
+        state: latest
+      environment:
+        PATH: "{{  pv_ua_nodejs_install_path  }}/bin:{{  ansible_env.PATH  }}"
 
-- name: USERAPPS | NEOVIM | Install vim plug
-  when: pv_ua_nvim_plug_updated.changed
-  ansible.builtin.shell: "{{  pv_ua_user_local_dir  }}/bin/nvim --headless +PlugInstall +qa"
-  register: pv_ua_nvim_plug_install_result
-  args:
-    executable: /bin/bash
-  environment:
-    PATH: "{{  pv_ua_nodejs_install_path  }}/bin:{{  ansible_env.PATH  }}"
+    - name: USERAPPS | NEOVIM | Install | Install vim plug
+      ansible.builtin.shell: "{{  pv_ua_user_local_dir  }}/bin/nvim --headless +PlugInstall +qa"
+      register: pv_ua_nvim_plug_install_result
+      args:
+        executable: /bin/bash
+      environment:
+        PATH: "{{  pv_ua_nodejs_install_path  }}/bin:{{  ansible_env.PATH  }}"
 
-- name: USERAPPS | NEOVIM | Install result
-  debug:
-    var: pv_ua_nvim_plug_install_result
+    - name: USERAPPS | NEOVIM | Install | Install result
+      debug:
+        var: pv_ua_nvim_plug_install_result
 
-- name: USERAPPS | NEOVIM | yarn install
-  when: pv_ua_nvim_plug_updated.changed
-  community.general.yarn:
-    path: "{{  pv_ua_nvim_install_path  }}/plugged/coc.nvim"
-    state: latest
-  environment:
-    PATH: "{{  pv_ua_nodejs_install_path  }}/bin:{{  ansible_env.PATH  }}"
+    - name: USERAPPS | NEOVIM | Install | yarn install
+      community.general.yarn:
+        path: "{{  pv_ua_nvim_install_path  }}/plugged/coc.nvim"
+        state: latest
+      environment:
+        PATH: "{{  pv_ua_nodejs_install_path  }}/bin:{{  ansible_env.PATH  }}"
 
-- name: USERAPPS | NEOVIM | Install coc-python
-  when: pv_ua_nvim_plug_updated.changed
-  register: pv_ua_nvim_coc_python_install_result
-  ansible.builtin.shell: '{{  pv_ua_user_local_dir  }}/bin/nvim --headless +"CocInstall coc-python" +qa'
-  args:
-    executable: /bin/bash
-  environment:
-    PATH: "{{  pv_ua_nodejs_install_path  }}/bin:{{  ansible_env.PATH  }}"
+    - name: USERAPPS | NEOVIM | Install | Install coc-python
+      register: pv_ua_nvim_coc_python_install_result
+      ansible.builtin.shell: '{{  pv_ua_user_local_dir  }}/bin/nvim --headless +"CocInstall coc-python" +qa'
+      args:
+        executable: /bin/bash
+      environment:
+        PATH: "{{  pv_ua_nodejs_install_path  }}/bin:{{  ansible_env.PATH  }}"
 
-- name: USERAPPS | NEOVIM | Install coc-python result
-  debug:
-    var: pv_ua_nvim_coc_python_install_result
+    - name: USERAPPS | NEOVIM | Install | Install coc-python result
+      debug:
+        var: pv_ua_nvim_coc_python_install_result
