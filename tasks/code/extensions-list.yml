@@ -9,7 +9,7 @@
       - "DavidAnson.vscode-markdownlint"
       - "dracula-theme.theme-dracula"
       - "foxundermoon.shell-format"
-      - "GabrielBB.vscode-lombok"
+      # - "GabrielBB.vscode-lombok"
       - "GitHub.github-vscode-theme"
       - "golang.go"
       - "hashicorp.terraform"
