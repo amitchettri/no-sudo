@@ -1,3 +1,6 @@
+- name: USERAPPS | Bitwarden CLI | Install JQ for scripts
+  import_tasks: tasks/jq.yml
+
 - name: USERAPPS | Bitwarden CLI | Get latest releases
   ansible.builtin.uri:
     url: "https://api.github.com/repos/bitwarden/cli/releases/latest"
