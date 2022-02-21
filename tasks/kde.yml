@@ -1,4 +1,4 @@
 - name: USERAPPS | Copy Konsave Profiles
   ansible.builtin.copy:
     src: "files/konsave_profiles/"
-    dest: "{{  pv_ua_user_config_dir  }}/konsave/profiles"
+    dest: "{{  pv_ua_user_home_dir  }}/"
