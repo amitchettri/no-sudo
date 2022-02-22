@@ -36,8 +36,7 @@ bash <(curl https://raw.githubusercontent.com/arpanrec/no-sudo/main/webrun.sh) \
 
 Tag: `dotfiles`
 
-Track your dotfiles from [GitHub](https://github.com/arpanrec/dotfiles).
-You can track these files with below command. (Follow the git commands for reference)
+Track your dotfiles from [GitHub](https://github.com/arpanrec/dotfiles). You can track these files with below command. (Follow the git commands for reference)
 
 ```shell
 config pull # To pull the changes
@@ -63,7 +62,7 @@ Variables:
 
 ---
 
-- Tag: `bitwarden_desktop`
+Tag: `bitwarden_desktop`
 
 Variables:
 
@@ -117,7 +116,9 @@ Variables:
 
 ---
 
-- Tag: `code`
+Tag: `code`
+
+Install vscode, and extensions Also creates a soft link to the `code` executable in `{{ pv_ua_user_bin_dir }}`
 
 Variables:
 
