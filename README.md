@@ -47,11 +47,11 @@ config push # Push to remote
 Variables:
 
 - `pv_ua_dotfiles_git_remote`
-    - Description: Git remote
-    - Default: [arpanrec/dotfiles](https://github.com/arpanrec/dotfiles)
+  - Description: Git remote
+  - Default: [arpanrec/dotfiles](https://github.com/arpanrec/dotfiles)
 - `pv_ua_dotfiles_bare_relative_dir`
-    - Description: Git bare directory in `{{ pv_ua_user_home_dir }}`
-    - Default: `.dotfiles`
+  - Description: Git bare directory in `{{ pv_ua_user_home_dir }}`
+  - Default: `.dotfiles`
 
 </details>
 
@@ -67,16 +67,16 @@ Tag: `bitwarden_desktop`
 Variables:
 
 - `pv_ua_bitwarden_desktop_version`
-    - Description: Version of [Bitwarden Desktop](https://bitwarden.com/download/) from [GitHub](https://github.com/bitwarden/desktop/releases).
-    - Default: Dynamically find the [latest tag_name](https://api.github.com/repos/bitwarden/desktop/releases/latest), like `v1.31.3`.
+  - Description: Version of [Bitwarden Desktop](https://bitwarden.com/download/) from [GitHub](https://github.com/bitwarden/desktop/releases).
+  - Default: Dynamically find the [latest tag_name](https://api.github.com/repos/bitwarden/desktop/releases/latest), like `v1.31.3`.
 
 - `pv_ua_bitwarden_desktop_install_path`
-    - Description: Install Path.
-    - Default: `{{ pv_ua_user_share_dir }}/bitwarden-desktop`
+  - Description: Install Path.
+  - Default: `{{ pv_ua_user_share_dir }}/bitwarden-desktop`
 
 - `pv_ua_bitwarden_desktop_icon_path`
-    - Description: Icon Path.
-    - Default: `{{ pv_ua_user_share_dir }}/applications/bitwarden-desktop-userapps.desktop`
+  - Description: Icon Path.
+  - Default: `{{ pv_ua_user_share_dir }}/applications/bitwarden-desktop-userapps.desktop`
 
 </details>
 
@@ -96,16 +96,16 @@ Tags:
 Variables:
 
 - `pv_jb_idea_version_<ideaiu\ideaic>`
-    - Description: Version of [Jetbrains IntelliJ IDEA](https://www.jetbrains.com/idea/)
-    - Default: Dynamically find the latest form [updates xml](https://www.jetbrains.com/updates/updates.xml), like `2021.3.2`
+  - Description: Version of [Jetbrains IntelliJ IDEA](https://www.jetbrains.com/idea/)
+  - Default: Dynamically find the latest form [updates xml](https://www.jetbrains.com/updates/updates.xml), like `2021.3.2`
 
 - `pv_jb_idea_install_path_<ideaiu\ideaic>`
-    - Description: Install Path
-    - Default: `{{ pv_ua_user_share_dir }}/JetBrains/{{ pv_jb_idea_ideaiu_or_ideaic }}-{{ pv_jb_idea_version }}`
+  - Description: Install Path
+  - Default: `{{ pv_ua_user_share_dir }}/JetBrains/{{ pv_jb_idea_ideaiu_or_ideaic }}-{{ pv_jb_idea_version }}`
 
 - `pv_jb_idea_icon_path_<ideaiu\ideaic>`
-    - Description: Icon Path
-    - Default: `{{ pv_ua_user_share_dir }}/applications/{{ pv_jb_idea_ideaiu_or_ideaic }}-{{ pv_jb_idea_version }}-userapps.desktop`
+  - Description: Icon Path
+  - Default: `{{ pv_ua_user_share_dir }}/applications/{{ pv_jb_idea_ideaiu_or_ideaic }}-{{ pv_jb_idea_version }}-userapps.desktop`
 
 </details>
 
@@ -123,25 +123,25 @@ Install vscode, and extensions Also creates a soft link to the `code` executable
 Variables:
 
 - `pv_ua_code_version`
-    - Description: Version of [Microsoft Visual Studio Code](https://code.visualstudio.com/updates).
-    - Default: Dynamically find the [latest tag_name](https://api.github.com/repos/microsoft/vscode/releases/latest), like `1.64.2`.
+  - Description: Version of [Microsoft Visual Studio Code](https://code.visualstudio.com/updates).
+  - Default: Dynamically find the [latest tag_name](https://api.github.com/repos/microsoft/vscode/releases/latest), like `1.64.2`.
 
 - `pv_ua_code_install_path`
-    - Description: Install Path.
-    - Default: `{{ pv_ua_user_share_dir }}/vscode`
+  - Description: Install Path.
+  - Default: `{{ pv_ua_user_share_dir }}/vscode`
 
 - `pv_ua_code_icon_path`
-    - Description: Icon Path.
-    - Default: `{{ pv_ua_user_share_dir }}/applications/code-userapps.desktop`
+  - Description: Icon Path.
+  - Default: `{{ pv_ua_user_share_dir }}/applications/code-userapps.desktop`
 
 - `pv_ua_code_uri_handler_path`
-    - Description: URI Handler path
-    - Default: `{{ pv_ua_user_share_dir }}/applications/code-url-handler-userapps.desktop`
+  - Description: URI Handler path
+  - Default: `{{ pv_ua_user_share_dir }}/applications/code-url-handler-userapps.desktop`
 
 - `pv_ua_code_ext_to_be_installed`
-    - Description: List of VSCode extension to be installed.
-    - Type: `List[String]`
-    - Default: [extensions-list.yml](tasks/code/extensions-list.yml)
+  - Description: List of VSCode extension to be installed.
+  - Type: `List[String]`
+  - Default: [extensions-list.yml](tasks/code/extensions-list.yml)
 
 </details>
 
@@ -161,16 +161,16 @@ Tags:
 Variables:
 
 - `pv_jb_pycharm_version_<professional\community>`
-    - Description: Version of [Jetbrains Pycharm](https://www.jetbrains.com/pycharm/)
-    - Default: Dynamically find the latest form [updates xml](https://www.jetbrains.com/updates/updates.xml), like `2021.3.2`
+  - Description: Version of [Jetbrains Pycharm](https://www.jetbrains.com/pycharm/)
+  - Default: Dynamically find the latest form [updates xml](https://www.jetbrains.com/updates/updates.xml), like `2021.3.2`
 
 - `pv_jb_pycharm_install_path_<professional\community>`
-    - Description: Install Path
-    - Default: `{{ pv_ua_user_share_dir }}/JetBrains/{{ pv_jb_pycharm_professional_community }}-{{ pv_jb_pycharm_version }}`
+  - Description: Install Path
+  - Default: `{{ pv_ua_user_share_dir }}/JetBrains/{{ pv_jb_pycharm_professional_community }}-{{ pv_jb_pycharm_version }}`
 
 - `pv_jb_pycharm_desktop_icon_path_<professional\community>`
-    - Description: Icon Path
-    - Default: `{{ pv_ua_user_share_dir }}/applications/{{ pv_jb_pycharm_professional_community }}-{{ pv_jb_pycharm_version }}-userapps.desktop`
+  - Description: Icon Path
+  - Default: `{{ pv_ua_user_share_dir }}/applications/{{ pv_jb_pycharm_professional_community }}-{{ pv_jb_pycharm_version }}-userapps.desktop`
 
 </details>
 
@@ -208,5 +208,22 @@ Install [Utility Scripts](https://github.com/arpanrec/util-scripts/tree/main/bin
 Variables:
 
 - Not Applicable
+
+</details>
+
+<details>
+<summary>Gnome</summary>
+
+## Install Gnome Extensions
+
+---
+
+Tag: `gnome`
+
+Variables:
+
+- `pv_gnome_extension_list`
+  - Description: List of Extensions
+  - Default: [extension-list](tasks/gnome/extension-list.yml)
 
 </details>

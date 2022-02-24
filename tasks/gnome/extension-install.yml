@@ -1,0 +1,59 @@
+- name: USERAPPS | Gnome | Extension | Install | Fail if extension id not present
+  fail:
+    msg: pv_gnome_extension_id or pv_gnome_extension_name is not present
+  when: pv_gnome_extension_id is undefined or pv_gnome_extension_id | length < 1 or pv_gnome_extension_name is undefined or pv_gnome_extension_name | length < 1
+
+- name: USERAPPS | Gnome | Extension | Install | {{  pv_gnome_extension_name  }} | Get Extension Info
+  ansible.builtin.uri:
+    url: "https://extensions.gnome.org/extension-info/?pk={{  pv_gnome_extension_id  }}&shell_version={{  pv_gnome_gnome_shell_version  }}"
+    method: GET
+    return_content: yes
+    status_code: 200
+  register: pv_gnome_extension_info
+
+- name: USERAPPS | Gnome | Extension | Install | {{  pv_gnome_extension_name  }} | Set Extension Info
+  set_fact:
+    pv_gnome_extension_uuid: "{{  pv_gnome_extension_info.json.uuid  }}"
+    pv_gnome_extension_download_url: "{{  pv_gnome_extension_info.json.download_url  }}"
+    pv_gnome_extension_version: "{{  pv_gnome_extension_info.json.version  }}"
+
+- name: USERAPPS | Gnome | Extension | Install | Set extension directory
+  set_fact:
+    pv_gnome_extension_user_dir: "{{  pv_ua_user_share_dir  }}/gnome-shell/extensions/{{  pv_gnome_extension_uuid  }}"
+
+- name: USERAPPS | Gnome | Extension | Install | Check for directory
+  stat:
+    path: "{{  pv_gnome_extension_user_dir  }}"
+  register: pv_gnome_extension_dir_stat
+
+- name: USERAPPS | Gnome | Extension | Install | New Install
+  when: not pv_gnome_extension_dir_stat.stat.exists
+  block:
+    - name: USERAPPS | Gnome | Extension | Install | New Install | Set Download location
+      set_fact:
+        pv_gnome_extension_download_path: "{{  pv_ua_user_tmp_dir  }}/{{  pv_gnome_extension_uuid  }}-{{  pv_gnome_extension_version  }}.zip"
+
+    - name: USERAPPS | Gnome | Extension | Install | New Install | Check for existing archive
+      stat:
+        path: "{{  pv_gnome_extension_download_path  }}"
+      register: pv_gnome_extension_download_path_stat
+
+    - name: USERAPPS | Gnome | Extension | Install | New Install | New Download
+      when: not pv_gnome_extension_download_path_stat.stat.exists
+      block:
+        - name: USERAPPS | Gnome | Extension | Install | New Install | New Download | Download archive
+          when: not pv_gnome_extension_download_path_stat.stat.exists
+          ansible.builtin.get_url:
+            url: "https://extensions.gnome.org{{  pv_gnome_extension_download_url  }}"
+            dest: "{{  pv_gnome_extension_download_path  }}"
+
+        - name: USERAPPS | Gnome | Extension | Install | New Install | New Download | Create directory
+          ansible.builtin.file:
+            path: "{{  pv_gnome_extension_user_dir  }}"
+            state: directory
+
+        - name: USERAPPS | Gnome | Extension | Install | New Install | New Download | Unarchive
+          ansible.builtin.unarchive:
+            src: "{{  pv_gnome_extension_download_path  }}"
+            dest: "{{  pv_gnome_extension_user_dir  }}"
+            remote_src: true

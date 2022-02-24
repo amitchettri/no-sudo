@@ -1,0 +1,2 @@
+- name: USERAPPS | Gnome | Install extension
+  import_tasks: tasks/gnome/extension.yml

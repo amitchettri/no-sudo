@@ -1,0 +1,23 @@
+- name: USERAPPS | Gnome | Extension | Get Gnome Shell Version
+  shell: gnome-shell --version | awk '{ print $3 }'
+  changed_when: false
+  register: pv_gnome_gnome_shell_v_result
+
+- name: USERAPPS | Gnome | Extension | Set Gnome Shell Version
+  set_fact:
+    pv_gnome_gnome_shell_version: "{{  pv_gnome_gnome_shell_v_result.stdout  }}"
+
+- name: USERAPPS | Gnome | Extension | Gnome Shell Version
+  debug:
+    var: pv_gnome_gnome_shell_version
+
+- name: USERAPPS | Gnome | Extension | Set Extension List
+  when: pv_gnome_extension_list is undefined or pv_gnome_extension_list | length < 1
+  import_tasks: tasks/gnome/extension-list.yml
+
+- name: USERAPPS | Gnome | Extension | Install
+  include_tasks: tasks/gnome/extension-install.yml
+  with_items: "{{  pv_gnome_extension_list  }}"
+  vars:
+    pv_gnome_extension_id: "{{  item.id  }}"
+    pv_gnome_extension_name: "{{  item.name  }}"

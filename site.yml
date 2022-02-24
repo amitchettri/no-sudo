@@ -138,3 +138,8 @@
         pv_jb_pycharm_professional_community: pycharm_community
       tags:
         - pycharm_community
+
+    - name: USERAPPS | Gnome Setup
+      import_tasks: tasks/gnome/main.yml
+      tags:
+        - gnome

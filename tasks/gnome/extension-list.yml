@@ -1,0 +1,8 @@
+- name: USERAPPS | Gnome | Extension | Set List
+  set_fact:
+    pv_gnome_extension_list:
+      - { name: "user-themes", id: 19 }
+      - { name: "AppIndicator and KStatusNotifierItem Support", id: 615 }
+      - { name: "workspace-indicator", id: 21 }
+      - { name: "applications-menu", id: 6 }
+      - { name: "vitals", id: 1460 }
