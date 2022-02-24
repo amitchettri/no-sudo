@@ -185,3 +185,27 @@
             src: "{{  pv_ua_user_share_dir  }}/themes/Sweet-mars/kde/konsole/"
             dest: "{{  pv_ua_user_share_dir  }}/konsole/"
             remote_src: true
+
+- name: USERAPPS | Theme | EliverLara Sweet
+  block:
+    - name: USERAPPS | Theme | EliverLara Sweet | Git Clone
+      ansible.builtin.git:
+        single_branch: true
+        repo: "https://github.com/EliverLara/Sweet.git"
+        dest: "{{  pv_ua_user_tmp_dir  }}/EliverLara-Sweet-git"
+        depth: 1
+      register: pv_kde_tmp_eliverLara_Sweet_updated
+
+    - name: USERAPPS | Theme | EliverLara Sweet | Copy Resources
+      when: pv_kde_tmp_eliverLara_Sweet_updated.changed
+      block:
+        - name: USERAPPS | Theme | EliverLara Sweet | Copy Resources | gtk themes
+          ansible.builtin.copy:
+            src: "{{  pv_ua_user_tmp_dir  }}/EliverLara-Sweet-git/"
+            dest: "{{  pv_ua_user_share_dir  }}/themes/Sweet/"
+            remote_src: true
+
+        - name: USERAPPS | Theme | EliverLara Sweet | Copy Resources | Delete git tracker from gtk directory
+          ansible.builtin.file:
+            path: "{{  pv_ua_user_share_dir  }}/themes/Sweet/.git"
+            state: absent
