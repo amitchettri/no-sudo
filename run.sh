@@ -12,22 +12,58 @@ if [[ -z "$*" ]]; then
 
     read -n1 -r -p "Enter \"Y\" to track dotfiles from 'https://github.com/arpanrec/dotfiles' (Press any other key to Skip*) : " install_dotfiles
     echo ""
+    if [[ "${install_dotfiles}" == "Y" || "${install_dotfiles}" == "y" ]]; then
+        __install_tags+=('dotfiles')
+    fi
+
     read -n1 -r -p "Enter \"Y\" to install utility scripts (Press any other key to Skip*) : " install_scripts
     echo ""
-    read -n1 -r -p "Enter \"Y\" to install Bash-IT, oh-my-zsh and fzf (Press any other key to Skip*) : " install_termincal_themes
+    if [[ "${install_scripts}" == "Y" || "${install_scripts}" == "y" ]]; then
+        __install_tags+=('scripts')
+    fi
+
+    read -n1 -r -p "Enter \"Y\" to install Bash-IT, oh-my-zsh and fzf (Press any other key to Skip*) : " install_terminal_themes
     echo ""
+    if [[ "${install_terminal_themes}" == "Y" || "${install_terminal_themes}" == "y" ]]; then
+        __install_tags+=('terminal_themes')
+    fi
+
     read -n1 -r -p "Enter \"Y\" to install fonts (Press any other key to Skip*) : " install_fonts
     echo ""
+    if [[ "$install_fonts" == "Y" || "$install_fonts" == "y" ]]; then
+        __install_tags+=('fonts')
+    fi
+
     read -n1 -r -p "Enter \"Y\" to install Telegram (Press any other key to Skip*) : " install_telegram
     echo ""
+    if [[ "$install_telegram" == "Y" || "$install_telegram" == "y" ]]; then
+        __install_tags+=('telegram')
+    fi
+
     read -n1 -r -p "Enter \"Y\" to install Bitwarden (Press any other key to Skip*) : " install_bitwarden_app_image
     echo ""
+    if [[ "$install_bitwarden_app_image" == "Y" || "$install_bitwarden_app_image" == "y" ]]; then
+        __install_tags+=('bitwarden_desktop')
+    fi
+
     read -n1 -r -p "Enter \"Y\" to install Bitwarden Command-line Interface (Press any other key to Skip*) : " install_bitwarden_cli
     echo ""
+    if [[ "$install_bitwarden_cli" == "Y" || "$install_bitwarden_cli" == "y" ]]; then
+        __install_tags+=('bw')
+    fi
+
     read -n1 -r -p "Enter \"Y\" to install Mattermost (Press any other key to Skip*) : " install_mattermost
     echo ""
+    if [[ "$install_mattermost" == "Y" || "$install_mattermost" == "y" ]]; then
+        __install_tags+=('mattermost_desktop')
+    fi
+
     read -n1 -r -p "Enter \"Y\" to install Postman (Press any other key to Skip*) : " install_postman
     echo ""
+    if [[ "$install_postman" == "Y" || "$install_postman" == "y" ]]; then
+        __install_tags+=('postman')
+    fi
+
     read -n1 -r -p "Enter \"Y\" to install neo vim (Press any other key to Skip*) : " install_neovim
     echo ""
 
@@ -35,125 +71,91 @@ if [[ -z "$*" ]]; then
     if [[ "$install_neovim" == "Y" || "$install_neovim" == "y" ]]; then
         echo "Neovim COC requires nodejs"
         install_node_js=y
+        __install_tags+=('nvim')
     else
         read -n1 -r -p "Enter \"Y\" to install node js (Press any other key to Skip*) : " install_node_js
         echo ""
+        if [[ "$install_node_js" == "Y" || "$install_node_js" == "y" ]]; then
+            __install_tags+=('nodejs')
+        fi
     fi
 
     read -n1 -r -p "Enter \"Y\" to install Jq (Press any other key to Skip*) : " install_jq
     echo ""
-    read -n1 -r -p "Enter \"Y\" to install go (Press any other key to Skip*) : " install_go
-    echo ""
-    read -n1 -r -p "Enter \"Y\" to install Oracle JDK17 (Press any other key to Skip*) : " install_jdk
-    echo ""
-    read -n1 -r -p "Enter \"Y\" to install Apache Maven3 (Press any other key to Skip*) : " install_maven
-    echo ""
-    read -n1 -r -p "Enter \"Y\" to install Visual Studio Code (Press any other key to Skip*) : " install_vscode
-    echo ""
-    read -n1 -r -p "Enter \"Y\" to install Idea Community (Press any other key to Skip*) : " install_ideaic
-    echo ""
-    read -n1 -r -p "Enter \"Y\" to install PyCharm Community (Press any other key to Skip*) : " install_pycharm_community
-    echo ""
-    read -n1 -r -p "Enter \"Y\" to install PyCharm Professional (Press any other key to Skip*) : " install_pycharm_professional
-    echo ""
-    read -n1 -r -p "Enter \"Y\" to install Idea Ultimate (Press any other key to Skip*) : " install_ideaiu
-    echo ""
-    read -n1 -r -p "Enter \"Y\" to download themes (Press any other key to Skip*) : " download_themes
-    echo ""
-    read -n1 -r -p "Enter \"Y\" to download icons (Press any other key to Skip*) : " download_icnos
-    echo ""
-    read -n1 -r -p "Enter \"Y\" to copy KDE profiles (Press any other key to Skip*) : " copy_kde_konsave
-    echo ""
-    if [[ "${install_dotfiles}" == "Y" || "${install_dotfiles}" == "y" ]]; then
-        __install_tags+=('dotfiles')
-    fi
-
-    if [[ "${install_scripts}" == "Y" || "${install_scripts}" == "y" ]]; then
-        __install_tags+=('scripts')
-    fi
-
-    if [[ "${install_termincal_themes}" == "Y" || "${install_termincal_themes}" == "y" ]]; then
-        __install_tags+=('terminal_themes')
-    fi
-
-    if [[ "$install_telegram" == "Y" || "$install_telegram" == "y" ]]; then
-        __install_tags+=('telegram')
-    fi
-
-    if [[ "$install_fonts" == "Y" || "$install_fonts" == "y" ]]; then
-        __install_tags+=('fonts')
-    fi
-
-    if [[ "$install_vscode" == "Y" || "$install_vscode" == "y" ]]; then
-        __install_tags+=('code')
-    fi
-
-    if [[ "$install_bitwarden_app_image" == "Y" || "$install_bitwarden_app_image" == "y" ]]; then
-        __install_tags+=('bitwarden_desktop')
-    fi
-
-    if [[ "$install_bitwarden_cli" == "Y" || "$install_bitwarden_cli" == "y" ]]; then
-        __install_tags+=('bw')
-    fi
-
-    if [[ "$install_mattermost" == "Y" || "$install_mattermost" == "y" ]]; then
-        __install_tags+=('mattermost_desktop')
-    fi
-
-    if [[ "$install_postman" == "Y" || "$install_postman" == "y" ]]; then
-        __install_tags+=('postman')
-    fi
-
-    if [[ "$install_neovim" == "Y" || "$install_neovim" == "y" ]]; then
-        __install_tags+=('nvim')
-    fi
-
-    if [[ "$install_node_js" == "Y" || "$install_node_js" == "y" ]]; then
-        __install_tags+=('nodejs')
-    fi
-
     if [[ "$install_jq" == "Y" || "$install_jq" == "y" ]]; then
         __install_tags+=('jq')
     fi
 
+    read -n1 -r -p "Enter \"Y\" to install go (Press any other key to Skip*) : " install_go
+    echo ""
     if [[ "$install_go" == "Y" || "$install_go" == "y" ]]; then
         __install_tags+=('go')
     fi
 
+    read -n1 -r -p "Enter \"Y\" to install Oracle JDK17 (Press any other key to Skip*) : " install_jdk
+    echo ""
     if [[ "$install_jdk" == "Y" || "$install_jdk" == "y" ]]; then
         __install_tags+=('jdk')
     fi
 
+    read -n1 -r -p "Enter \"Y\" to install Apache Maven3 (Press any other key to Skip*) : " install_maven
+    echo ""
     if [[ "$install_maven" == "Y" || "$install_maven" == "y" ]]; then
         __install_tags+=('mvn')
     fi
 
-    if [[ "$download_themes" == "Y" || "$download_themes" == "y" ]]; then
-        __install_tags+=('themes')
+    read -n1 -r -p "Enter \"Y\" to install Visual Studio Code (Press any other key to Skip*) : " install_vscode
+    echo ""
+    if [[ "$install_vscode" == "Y" || "$install_vscode" == "y" ]]; then
+        __install_tags+=('code')
     fi
 
-    if [[ "$download_icnos" == "Y" || "$download_icnos" == "y" ]]; then
-        __install_tags+=('icons')
-    fi
-
-    if [[ "${copy_kde_konsave}" == "Y" || "${copy_kde_konsave}" == "y" ]]; then
-        __install_tags+=('kde')
-    fi
-
+    read -n1 -r -p "Enter \"Y\" to install Idea Community (Press any other key to Skip*) : " install_ideaic
+    echo ""
     if [[ "${install_ideaic}" == "Y" || "${install_ideaic}" == "y" ]]; then
         __install_tags+=('ideaic')
     fi
 
-    if [[ "${install_ideaiu}" == "Y" || "${install_ideaiu}" == "y" ]]; then
-        __install_tags+=('ideaiu')
-    fi
-
+    read -n1 -r -p "Enter \"Y\" to install PyCharm Community (Press any other key to Skip*) : " install_pycharm_community
+    echo ""
     if [[ "${install_pycharm_community}" == "Y" || "${install_pycharm_community}" == "y" ]]; then
         __install_tags+=('pycharm_community')
     fi
 
+    read -n1 -r -p "Enter \"Y\" to install PyCharm Professional (Press any other key to Skip*) : " install_pycharm_professional
+    echo ""
     if [[ "${install_pycharm_professional}" == "Y" || "${install_pycharm_professional}" == "y" ]]; then
         __install_tags+=('pycharm_professional')
+    fi
+
+    read -n1 -r -p "Enter \"Y\" to install Idea Ultimate (Press any other key to Skip*) : " install_ideaiu
+    echo ""
+    if [[ "${install_ideaiu}" == "Y" || "${install_ideaiu}" == "y" ]]; then
+        __install_tags+=('ideaiu')
+    fi
+
+    read -n1 -r -p "Enter \"Y\" to download themes (Press any other key to Skip*) : " download_themes
+    echo ""
+    if [[ "$download_themes" == "Y" || "$download_themes" == "y" ]]; then
+        __install_tags+=('themes')
+    fi
+
+    read -n1 -r -p "Enter \"Y\" to download icons (Press any other key to Skip*) : " download_icnos
+    echo ""
+    if [[ "$download_icnos" == "Y" || "$download_icnos" == "y" ]]; then
+        __install_tags+=('icons')
+    fi
+
+    read -n1 -r -p "Enter \"Y\" to copy KDE profiles (Press any other key to Skip*) : " copy_kde_konsave
+    echo ""
+    if [[ "${copy_kde_konsave}" == "Y" || "${copy_kde_konsave}" == "y" ]]; then
+        __install_tags+=('kde')
+    fi
+
+    read -n1 -r -p "Enter \"Y\" to install gnome (Press any other key to Skip*) : " install_gnome
+    echo ""
+    if [[ "${install_gnome}" == "Y" || "${install_gnome}" == "y" ]]; then
+        __install_tags+=('gnome')
     fi
 
     __ansible_tags=$(printf "%s," "${__install_tags[@]}")
