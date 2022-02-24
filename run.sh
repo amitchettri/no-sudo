@@ -162,6 +162,7 @@ if [[ -z "$*" ]]; then
 
 fi
 
+# shellcheck source=/dev/null
 if [[ -z "${VIRTUAL_ENV}" ]]; then
     export PATH="${HOME}/.local/bin:${PATH}"
     echo "Updating Python packages"
