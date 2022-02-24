@@ -31,6 +31,10 @@
       set_fact:
         pv_ua_bitwarden_desktop_version: "{{  pv_ua_tmp_bw_latest_release.json.tag_name  }}"
 
+- name: USERAPPS | Bitwarden Desktop | Bitwarden Version
+  debug:
+    var: pv_ua_bitwarden_desktop_version
+
 - name: USERAPPS | Bitwarden Desktop | Set Download URL
   set_fact:
     pv_ua_bitwarden_download_url: "https://github.com/bitwarden/desktop/releases/download/{{  pv_ua_bitwarden_desktop_version  }}/Bitwarden-{{  pv_ua_bitwarden_desktop_version[1:]  }}-x86_64.AppImage"
