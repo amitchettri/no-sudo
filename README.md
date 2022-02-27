@@ -40,7 +40,8 @@ Track your dotfiles from [GitHub](https://github.com/arpanrec/dotfiles). You can
 
 ```shell
 config pull # To pull the changes
-config add <filepath> # Track new files
+config add <filepath> # Track new files/Changes
+config commit -m"New Config added/Changed" # Track new files
 config push # Push to remote
 ```
 
@@ -89,9 +90,11 @@ Variables:
 
 Tags:
 
-- Ultimate Edition: `ideaiu` *(`pv_jb_idea_ideaiu_or_ideaic` = `ideaiu`)
+- Ultimate Edition: `ideaiu`  
+  *Not User Input* `pv_jb_idea_ideaiu_or_ideaic` = `ideaiu`
 
-- Community Edition: `ideaic` *(`pv_jb_idea_ideaiu_or_ideaic` = `ideaic`)
+- Community Edition: `ideaic`  
+  *Not User Input* `pv_jb_idea_ideaiu_or_ideaic` = `ideaic`
 
 Variables:
 
@@ -154,9 +157,11 @@ Variables:
 
 Tags:
 
-- Ultimate Community: `pycharm_community` *(`pv_jb_pycharm_professional_community` = `pycharm_community`)
+- Ultimate Community: `pycharm_community`  
+  *Not User Input* `pv_jb_pycharm_professional_community` = `pycharm_community`
 
-- Community Professional: `pycharm_professional` *(`pv_jb_pycharm_professional_community` = `pycharm_professional`)
+- Community Professional: `pycharm_professional`  
+  *Not User Input* `pv_jb_pycharm_professional_community` = `pycharm_professional`
 
 Variables:
 
@@ -225,5 +230,24 @@ Variables:
 - `pv_gnome_extension_list`
   - Description: List of Extensions
   - Default: [extension-list](tasks/gnome/extension-list.yml)
+
+</details>
+
+<details>
+<summary>Terminal Themes</summary>
+
+## Install Terminal Themes
+
+---
+
+- bash_it
+- oh-my-zsh (Powerlevel10K, zsh-syntax-highlighting zsh-autosuggestions, zsh-completions)
+- fzf
+
+Tag: `terminal_themes`
+
+Variables:
+
+- Not Applicable
 
 </details>
