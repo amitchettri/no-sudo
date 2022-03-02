@@ -99,3 +99,6 @@
 
 - name: USERAPPS | Visual Studio Code | Install Extensions
   import_tasks: extensions.yml
+
+- name: USERAPPS | Visual Studio Code | Copy Config
+  import_tasks: config.yml

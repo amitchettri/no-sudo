@@ -1,0 +1,16 @@
+- name: USERAPPS | Visual Studio Code | Config | Create directory
+  ansible.builtin.file:
+    path: "{{  pv_ua_user_config_dir  }}/Code/User"
+    state: directory
+
+- name: USERAPPS | Visual Studio Code | Config | Copy config
+  copy:
+    src: "files/settings.json"
+    dest: "{{  pv_ua_user_config_dir  }}/Code/User/settings.json"
+    remote_src: false
+
+- name: USERAPPS | Visual Studio Code | Config | Copy KeyMap
+  copy:
+    src: "files/keybindings.json"
+    dest: "{{  pv_ua_user_config_dir  }}/Code/User/keybindings.json"
+    remote_src: false
