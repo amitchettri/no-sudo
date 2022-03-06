@@ -68,10 +68,12 @@ Tag: `bitwarden_desktop`
 Variables:
 
 - `pv_ua_bitwarden_desktop_version`
+
   - Description: Version of [Bitwarden Desktop](https://bitwarden.com/download/) from [GitHub](https://github.com/bitwarden/desktop/releases).
   - Default: Dynamically find the [latest tag_name](https://api.github.com/repos/bitwarden/desktop/releases/latest), like `v1.31.3`.
 
 - `pv_ua_bitwarden_desktop_install_path`
+
   - Description: Install Path.
   - Default: `{{ pv_ua_user_share_dir }}/bitwarden-desktop`
 
@@ -91,18 +93,20 @@ Variables:
 Tags:
 
 - Ultimate Edition: `ideaiu`  
-  *Not User Input* `pv_jb_idea_ideaiu_or_ideaic` = `ideaiu`
+  _Not User Input_ `pv_jb_idea_ideaiu_or_ideaic` = `ideaiu`
 
 - Community Edition: `ideaic`  
-  *Not User Input* `pv_jb_idea_ideaiu_or_ideaic` = `ideaic`
+  _Not User Input_ `pv_jb_idea_ideaiu_or_ideaic` = `ideaic`
 
 Variables:
 
 - `pv_jb_idea_version_<ideaiu\ideaic>`
+
   - Description: Version of [Jetbrains IntelliJ IDEA](https://www.jetbrains.com/idea/)
   - Default: Dynamically find the latest form [updates xml](https://www.jetbrains.com/updates/updates.xml), like `2021.3.2`
 
 - `pv_jb_idea_install_path_<ideaiu\ideaic>`
+
   - Description: Install Path
   - Default: `{{ pv_ua_user_share_dir }}/JetBrains/{{ pv_jb_idea_ideaiu_or_ideaic }}-{{ pv_jb_idea_version }}`
 
@@ -126,18 +130,22 @@ Install vscode, and extensions Also creates a soft link to the `code` executable
 Variables:
 
 - `pv_ua_code_version`
+
   - Description: Version of [Microsoft Visual Studio Code](https://code.visualstudio.com/updates).
   - Default: Dynamically find the [latest tag_name](https://api.github.com/repos/microsoft/vscode/releases/latest), like `1.64.2`.
 
 - `pv_ua_code_install_path`
+
   - Description: Install Path.
   - Default: `{{ pv_ua_user_share_dir }}/vscode`
 
 - `pv_ua_code_icon_path`
+
   - Description: Icon Path.
   - Default: `{{ pv_ua_user_share_dir }}/applications/code-userapps.desktop`
 
 - `pv_ua_code_uri_handler_path`
+
   - Description: URI Handler path
   - Default: `{{ pv_ua_user_share_dir }}/applications/code-url-handler-userapps.desktop`
 
@@ -158,18 +166,20 @@ Variables:
 Tags:
 
 - Ultimate Community: `pycharm_community`  
-  *Not User Input* `pv_jb_pycharm_professional_community` = `pycharm_community`
+  _Not User Input_ `pv_jb_pycharm_professional_community` = `pycharm_community`
 
 - Community Professional: `pycharm_professional`  
-  *Not User Input* `pv_jb_pycharm_professional_community` = `pycharm_professional`
+  _Not User Input_ `pv_jb_pycharm_professional_community` = `pycharm_professional`
 
 Variables:
 
 - `pv_jb_pycharm_version_<professional\community>`
+
   - Description: Version of [Jetbrains Pycharm](https://www.jetbrains.com/pycharm/)
   - Default: Dynamically find the latest form [updates xml](https://www.jetbrains.com/updates/updates.xml), like `2021.3.2`
 
 - `pv_jb_pycharm_install_path_<professional\community>`
+
   - Description: Install Path
   - Default: `{{ pv_ua_user_share_dir }}/JetBrains/{{ pv_jb_pycharm_professional_community }}-{{ pv_jb_pycharm_version }}`
 
