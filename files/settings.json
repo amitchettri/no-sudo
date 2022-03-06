@@ -111,11 +111,24 @@
         "breadcrumbs.showArrays": true,
         "outline.showVariables": true,
         "editor.maxTokenizationLineLength": 20000,
+        "editor.defaultFormatter": "redhat.java"
     },
     "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
     "java.format.settings.profile": "GoogleStyle",
     "[python]": {
-        "editor.wordBasedSuggestions": false
+        "editor.wordBasedSuggestions": false,
+        "editor.defaultFormatter": "ms-python.python"
     },
-    "telemetry.telemetryLevel": "off"
+    "telemetry.telemetryLevel": "off",
+    "trunk.trunkGrayOutNonBlockingIssues": false,
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m",
+    "[shellscript]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
 }
