@@ -25,7 +25,6 @@
   when: pv_kde_konsave_profiles_updated.changed
   debug:
     var: pv_kde_konsave_pip_install_result
-
 # - name: USERAPPS | KDE | Find Konsave Profiles
 #   ansible.builtin.find:
 #     paths: "{{  playbook_dir  }}/files/"
