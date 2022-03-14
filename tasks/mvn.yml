@@ -7,7 +7,7 @@
 
 - name: USERAPPS | Apache Maven | Set Version Tag
   set_fact:
-    pv_ua_mvn_version: 3.8.4
+    pv_ua_mvn_version: 3.8.5
 
 - name: USERAPPS | Apache Maven | Set Download URL
   set_fact:
