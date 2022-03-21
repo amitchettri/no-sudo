@@ -6,6 +6,11 @@ if [[ $(id -u) -eq 0 ]]; then
     exit 1
 fi
 
+if ! hash pip3 &>/dev/null; then
+    echo "pip3/pip not Installed"
+    exit 1
+fi
+
 if [[ -z "$*" ]]; then
 
     __install_tags=()
