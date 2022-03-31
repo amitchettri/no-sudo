@@ -1,6 +1,4 @@
-- name: USERAPPS | Bitwarden CLI | Install JQ for scripts
-  import_tasks: tasks/jq.yml
-
+---
 - name: USERAPPS | Bitwarden CLI | Get latest releases
   ansible.builtin.uri:
     url: "https://api.github.com/repos/bitwarden/cli/releases/latest"
@@ -11,11 +9,12 @@
     status_code: 200
   register: pv_ua_tmp_bw_cli_release_assets
 
-- name: USERAPPS | Bitwarden CLI | Get latest AppImage releases
+- name: USERAPPS | Bitwarden CLI | Get latest cli releases
   set_fact:
     pv_ua_bw_cli_latest_gh_release: "{{  pv_ua_tmp_bw_cli_release_assets.json.assets | community.general.json_query(jmesquery) | first }}"
   vars:
     jmesquery: "[?contains(browser_download_url, 'zip') && contains(browser_download_url, 'zip')]"
+  when: ansible_facts.architecture == "x86_64"
 
 - name: USERAPPS | Bitwarden CLI | Set archive download location
   set_fact:
