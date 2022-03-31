@@ -1,10 +1,4 @@
 ---
-- name: USERAPPS | Scripts | Install JQ for scripts
-  import_tasks: tasks/jq.yml
-
-- name: USERAPPS | Scripts | Install Bitwarden CLI for scripts
-  import_tasks: tasks/bw.yml
-
 - name: USERAPPS | Scripts | Git Clone
   ansible.builtin.git:
     single_branch: true

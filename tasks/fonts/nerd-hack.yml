@@ -40,12 +40,21 @@
         dest: "{{  pv_ua_user_share_dir  }}/fonts/hack"
         remote_src: yes
 
-    - name: USERAPPS | Fonts | Hack | Install | Update font cache
-      shell: "fc-cache -f -v {{  pv_ua_user_share_dir  }}/fonts/hack"
+    - name: USERAPPS | Fonts | Hack | Install | Check font config
+      shell: "hash fc-cache &>/dev/null"
       args:
         executable: /bin/bash
-      register: pv_ua_fons_hack_fonts_update_cache_result
+      register: pv_ua_fonts_hack_if_fontconfig_present
+      changed_when: false
+      ignore_errors: true
+
+    - name: USERAPPS | Fonts | Hack | Install | Update font cache
+      shell: "fc-cache -f -v {{  pv_ua_user_share_dir  }}/fonts/hack"
+      when: pv_ua_fonts_hack_if_fontconfig_present.rc == 0
+      args:
+        executable: /bin/bash
+      register: pv_ua_fonts_hack_fonts_update_cache_result
 
     - name: USERAPPS | Fonts | Hack | Install | Update Result
       debug:
-        var: pv_ua_fons_hack_fonts_update_cache_result
+        var: pv_ua_fonts_hack_fonts_update_cache_result

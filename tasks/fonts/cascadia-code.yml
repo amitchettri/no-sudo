@@ -40,11 +40,20 @@
         dest: "{{  pv_ua_user_share_dir  }}/fonts/cascadia-code"
         remote_src: yes
 
+    - name: USERAPPS | Fonts | Cascadia Code | Install | Check font config
+      shell: "hash fc-cache &>/dev/null"
+      args:
+        executable: /bin/bash
+      register: pv_ua_fonts_cac_if_fontconfig_present
+      changed_when: false
+      ignore_errors: true
+
     - name: USERAPPS | Fonts | Cascadia Code | Install | Update font cache
       shell: "fc-cache -f -v {{  pv_ua_user_share_dir  }}/fonts/cascadia-code"
       args:
         executable: /bin/bash
       register: pv_ua_fonts_cascadia_update_cache_result
+      when: pv_ua_fonts_cac_if_fontconfig_present.rc == 0
 
     - name: USERAPPS | Fonts | Cascadia Code | Install | Update Result
       debug:
