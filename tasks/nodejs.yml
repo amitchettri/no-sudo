@@ -6,10 +6,15 @@
   set_fact:
     pv_ua_nodejs_version: v16.14.0
 
-- name: USERAPPS | NodeJS | Set Download URL
+- name: USERAPPS | NodeJS | Set Download URL x86_64
   set_fact:
     pv_ua_nodejs_download_url: "https://nodejs.org/dist/{{  pv_ua_nodejs_version  }}/node-{{  pv_ua_nodejs_version  }}-linux-x64.tar.xz"
   when: ansible_facts.architecture == "x86_64"
+
+- name: USERAPPS | NodeJS | Set Download URL aarch64
+  set_fact:
+    pv_ua_nodejs_download_url: "https://nodejs.org/dist/{{  pv_ua_nodejs_version  }}/node-{{  pv_ua_nodejs_version  }}-linux-arm64.tar.xz"
+  when: ansible_facts.architecture == "aarch64"
 
 - name: USERAPPS | NodeJS | Create install directory
   ansible.builtin.file:
