@@ -1,25 +1,27 @@
-- name: USERAPPS | Visual Studio Code | Get the list of extensions
-  import_tasks: extensions-list.yml
-
-- name: USERAPPS | Visual Studio Code | Extensions | get currently installed
+- name: USERAPPS | Visual Studio Code | Extension | {{  item  }} | Get currently installed
   ansible.builtin.shell: code --list-extensions
   args:
     executable: /bin/bash
   register: pv_ua_code_tmp_ext_installed_list_shell
   changed_when: false
   environment:
+    DONT_PROMPT_WSL_INSTALL: true
     PATH: "{{  pv_ua_user_bin_dir  }}:{{ ansible_env.PATH }}"
 
-- name: USERAPPS | Visual Studio Code | Extensions | Install
+- name: USERAPPS | Visual Studio Code | Extension | {{  item  }} | Installed extentsion
+  debug:
+    var: pv_ua_code_tmp_ext_installed_list_shell
+
+- name: USERAPPS | Visual Studio Code | Extension | {{  item  }} | Install
   shell: "code --install-extension {{  item  }}"
   args:
     executable: /bin/bash
   register: pv_ua_code_tmp_ext_install_result
-  with_items: "{{  pv_ua_code_ext_to_be_installed  }}"
   when: item | lower not in pv_ua_code_tmp_ext_installed_list_shell | lower
   environment:
+    DONT_PROMPT_WSL_INSTALL: true
     PATH: "{{  pv_ua_user_bin_dir  }}:{{ ansible_env.PATH }}"
 
-- name: USERAPPS | Visual Studio Code | Extensions | Install result
+- name: USERAPPS | Visual Studio Code | Extension | {{  item  }} | Install result
   debug:
     var: pv_ua_code_tmp_ext_install_result

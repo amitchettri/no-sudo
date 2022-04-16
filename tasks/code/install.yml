@@ -97,8 +97,12 @@
         dest: "{{  pv_ua_code_uri_handler_path  }}"
         mode: "0600"
 
+- name: USERAPPS | Visual Studio Code | Get the list of extensions
+  import_tasks: extensions-list.yml
+
 - name: USERAPPS | Visual Studio Code | Install Extensions
-  import_tasks: extensions.yml
+  include_tasks: extensions.yml
+  with_items: "{{  pv_ua_code_ext_to_be_installed  }}"
 
 - name: USERAPPS | Visual Studio Code | Copy Config
   import_tasks: config.yml
