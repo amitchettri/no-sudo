@@ -176,7 +176,11 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
     if [[ ! -d "${PWD}/venv" ]]; then
         virtualenv venv
     fi
-    source venv/local/bin/activate
+    if [[ -z "${PWD}/venv/bin/activate" ]]; then
+        source venv/local/bin/activate
+    else
+        source venv/bin/activate
+    fi
 fi
 
 echo ""
