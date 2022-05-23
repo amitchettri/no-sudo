@@ -17,18 +17,18 @@
     status_code: 200
   register: pv_ua_tmp_mm_latest_release
 
-- name: USERAPPS | Mattermost Desktop | Get os and architecture based jmesquery for x86_64
+- name: USERAPPS | Mattermost Desktop | Get Release Version
   set_fact:
-    pv_ua_mm_download_url_jmesquery: "[?contains(browser_download_url, 'linux-x64.tar.gz')]"
-  when: ansible_facts.architecture == "x86_64"
+    pv_ua_mm_release_from_github: "{{  pv_ua_tmp_mm_latest_release.json.tag_name[1:]  }}"
 
-- name: USERAPPS | Mattermost Desktop | Filter the resource from release based os and architecture
+- name: USERAPPS | Mattermost Desktop | Get os and architecture based download URL for x86_64
   set_fact:
-    pv_ua_mm_asset_to_download_release: "{{  pv_ua_tmp_mm_latest_release.json.assets | community.general.json_query(pv_ua_mm_download_url_jmesquery) | first }}"
+    pv_ua_mm_download_url_appimage: "https://releases.mattermost.com/desktop/{{  pv_ua_mm_release_from_github  }}/mattermost-desktop-{{  pv_ua_mm_release_from_github  }}-linux-x64.tar.gz"
+  when: ansible_facts.architecture == "x86_64"
 
 - name: USERAPPS | Mattermost Desktop | Set archive download location
   set_fact:
-    pv_ua_bw_mm_archive_download_path: "{{  pv_ua_user_tmp_dir  }}/{{  pv_ua_mm_asset_to_download_release.name  }}"
+    pv_ua_bw_mm_archive_download_path: "{{  pv_ua_user_tmp_dir  }}/mattermost-desktop-{{  pv_ua_mm_release_from_github  }}-linux.tar.gz"
 
 - name: USERAPPS | Mattermost Desktop | Get archive info
   stat:
@@ -40,7 +40,7 @@
   block:
     - name: USERAPPS | Mattermost Desktop | Download in tmp path
       ansible.builtin.get_url:
-        url: "{{  pv_ua_mm_asset_to_download_release.browser_download_url  }}"
+        url: "{{  pv_ua_mm_download_url_appimage  }}"
         dest: "{{  pv_ua_bw_mm_archive_download_path  }}"
 
     - name: USERAPPS | Mattermost Desktop | Unarchive the tar ball
