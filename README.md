@@ -57,7 +57,7 @@ Variables:
 </details>
 
 <details>
-<summary>Bitwarden Desktop</summary>
+<summary>Bitwarden Desktop [Disabled by default]</summary>
 
 ## Bitwarden Desktop
 
@@ -227,7 +227,7 @@ Variables:
 </details>
 
 <details>
-<summary>Gnome</summary>
+<summary>Gnome [Disabled by default]</summary>
 
 ## Install Gnome Extensions
 

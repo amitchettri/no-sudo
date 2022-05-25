@@ -40,6 +40,7 @@
       import_tasks: tasks/bitwarden_desktop.yml
       tags:
         - bitwarden_desktop
+        - never
 
     - name: USERAPPS | Install Bitwarden CLI
       import_tasks: tasks/bw.yml
@@ -50,11 +51,13 @@
       import_tasks: tasks/mattermost_desktop.yml
       tags:
         - mattermost_desktop
+        - never
 
     - name: USERAPPS | Telegram
       import_tasks: tasks/telegram.yml
       tags:
         - telegram
+        - never
 
     - name: USERAPPS | NodeJS
       import_tasks: tasks/nodejs.yml
@@ -143,3 +146,4 @@
       import_tasks: tasks/gnome/main.yml
       tags:
         - gnome
+        - never
