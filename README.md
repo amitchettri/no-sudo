@@ -84,7 +84,7 @@ Variables:
 </details>
 
 <details>
-<summary>Jetbrains IntelliJ IDEA</summary>
+<summary>Jetbrains IntelliJ IDEA [Disabled by default]</summary>
 
 ## Jetbrains IntelliJ IDEA
 
@@ -117,7 +117,7 @@ Variables:
 </details>
 
 <details>
-<summary>Microsoft Visual Studio Code</summary>
+<summary>Microsoft Visual Studio Code [Disabled by default]</summary>
 
 ## Microsoft Visual Studio Code
 
@@ -157,7 +157,7 @@ Variables:
 </details>
 
 <details>
-<summary>Jetbrains PyCharm</summary>
+<summary>Jetbrains PyCharm [Disabled by default]</summary>
 
 ## Jetbrains PyCharm
 

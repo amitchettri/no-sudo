@@ -73,6 +73,7 @@
       import_tasks: tasks/postman.yml
       tags:
         - postman
+        - never
 
     - name: USERAPPS | Jq
       import_tasks: tasks/jq.yml
@@ -98,6 +99,7 @@
       import_tasks: tasks/code/install.yml
       tags:
         - code
+        - never
 
     - name: USERAPPS | themes
       import_tasks: tasks/themes.yml
@@ -115,6 +117,7 @@
         pv_jb_idea_ideaiu_or_ideaic: ideaiu
       tags:
         - ideaiu
+        - never
 
     - name: USERAPPS | Idea Community
       import_tasks: tasks/jetbrains/idea.yml
@@ -122,6 +125,7 @@
         pv_jb_idea_ideaiu_or_ideaic: ideaic
       tags:
         - ideaic
+        - never
 
     - name: USERAPPS | Idea
       import_tasks: tasks/kde.yml
@@ -134,6 +138,7 @@
         pv_jb_pycharm_professional_community: pycharm_professional
       tags:
         - pycharm_professional
+        - never
 
     - name: USERAPPS | Idea Community
       import_tasks: tasks/jetbrains/pycharm.yml
@@ -141,6 +146,7 @@
         pv_jb_pycharm_professional_community: pycharm_community
       tags:
         - pycharm_community
+        - never
 
     - name: USERAPPS | Gnome Setup
       import_tasks: tasks/gnome/main.yml
