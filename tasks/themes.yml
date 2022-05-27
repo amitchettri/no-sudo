@@ -94,10 +94,18 @@
       register: pv_kde_tmp_layan_kde_theme_updated
 
     - name: USERAPPS | Theme | vinceliuice Layan | Install
-      ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-kde/install.sh"
       when: pv_kde_tmp_layan_kde_theme_updated.changed
-      args:
-        executable: /bin/bash
+      block:
+      - name: USERAPPS | Theme | vinceliuice Layan | Install | Execute install script
+        ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-kde/install.sh"
+        args:
+          executable: /bin/bash
+        register: pv_kde_tmp_layan_kde_theme_shell_install_result
+
+      - name: USERAPPS | Theme | vinceliuice Layan | Install | Result
+        ansible.builtin.debug:
+          var: pv_kde_tmp_layan_kde_theme_shell_install_result
+
 
 - name: USERAPPS | Theme | vinceliuice Layan-gtk-theme
   block:
@@ -110,10 +118,17 @@
       register: pv_kde_tmp_layan_gtk_theme_updated
 
     - name: USERAPPS | Theme | vinceliuice Layan-gtk-theme | Install
-      ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-gtk-theme/install.sh"
       when: pv_kde_tmp_layan_gtk_theme_updated.changed
-      args:
-        executable: /bin/bash
+      block:
+      - name: USERAPPS | Theme | vinceliuice Layan-gtk-theme | Install | Execute install script
+        ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-gtk-theme/install.sh"
+        args:
+          executable: /bin/bash
+        register: pv_kde_tmp_layan_gtk_theme_shell_install_result
+
+      - name: USERAPPS | Theme | vinceliuice Layan-gtk-theme | Install | Result
+        ansible.builtin.debug:
+          var: pv_kde_tmp_layan_gtk_theme_shell_install_result
 
 # - name: USERAPPS | Download | Theme | EliverLara Sweet-kde
 #   ansible.builtin.git:
