@@ -1,4 +1,4 @@
-ansible
+ansible>=5.8.0
 jmespath
 lxml
 pip>=22.1.1
