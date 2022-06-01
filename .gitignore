@@ -130,3 +130,6 @@ dmypy.json
 .vscode/settings.json
 .idea
 .trunk
+.hadolint.yaml
+.markdownlint.yaml
+.shellcheckrc

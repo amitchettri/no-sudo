@@ -95,6 +95,11 @@
       tags:
         - mvn
 
+    - name: USERAPPS | Gradle
+      import_tasks: tasks/gradle.yml
+      tags:
+        - gradle
+
     - name: USERAPPS | VSCode
       import_tasks: tasks/code/install.yml
       tags:

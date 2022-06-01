@@ -11,16 +11,16 @@
     - name: USERAPPS | Icon | vinceliuice Tela | Install
       when: pv_kde_tmp_tela_icon_updated.changed
       block:
-      - name: USERAPPS | Icon | vinceliuice Tela | Install | Execute install script
-        ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Tela-icon-theme/install.sh -a"
-        args:
-          executable: /bin/bash
-          # creates: "{{  pv_ua_user_share_dir  }}/icons/Tela"
-        register: pv_kde_tmp_tela_icon_update_shell_result
+        - name: USERAPPS | Icon | vinceliuice Tela | Install | Execute install script
+          ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Tela-icon-theme/install.sh -a"
+          args:
+            executable: /bin/bash
+            # creates: "{{  pv_ua_user_share_dir  }}/icons/Tela"
+          register: pv_kde_tmp_tela_icon_update_shell_result
 
-      - name: USERAPPS | Icon | vinceliuice Tela | Install | Result
-        ansible.builtin.debug:
-          var: pv_kde_tmp_tela_icon_update_shell_result
+        - name: USERAPPS | Icon | vinceliuice Tela | Install | Result
+          ansible.builtin.debug:
+            var: pv_kde_tmp_tela_icon_update_shell_result
 
 - name: USERAPPS | Icon | EliverLara Candy
   block:
@@ -59,17 +59,16 @@
     - name: USERAPPS | Cursors | vinceliuice Layan-cursors | Install
       when: pv_kde_tmp_layan_cursors_updated.changed
       block:
+        - name: USERAPPS | Cursors | vinceliuice Layan-cursors | Install | Execute install script
+          ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-cursors/install.sh"
+          args:
+            executable: /bin/bash
+            chdir: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-cursors"
+          register: pv_kde_tmp_layan_cursors_shell_install_result
 
-      - name: USERAPPS | Cursors | vinceliuice Layan-cursors | Install | Execute install script
-        ansible.builtin.shell: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-cursors/install.sh"
-        args:
-          executable: /bin/bash
-          chdir: "{{  pv_ua_user_tmp_dir  }}/vinceliuice-Layan-cursors"
-        register: pv_kde_tmp_layan_cursors_shell_install_result
-
-      - name: USERAPPS | Cursors | vinceliuice Layan-cursors | Install | Result
-        ansible.builtin.debug:
-          var: pv_kde_tmp_layan_cursors_shell_install_result
+        - name: USERAPPS | Cursors | vinceliuice Layan-cursors | Install | Result
+          ansible.builtin.debug:
+            var: pv_kde_tmp_layan_cursors_shell_install_result
 
 - name: USERAPPS | Icon | Gvolpe BeautyLine
   block:

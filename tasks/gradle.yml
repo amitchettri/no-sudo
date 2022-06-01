@@ -1,0 +1,64 @@
+- name: USERAPPS | Gradle | Install JDK
+  import_tasks: tasks/jdk.yml
+
+- name: USERAPPS | Gradle | Set install directory
+  set_fact:
+    pv_ua_gradle_install_path: "{{  pv_ua_user_share_dir  }}/gradle"
+
+- name: USERAPPS | Gradle | Set Version Tag
+  set_fact:
+    pv_ua_gradle_version: 7.4.2
+
+- name: USERAPPS | Gradle | Set Download URL
+  set_fact:
+    pv_ua_gradle_download_url: "https://downloads.gradle-dn.com/distributions/gradle-{{  pv_ua_gradle_version  }}-all.zip"
+
+- name: USERAPPS | Gradle | Set temporary unzip path.
+  set_fact:
+    pv_ua_gradle_tmp_unzip_path: "{{  pv_ua_user_tmp_dir  }}"
+
+- name: USERAPPS | Gradle | Create install directory
+  ansible.builtin.file:
+    path: "{{  item  }}"
+    state: directory
+  with_items:
+    - "{{  pv_ua_gradle_tmp_unzip_path  }}"
+
+- name: USERAPPS | Gradle | Set zip download path.
+  set_fact:
+    pv_ua_gradle_tarball_download_path: "{{  pv_ua_user_tmp_dir  }}/gradle-{{  pv_ua_gradle_version  }}-all.zip"
+
+- name: USERAPPS | Gradle | Get downloaded file stat
+  stat:
+    path: "{{  pv_ua_gradle_tarball_download_path  }}"
+  register: pv_ua_gradle_downloaded_file_stat
+
+- name: USERAPPS | Gradle | Newly Downloaded
+  when: not pv_ua_gradle_downloaded_file_stat.stat.exists
+  block:
+    - name: USERAPPS | Gradle | Download tarball
+      ansible.builtin.get_url:
+        url: "{{  pv_ua_gradle_download_url  }}"
+        dest: "{{  pv_ua_gradle_tarball_download_path  }}"
+
+    - name: USERAPPS | Gradle | Unarchive the zip
+      ansible.builtin.unarchive:
+        src: "{{  pv_ua_gradle_tarball_download_path  }}"
+        dest: "{{  pv_ua_gradle_tmp_unzip_path  }}"
+        # extra_opts: [--strip-components=1]
+        remote_src: true
+
+    - name: USERAPPS | Gradle | Move the files
+      ansible.builtin.shell: |
+        rm -rf {{  pv_ua_gradle_install_path  }}
+        mv "{{  pv_ua_gradle_tmp_unzip_path  }}/gradle-{{  pv_ua_gradle_version  }}" "{{  pv_ua_gradle_install_path  }}"
+      register: pv_ua_gradle_shell_move_result
+
+    - name: USERAPPS | Gradle | Move Shell Result
+      ansible.builtin.debug:
+        var: pv_ua_gradle_shell_move_result
+  rescue:
+    - name: USERAPPS | Gradle | Remove the zip
+      ansible.builtin.file:
+        path: "{{  pv_ua_gradle_tarball_download_path  }}"
+        state: absent
