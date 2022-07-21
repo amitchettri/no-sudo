@@ -132,7 +132,7 @@
         - ideaic
         - never
 
-    - name: USERAPPS | Idea
+    - name: USERAPPS | KDE
       import_tasks: tasks/kde.yml
       tags:
         - kde
@@ -145,7 +145,7 @@
         - pycharm_professional
         - never
 
-    - name: USERAPPS | Idea Community
+    - name: USERAPPS | PyCharm Community
       import_tasks: tasks/jetbrains/pycharm.yml
       vars:
         pv_jb_pycharm_professional_community: pycharm_community
